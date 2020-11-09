@@ -35,10 +35,27 @@ workspace "GamejamFramework"
             "%{prj.location}/include",
             "%{prj.location}/src"
         }
+
+        libdirs
+        {
+            "%{prj.name}/lib/x64"
+        }
+
+        links {
+            "SDL2",
+            "SDL2_image",
+            "SDL2_mixer"
+        }
+
+        debugenvs 
+        {
+            "PATH=%PATH%;$(ProjectDir)/x64"
+        }
+
         
         warnings "Extra"
 
-        targetdir ("%{prj.name}/bin/" .. outputDir .. "/Gamejam")
+        targetdir ("%{prj.name}/bin/" .. outputDir .. "/%{prj.name}")
         objdir ("%{prj.name}/bin-int/" .. outputDir .. "/%{prj.name}")
 
         filter {"configurations:Debug"}
@@ -68,13 +85,23 @@ workspace "GamejamFramework"
             "%{prj.name}/include/**.hpp"
         }
 
+       -- libdirs
+        --{
+       --     "../Framework/bin/Debug-windows-x86_64/Framework"
+        --}
+
         links {
-            "Gamejam"
+            "Framework"
         }
 
         includedirs {
             "%{prj.name}/include",
             "Framework/include"
+        }
+
+        debugenvs 
+        {
+            "PATH=%PATH%;$(ProjectDir)/../Framework/x64"
         }
 
         filter {"configurations:Debug"}
