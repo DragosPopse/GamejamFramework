@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "EntityFactory.h"
+#include "../Core/EntityFactory.h"
 
 namespace jam
 {

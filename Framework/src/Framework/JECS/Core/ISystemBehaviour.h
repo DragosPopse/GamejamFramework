@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "SparseSet.h"
+#include "../Utilities/SparseSet.h"
 #include "ComponentSystem.h"
 
 /*

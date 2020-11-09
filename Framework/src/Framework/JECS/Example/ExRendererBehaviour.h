@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "ISystemBehaviour.h"
+#include "../Core/ISystemBehaviour.h"
 #include "ExRenderer.h"
 #include "ExTransform.h"
 

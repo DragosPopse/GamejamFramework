@@ -26,6 +26,7 @@ workspace "GamejamFramework"
         files {
             "%{prj.name}/src/**.cpp",
             "%{prj.name}/src/**.c",
+			"%{prj.name}/src/**.h",
             "%{prj.name}/include/**.h",
             "%{prj.name}/include/**.hpp",
             "%{prj.name}/src/**.hpp"
