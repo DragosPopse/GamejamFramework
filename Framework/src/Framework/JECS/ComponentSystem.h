@@ -5,7 +5,7 @@
 
 namespace jam
 {
-	namespace JECS
+	namespace jecs
 	{
 		class SystemManager;
 

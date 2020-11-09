@@ -3,7 +3,7 @@
 
 namespace jam
 {
-	namespace JECS
+	namespace jecs
 	{
 		namespace Examples
 		{

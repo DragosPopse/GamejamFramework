@@ -20,7 +20,7 @@ to the TransformComponent.
 
 namespace jam
 {
-	namespace JECS
+	namespace jecs
 	{
 		template <typename T>
 		class ISystemBehaviour : public IComponentSystem

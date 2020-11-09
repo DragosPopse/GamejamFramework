@@ -1,7 +1,7 @@
 ﻿#include "ExRendererModule.h"
 #include <SDL_image.h>
 
-jam::JECS::Examples::ExRendererModule::ExRendererModule(int32_t w, int32_t h) :
+jam::jecs::Examples::ExRendererModule::ExRendererModule(int32_t w, int32_t h) :
 	WIDTH(w), HEIGHT(h)
 {
 	const int32_t undef = SDL_WINDOWPOS_UNDEFINED;
@@ -13,7 +13,7 @@ jam::JECS::Examples::ExRendererModule::ExRendererModule(int32_t w, int32_t h) :
 		SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT);
 }
 
-void jam::JECS::Examples::ExRendererModule::PreRender() const
+void jam::jecs::Examples::ExRendererModule::PreRender() const
 {
 	int32_t color = 0xFF;
 	SDL_SetRenderDrawColor(_renderer, color, color, color, color);
@@ -26,7 +26,7 @@ void jam::JECS::Examples::ExRendererModule::PreRender() const
 	SDL_RenderClear(_renderer);
 }
 
-void jam::JECS::Examples::ExRendererModule::PostRender() const
+void jam::jecs::Examples::ExRendererModule::PostRender() const
 {
 	SDL_SetRenderTarget(_renderer, nullptr);
 
@@ -42,12 +42,12 @@ void jam::JECS::Examples::ExRendererModule::PostRender() const
 	SDL_RenderPresent(_renderer);
 }
 
-SDL_Renderer& jam::JECS::Examples::ExRendererModule::GetRenderer() const
+SDL_Renderer& jam::jecs::Examples::ExRendererModule::GetRenderer() const
 {
 	return *_renderer;
 }
 
-SDL_Texture* jam::JECS::Examples::ExRendererModule::GetTexture(const std::string& key)
+SDL_Texture* jam::jecs::Examples::ExRendererModule::GetTexture(const std::string& key)
 {
 	const auto found = _textureMap.find(key);
 	if (found != _textureMap.end())
@@ -55,7 +55,7 @@ SDL_Texture* jam::JECS::Examples::ExRendererModule::GetTexture(const std::string
 	return _textureMap[key] = &LoadTexture(key);
 }
 
-SDL_Texture& jam::JECS::Examples::ExRendererModule::LoadTexture(const std::string& path) const
+SDL_Texture& jam::jecs::Examples::ExRendererModule::LoadTexture(const std::string& path) const
 {
 	SDL_Surface* surface = IMG_Load(path.c_str());
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(_renderer, surface);

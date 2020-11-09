@@ -1,6 +1,6 @@
 ﻿#include "EntityFactory.h"
 
-using namespace jam::JECS;
+using namespace jam::jecs;
 
 EntityFactory::EntityFactory(SystemManager& manager) :
 	_manager(manager)

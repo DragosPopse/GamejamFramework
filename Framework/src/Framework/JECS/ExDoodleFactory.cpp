@@ -4,12 +4,12 @@
 #include "ExRendererModule.h"
 #include "ExDoodleBrain.h"
 
-jam::JECS::Examples::ExDoodleFactory::ExDoodleFactory(SystemManager& manager, ExRendererModule& module) :
+jam::jecs::Examples::ExDoodleFactory::ExDoodleFactory(SystemManager& manager, ExRendererModule& module) :
 	EntityFactory(manager), _renderModule(&module)
 {
 }
 
-void jam::JECS::Examples::ExDoodleFactory::OnConstruction()
+void jam::jecs::Examples::ExDoodleFactory::OnConstruction()
 {
 	auto& doodleBrain = Add<ExDoodleBrain>();
 	doodleBrain.moveSpeed = float(rand() % 5000) / 1000;

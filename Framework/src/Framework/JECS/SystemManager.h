@@ -46,7 +46,7 @@ LOOK AT THE EXAMPLE PROJECT FOR A GREATER UNDERSTANDING.
 
 namespace jam
 {
-	namespace JECS
+	namespace jecs
 	{
 		class SystemManager final
 		{

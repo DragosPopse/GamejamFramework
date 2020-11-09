@@ -3,14 +3,14 @@
 #include "ExDoodleBehaviour.h"
 
 namespace jam {
-	namespace JECS {
+	namespace jecs {
 		class SystemManager;
 	}
 }
 
 namespace jam
 {
-	namespace JECS 
+	namespace jecs 
 	{
 		namespace Examples
 		{
