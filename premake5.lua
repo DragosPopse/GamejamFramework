@@ -49,7 +49,7 @@ workspace "GamejamFramework"
 
         debugenvs 
         {
-            "PATH=%PATH%;$(ProjectDir)/x64"
+            "PATH=$(ProjectDir)/x64;%PATH%"
         }
 
         
@@ -101,7 +101,7 @@ workspace "GamejamFramework"
 
         debugenvs 
         {
-            "PATH=%PATH%;$(ProjectDir)/../Framework/x64"
+            "PATH=$(ProjectDir)/../Framework/x64;%PATH%"
         }
 
         filter {"configurations:Debug"}
