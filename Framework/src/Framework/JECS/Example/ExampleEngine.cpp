@@ -9,7 +9,6 @@
 #include "ExDoodleBrain.h"
 #include "ExDoodleBehaviour.h"
 #include "ExDoodleFactory.h"
-#include "SDL_image.h"
 
 jam::jecs::Examples::ExampleEngine::~ExampleEngine()
 {
@@ -22,7 +21,6 @@ jam::jecs::Examples::ExampleEngine::~ExampleEngine()
 void jam::jecs::Examples::ExampleEngine::Run()
 {
 	SDL_Init(SDL_INIT_VIDEO);
-	IMG_Init(IMG_INIT_PNG);
 	SDL_SetHintWithPriority(SDL_HINT_RENDER_VSYNC, "0", SDL_HINT_OVERRIDE);
 
 	// Setup deltatime.
