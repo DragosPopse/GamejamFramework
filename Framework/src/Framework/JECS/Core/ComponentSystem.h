@@ -1,11 +1,11 @@
 ﻿#pragma once
-#include "SparseSet.h"
+#include "../Utilities/SparseSet.h"
 #include <vector>
 #include "JECSConsts.h"
 
 namespace jam
 {
-	namespace JECS
+	namespace jecs
 	{
 		class SystemManager;
 

@@ -1,9 +1,9 @@
 ﻿#pragma once
-#include "EntityFactory.h"
+#include "../Core/EntityFactory.h"
 
 namespace jam
 {
-	namespace JECS
+	namespace jecs
 	{
 		namespace Examples
 		{

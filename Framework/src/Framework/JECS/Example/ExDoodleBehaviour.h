@@ -1,12 +1,12 @@
 ﻿#pragma once
-#include "ISystemBehaviour.h"
+#include "../Core/ISystemBehaviour.h"
 #include "ExDoodleBrain.h"
 #include "ExTransform.h"
 #include "ExRenderer.h"
 
 namespace jam
 {
-	namespace JECS
+	namespace jecs
 	{
 		namespace Examples
 		{

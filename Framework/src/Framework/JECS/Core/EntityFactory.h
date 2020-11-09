@@ -27,7 +27,7 @@ So that can just be done in the SystemManager, like normal.
 
 namespace jam
 {
-	namespace JECS
+	namespace jecs
 	{
 		class EntityFactory
 		{

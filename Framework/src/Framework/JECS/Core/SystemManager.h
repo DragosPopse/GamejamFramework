@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "SparseSet.h"
+#include "../Utilities/SparseSet.h"
 #include <map>
 #include <typeindex>
 #include <unordered_set>
@@ -46,7 +46,7 @@ LOOK AT THE EXAMPLE PROJECT FOR A GREATER UNDERSTANDING.
 
 namespace jam
 {
-	namespace JECS
+	namespace jecs
 	{
 		class SystemManager final
 		{
