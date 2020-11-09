@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <SDL.h>
 
-namespace DJ
+namespace jam
 {
 	namespace JECS
 	{

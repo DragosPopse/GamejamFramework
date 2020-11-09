@@ -1,11 +1,11 @@
 ﻿#include "ExDoodleBehaviour.h"
 
-DJ::JECS::Examples::ExDoodleBehaviour::ExDoodleBehaviour(SystemManager& manager) :
+jam::JECS::Examples::ExDoodleBehaviour::ExDoodleBehaviour(SystemManager& manager) :
 	ISystemBehaviour<ExDoodleBrain>(manager)
 {
 }
 
-void DJ::JECS::Examples::ExDoodleBehaviour::Update(
+void jam::JECS::Examples::ExDoodleBehaviour::Update(
 	Doodles doodles, Transforms transforms, Renderers renderers,
 	const float deltaTime, const float time) const
 {

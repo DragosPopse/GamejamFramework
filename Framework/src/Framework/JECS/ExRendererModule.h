@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 
-namespace DJ
+namespace jam
 {
 	namespace JECS
 	{

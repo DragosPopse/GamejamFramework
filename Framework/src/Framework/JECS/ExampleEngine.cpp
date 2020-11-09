@@ -11,7 +11,7 @@
 #include "ExDoodleFactory.h"
 #include "SDL_image.h"
 
-DJ::JECS::Examples::ExampleEngine::~ExampleEngine()
+jam::JECS::Examples::ExampleEngine::~ExampleEngine()
 {
 	delete _manager;
 	delete _renderModule;
@@ -19,7 +19,7 @@ DJ::JECS::Examples::ExampleEngine::~ExampleEngine()
 	delete _doodleBehaviour;
 }
 
-void DJ::JECS::Examples::ExampleEngine::Run()
+void jam::JECS::Examples::ExampleEngine::Run()
 {
 	SDL_Init(SDL_INIT_VIDEO);
 	IMG_Init(IMG_INIT_PNG);
@@ -55,7 +55,7 @@ void DJ::JECS::Examples::ExampleEngine::Run()
 	SDL_Quit();
 }
 
-void DJ::JECS::Examples::ExampleEngine::Compile()
+void jam::JECS::Examples::ExampleEngine::Compile()
 {
 	// Add core SystemManager.
 	_manager = new SystemManager();
@@ -75,14 +75,14 @@ void DJ::JECS::Examples::ExampleEngine::Compile()
 	_doodleBehaviour = new ExDoodleBehaviour(*_manager);
 }
 
-void DJ::JECS::Examples::ExampleEngine::Start() const
+void jam::JECS::Examples::ExampleEngine::Start() const
 {
 	ExDoodleFactory factory(*_manager, *_renderModule);
 	for (int i = 0; i < 500; ++i)
 		factory.Construct();
 }
 
-void DJ::JECS::Examples::ExampleEngine::Update(const float deltaTime, const float time) const
+void jam::JECS::Examples::ExampleEngine::Update(const float deltaTime, const float time) const
 {
 	auto& doodles = _manager->GetSet<ExDoodleBrain>();
 	auto& transforms = _manager->GetSet<ExTransform>();

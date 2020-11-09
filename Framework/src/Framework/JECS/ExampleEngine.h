@@ -2,13 +2,13 @@
 #include "ExRendererBehaviour.h"
 #include "ExDoodleBehaviour.h"
 
-namespace DJ {
+namespace jam {
 	namespace JECS {
 		class SystemManager;
 	}
 }
 
-namespace DJ
+namespace jam
 {
 	namespace JECS 
 	{

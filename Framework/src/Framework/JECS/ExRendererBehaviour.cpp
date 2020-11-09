@@ -1,14 +1,14 @@
 ﻿#include "ExRendererBehaviour.h"
 #include "ExRendererModule.h"
 
-DJ::JECS::Examples::ExRendererBehaviour::ExRendererBehaviour(
+jam::JECS::Examples::ExRendererBehaviour::ExRendererBehaviour(
 	SystemManager& manager, ExRendererModule& module) : 
 	ISystemBehaviour<ExRenderer>(manager), _renderModule(module)
 {
 
 }
 
-void DJ::JECS::Examples::ExRendererBehaviour::Update(Renderers renderers, Transforms transforms) const
+void jam::JECS::Examples::ExRendererBehaviour::Update(Renderers renderers, Transforms transforms) const
 {
 	auto& renderer = _renderModule.GetRenderer();
 	const int32_t screenWidth = _renderModule.WIDTH, screenHeight = _renderModule.HEIGHT;

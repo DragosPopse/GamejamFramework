@@ -3,7 +3,7 @@
 #include <vector>
 #include "JECSConsts.h"
 
-namespace DJ
+namespace jam
 {
 	namespace JECS
 	{

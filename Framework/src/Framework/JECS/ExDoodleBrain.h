@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-namespace DJ
+namespace jam
 {
 	namespace JECS
 	{

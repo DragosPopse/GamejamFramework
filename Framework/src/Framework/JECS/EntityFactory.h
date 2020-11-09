@@ -25,7 +25,7 @@ Add<T> even returns the created component! So you can modify some things if necc
 So that can just be done in the SystemManager, like normal.
 */
 
-namespace DJ
+namespace jam
 {
 	namespace JECS
 	{

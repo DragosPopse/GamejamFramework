@@ -18,7 +18,7 @@ whether or not the target entity has a TransformComponent, and if not, adding on
 to the TransformComponent.
 */
 
-namespace DJ
+namespace jam
 {
 	namespace JECS
 	{

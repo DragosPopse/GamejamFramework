@@ -3,7 +3,7 @@
 #include "ExRenderer.h"
 #include "ExTransform.h"
 
-namespace DJ
+namespace jam
 {
 	namespace JECS
 	{
