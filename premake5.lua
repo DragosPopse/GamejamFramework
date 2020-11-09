@@ -26,6 +26,7 @@ workspace "GamejamFramework"
         files {
             "%{prj.name}/src/**.cpp",
             "%{prj.name}/src/**.c",
+			"%{prj.name}/src/**.h",
             "%{prj.name}/include/**.h",
             "%{prj.name}/include/**.hpp",
             "%{prj.name}/src/**.hpp"
@@ -49,7 +50,7 @@ workspace "GamejamFramework"
 
         debugenvs 
         {
-            "PATH=%PATH%;$(ProjectDir)/x64"
+            "PATH=$(ProjectDir)/x64;%PATH%"
         }
 
         
@@ -101,7 +102,7 @@ workspace "GamejamFramework"
 
         debugenvs 
         {
-            "PATH=%PATH%;$(ProjectDir)/../Framework/x64"
+            "PATH=$(ProjectDir)/../Framework/x64;%PATH%"
         }
 
         filter {"configurations:Debug"}

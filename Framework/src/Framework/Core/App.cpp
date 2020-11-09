@@ -6,6 +6,15 @@
 
 namespace jam
 {
+	App* App::s_instance = nullptr;
+
+
+	App& App::Get()
+	{
+		return *s_instance;
+	}
+
+
 	void App::Init(const Info& info)
 	{
 		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
@@ -38,11 +47,20 @@ namespace jam
 
 			while (SDL_PollEvent(&ev))
 			{
-
+				m_manager.HandleEvent(ev);
 			}
 
+			m_manager.Update(0.2f);
+
 			SDL_RenderClear(m_renderer);
+			m_manager.Render();
 			SDL_RenderPresent(m_renderer);
 		}
+	}
+
+
+	void App::SetEntryScene(std::shared_ptr<Scene> scene)
+	{
+		m_manager.PushScene(std::move(scene));
 	}
 }
