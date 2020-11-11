@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Gamejam/Core/Core.hpp>
+#include <Gamejam/Core/Config.hpp>
 #include <memory>
 #include <list>
 #include <queue>
