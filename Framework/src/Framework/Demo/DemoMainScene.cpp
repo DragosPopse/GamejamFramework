@@ -4,6 +4,7 @@
 #include "Gamejam/Demo/Behaviours/DemoRenderBehaviour.h"
 #include "Gamejam/Demo/Components/DemoTransformComponent.h"
 #include "Gamejam/Demo/Other/DemoTextureLib.h"
+#include "Gamejam/Core/App.hpp"
 
 jam::demo::DemoMainScene::DemoMainScene()
 {
@@ -22,7 +23,6 @@ jam::demo::DemoMainScene::DemoMainScene()
 	m_dummyFactory = new DemoDummyFactory(*m_systemManager);
 
 	m_renderBehaviour->m_angle = 45;
-	m_renderBehaviour->m_zoom = 1.5;
 }
 
 jam::demo::DemoMainScene::~DemoMainScene()
@@ -37,7 +37,7 @@ void jam::demo::DemoMainScene::Enable()
 {
 	// Create the required entities.
 
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 5; ++i)
 		m_dummyFactory->Construct();
 
 	const int32_t id = m_dummyFactory->Construct();
@@ -56,6 +56,12 @@ void jam::demo::DemoMainScene::Disable()
 bool jam::demo::DemoMainScene::Update(const float deltaTime)
 {
 	// Update your behaviours.
+	const Uint8* state = SDL_GetKeyboardState(nullptr);
+	if (state[SDL_SCANCODE_E]) {
+		const auto ptr = std::make_shared<DemoMainScene>();
+		ptr.get()->m_renderBehaviour->m_angle = 5;
+		App::Get().m_manager.PushScene(ptr);
+	}
 
 	m_controllerBehaviour->Update(deltaTime);
 	return false;
@@ -66,5 +72,5 @@ bool jam::demo::DemoMainScene::Render()
 	// Update render related behaviours.
 
 	m_renderBehaviour->Update();
-	return false;
+	return true;
 }
