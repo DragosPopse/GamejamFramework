@@ -11,8 +11,6 @@ namespace jam::algorithms
 	{
 	public:
 		virtual ~ITraversable();
-
-		const int32_t TYPETYPE_NONE = -1;
 		virtual int32_t GetTileID(int32_t x, int32_t y) = 0;
 	};
 
