@@ -8,6 +8,9 @@ namespace jam::demo
 	class DemoCollisionComponent final
 	{
 	public:
+		int32_t layer = 0;
+		std::vector<int32_t> ignoredLayers;
+
 		float xScale = 16;
 		float yScale = 16;
 

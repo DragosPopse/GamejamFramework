@@ -2,6 +2,8 @@
 #include "Gamejam/Demo/Components/DemoTransformComponent.h"
 #include "Gamejam/Demo/Components/DemoCollisionComponent.h"
 
+#define VECTOR_CONTAINS(vec, x) std::find((vec).begin(), (vec).end(), (x)) != (vec).end()
+
 jam::demo::DemoCollisionBehaviour::DemoCollisionBehaviour(jecs::SystemManager& manager) :
 	ISystemBehaviour<DemoCollisionBehaviour>(manager)
 {
@@ -47,6 +49,15 @@ void jam::demo::DemoCollisionBehaviour::Update()
 
 			// If distance is more than sizes combined it doesn't collide.
 			if (xIntersect < 0 || yIntersect < 0)
+				continue;
+
+			// Check ignored layers.
+			auto& aLayers = collider.ignoredLayers;
+			if (VECTOR_CONTAINS(aLayers, otherCollider.layer))
+				continue;
+
+			auto& bLayers = otherCollider.ignoredLayers;
+			if (VECTOR_CONTAINS(bLayers, collider.layer))
 				continue;
 
 			const int horizontalPriority = xIntersect < yIntersect;
