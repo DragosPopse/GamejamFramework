@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include <SDL_image.h>
+#include <Gamejam/Core/Time.hpp>
 
 
 namespace jam
@@ -39,22 +40,30 @@ namespace jam
 
 	void App::Run()
 	{
-		m_running = true;
-
-		while (m_running)
+		bool running = true;
+		float timeSinceLastFrame = 0.f;
+		jam::Timer timer;
+		while (running)
 		{
+			float dt = timer.Reset().count();
+			timeSinceLastFrame += dt;
 			SDL_Event ev;
-
 			while (SDL_PollEvent(&ev))
 			{
 				m_manager.HandleEvent(ev);
 			}
 
-			m_manager.Update(0.2f);
+			m_manager.Update(dt);
+			while (timeSinceLastFrame > m_fixedDelta)
+			{
+				timeSinceLastFrame -= m_fixedDelta;
+				m_manager.FixedUpdate(m_fixedDelta);
+			}
 
 			SDL_RenderClear(m_renderer);
 			m_manager.Render();
 			SDL_RenderPresent(m_renderer);
+			
 		}
 	}
 

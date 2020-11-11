@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Gamejam/Core/Config.hpp>
-
 #include <memory>
 
 union SDL_Event;
