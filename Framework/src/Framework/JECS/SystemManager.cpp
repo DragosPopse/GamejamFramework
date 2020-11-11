@@ -22,3 +22,10 @@ void jam::jecs::SystemManager::DestroyEntity(const int32_t index)
 		_systems[typeid(component)]->OnRemoveComponent(index);
 	_entities.Remove(index);
 }
+
+void jam::jecs::SystemManager::ClearEntities()
+{
+	const int count = _entities.GetCount();
+	for (int i = count - 1; i >= 0; --i)
+		DestroyEntity(i);
+}

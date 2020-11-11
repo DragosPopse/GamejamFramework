@@ -73,6 +73,8 @@ namespace jam
 			template <class T>
 			Utilities::SparseSet<T>& GetSet();
 
+			void ClearEntities();
+
 		private:
 			EntityPool _entities = EntityPool(ENTITY_CAPACITY);
 			std::map<std::type_index, IComponentSystem*> _systems;

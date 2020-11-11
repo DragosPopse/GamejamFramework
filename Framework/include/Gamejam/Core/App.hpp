@@ -38,7 +38,7 @@ namespace jam
 		void Run();
 		void SetEntryScene(std::shared_ptr<Scene> scene);
 
-	private:
+	public:
 		static App* s_instance;
 
 
