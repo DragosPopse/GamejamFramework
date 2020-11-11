@@ -1,5 +1,6 @@
 ﻿#pragma once
-#include "../Core/ISystemBehaviour.h"
+#include <Gamejam/Core/Config.hpp>
+#include <Gamejam/JECS/Core/ISystemBehaviour.h>
 #include "ExDoodleBrain.h"
 #include "ExTransform.h"
 #include "ExRenderer.h"

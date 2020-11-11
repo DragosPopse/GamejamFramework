@@ -1,5 +1,6 @@
 ﻿#pragma once
-#include "../Utilities/SparseSet.h"
+#include <Gamejam/Core/Config.hpp>
+#include <Gamejam/JECS/Utilities/SparseSet.h>
 #include "ComponentSystem.h"
 
 /*

@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <Gamejam/Core/Config.hpp>
 
 namespace jam
 {

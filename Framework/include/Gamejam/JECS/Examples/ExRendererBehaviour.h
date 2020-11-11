@@ -1,5 +1,6 @@
 ﻿#pragma once
-#include "../Core/ISystemBehaviour.h"
+#include <Gamejam/Core/Config.hpp>
+#include <Gamejam/JECS/Core/ISystemBehaviour.h>
 #include "ExRenderer.h"
 #include "ExTransform.h"
 
