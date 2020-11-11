@@ -5,11 +5,13 @@
 
 namespace jam::demo
 {
+	constexpr auto COLLISION_LAYER_DEFAULT = 1;
+
 	class DemoCollisionComponent final
 	{
 	public:
-		int32_t layer = 0;
-		std::vector<int32_t> ignoredLayers;
+		int32_t layer = COLLISION_LAYER_DEFAULT;
+		int32_t ignoredLayers = 0;
 
 		float xScale = 16;
 		float yScale = 16;
