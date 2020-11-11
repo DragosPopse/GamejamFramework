@@ -1,4 +1,4 @@
-#include "ComponentSystem.h"
+#include "Gamejam/JECS/Core/ComponentSystem.h"
 
 jam::jecs::IComponentSystem::~IComponentSystem() = default;
 

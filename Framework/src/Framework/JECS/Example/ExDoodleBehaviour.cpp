@@ -1,4 +1,4 @@
-﻿#include "ExDoodleBehaviour.h"
+﻿#include "Gamejam/JECS/Examples/ExDoodleBehaviour.h"
 
 jam::jecs::Examples::ExDoodleBehaviour::ExDoodleBehaviour(SystemManager& manager) :
 	ISystemBehaviour<ExDoodleBrain>(manager)
