@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <Gamejam/Core/Config.hpp>
 #include <cstdint>
 #include "SystemManager.h"
 #include "ComponentSystem.h"
