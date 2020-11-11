@@ -1,15 +1,9 @@
-﻿#include "ExampleEngine.h"
-#include "../Core/SystemManager.h"
-#include <SDL.h>
+﻿#include <SDL.h>
 #include <ctime>
-#include "ExRendererModule.h"
-#include "ExTransform.h"
-#include "ExRenderer.h"
-#include "ExRendererBehaviour.h"
-#include "ExDoodleBrain.h"
-#include "ExDoodleBehaviour.h"
-#include "ExDoodleFactory.h"
-#include "SDL_image.h"
+#include "Gamejam/JECS/Examples/ExampleEngine.h"
+#include "Gamejam/JECS/Core/SystemManager.h"
+#include "Gamejam/JECS/Examples/ExDoodleFactory.h"
+#include "Gamejam/JECS/Examples/ExRendererModule.h"
 
 jam::jecs::Examples::ExampleEngine::~ExampleEngine()
 {
@@ -22,7 +16,6 @@ jam::jecs::Examples::ExampleEngine::~ExampleEngine()
 void jam::jecs::Examples::ExampleEngine::Run()
 {
 	SDL_Init(SDL_INIT_VIDEO);
-	IMG_Init(IMG_INIT_PNG);
 	SDL_SetHintWithPriority(SDL_HINT_RENDER_VSYNC, "0", SDL_HINT_OVERRIDE);
 
 	// Setup deltatime.

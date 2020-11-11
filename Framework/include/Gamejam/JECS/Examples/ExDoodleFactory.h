@@ -1,5 +1,6 @@
 ﻿#pragma once
-#include "../Core/EntityFactory.h"
+#include <Gamejam/Core/Config.hpp>
+#include <Gamejam/JECS/Core/EntityFactory.h>
 
 namespace jam
 {

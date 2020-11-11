@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Gamejam/Core/Core.hpp>
+#include <Gamejam/Core/Config.hpp>
 #include <cstdint>
 #include <Gamejam/SceneManagement/SceneManager.hpp>
 
@@ -38,7 +38,7 @@ namespace jam
 		void Run();
 		void SetEntryScene(std::shared_ptr<Scene> scene);
 
-	private:
+	public:
 		static App* s_instance;
 
 

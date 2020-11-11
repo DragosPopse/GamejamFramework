@@ -1,5 +1,6 @@
 ﻿#pragma once
-#include "../Utilities/SparseSet.h"
+#include <Gamejam/Core/Config.hpp>
+#include <Gamejam/JECS/Utilities/SparseSet.h>
 #include <map>
 #include <typeindex>
 #include <unordered_set>
@@ -71,6 +72,8 @@ namespace jam
 
 			template <class T>
 			Utilities::SparseSet<T>& GetSet();
+
+			void ClearEntities();
 
 		private:
 			EntityPool _entities = EntityPool(ENTITY_CAPACITY);

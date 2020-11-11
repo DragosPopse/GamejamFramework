@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <Gamejam/Core/Config.hpp>
 #include "ExRendererBehaviour.h"
 #include "ExDoodleBehaviour.h"
 
