@@ -4,7 +4,7 @@
 #include "Gamejam/JECS/Core/SystemManager.h"
 #include "Gamejam/Demo/Behaviours/DemoRenderBehaviour.h"
 #include "Gamejam/Demo/Factories/DemoDummyFactory.h"
-#include "Gamejam/Demo/DemoControllerBehaviour.h"
+#include "Gamejam/Demo/Behaviours/DemoControllerBehaviour.h"
 
 namespace jam::demo
 {

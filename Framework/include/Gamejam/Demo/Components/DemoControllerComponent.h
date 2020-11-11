@@ -6,6 +6,6 @@ namespace jam::demo
 	class DemoControllerComponent final
 	{
 	public:
-		float speed = 1;
+		float speed = 100;
 	};
 }

@@ -1,4 +1,4 @@
-﻿#include "Gamejam/Demo/DemoControllerBehaviour.h"
+﻿#include "Gamejam/Demo/Behaviours/DemoControllerBehaviour.h"
 #include "Gamejam/Demo/Scenes/DemoMainScene.h"
 #include "Gamejam/Demo/Factories/DemoDummyFactory.h"
 #include "Gamejam/Demo/Behaviours/DemoRenderBehaviour.h"
@@ -56,7 +56,6 @@ void jam::demo::DemoMainScene::Disable()
 bool jam::demo::DemoMainScene::Update(const float deltaTime)
 {
 	// Update your behaviours.
-
 	m_controllerBehaviour->Update(deltaTime);
 	return false;
 }
