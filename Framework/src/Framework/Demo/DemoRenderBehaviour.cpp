@@ -91,9 +91,11 @@ void jam::demo::DemoRenderBehaviour::Update()
 		srcRect.w = xSize;
 		srcRect.h = h;
 
-		const float scaledModifier = instance.scale + transform.scale - 2;
-		const float xScaledOffset = scaledModifier * wHalf;
-		const float yScaledOffset = scaledModifier * hHalf;
+		const float xScaledModifier = instance.scale + transform.xScale - 2;
+		const float yScaledModifier = instance.scale + transform.yScale - 2;
+
+		const float xScaledOffset = xScaledModifier * wHalf;
+		const float yScaledOffset = yScaledModifier * hHalf;
 
 		SDL_Rect dstRect;
 		dstRect.x = x - xScaledOffset / 2;

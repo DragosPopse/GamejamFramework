@@ -5,6 +5,7 @@
 #include "Gamejam/Demo/Behaviours/DemoRenderBehaviour.h"
 #include "Gamejam/Demo/Factories/DemoDummyFactory.h"
 #include "Gamejam/Demo/Behaviours/DemoControllerBehaviour.h"
+#include "Gamejam/Demo/Behaviours/DemoCollisionBehaviour.h"
 
 namespace jam::demo
 {
@@ -24,6 +25,7 @@ namespace jam::demo
 		jecs::SystemManager* m_systemManager = nullptr;
 		DemoRenderBehaviour* m_renderBehaviour = nullptr;
 		DemoControllerBehaviour* m_controllerBehaviour = nullptr;
+		DemoCollisionBehaviour* m_collisionBehaviour = nullptr;
 		DemoDummyFactory* m_dummyFactory = nullptr;
 	};
 }
