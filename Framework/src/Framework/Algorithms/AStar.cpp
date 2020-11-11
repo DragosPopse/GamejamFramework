@@ -1,12 +1,22 @@
 #include "Gamejam/Algorithms/AStar.h"
 #include <unordered_set>
 
+jam::algorithms::ITraversable::~ITraversable() = default;
+
+jam::algorithms::AStar::Node::Node() = default;
+
+jam::algorithms::AStar::Node::Node(const int32_t x, const int32_t y)
+{
+	this->x = x;
+	this->y = y;
+}
+
 bool jam::algorithms::AStar::Node::operator==(const Node& other) const
 {
 	return x == other.x && y == other.y;
 }
 
-bool jam::algorithms::AStar::Comparer::operator()(Node a, Node b)
+bool jam::algorithms::AStar::Comparer::operator()(const Node a, const Node b) const
 {
 	return a.cost - b.cost > 0;
 }
@@ -49,11 +59,11 @@ jam::algorithms::AStar::Node jam::algorithms::AStar::GetNext(
 			CheckNeighbour(x - 1, y + 1);
 		}
 
-		if (!found)
+		if (!m_found)
 			continue;
 
 		Clear();
-		return node;
+		return m_foundNode;
 	}
 
 	Clear();
@@ -62,12 +72,10 @@ jam::algorithms::AStar::Node jam::algorithms::AStar::GetNext(
 
 void jam::algorithms::AStar::CheckNeighbour(const int32_t x, const int32_t y)
 {
-	Node node;
-	node.x = x;
-	node.y = y;
+	Node node(x, y);
 
-	//if (m_closed.find(node) != m_closed.end())
-		//return;
+	if (m_closed.find(node) != m_closed.end())
+		return;
 
 	const int32_t id = m_grid->GetTileID(x, y);
 	for (auto walkable : m_walkable)
@@ -76,7 +84,10 @@ void jam::algorithms::AStar::CheckNeighbour(const int32_t x, const int32_t y)
 			const float distanceFrom = GetDistance(node, m_from);
 			const float distanceTo = GetDistance(node, m_to);
 			if (distanceFrom <= m_stoppingDistance + FLT_EPSILON)
-				found = true;
+			{
+				m_foundNode = node;
+				m_found = true;
+			}
 
 			node.cost = -(distanceFrom + distanceTo);
 			m_heap.push(node);
@@ -85,7 +96,7 @@ void jam::algorithms::AStar::CheckNeighbour(const int32_t x, const int32_t y)
 		}
 }
 
-float jam::algorithms::AStar::GetDistance(Node a, Node b) const
+float jam::algorithms::AStar::GetDistance(const Node a, const Node b) const
 {
 	const float xPow = pow(abs(a.x - b.x), 2);
 	const float yPow = pow(abs(a.y - b.y), 2);
@@ -96,4 +107,5 @@ void jam::algorithms::AStar::Clear()
 {
 	m_heap = std::priority_queue<Node, std::vector<Node>, Comparer>();
 	m_closed.clear();
+	m_found = false;
 }
