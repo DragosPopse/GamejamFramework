@@ -30,7 +30,7 @@ void jam::demo::DemoRenderBehaviour::Update()
 	{
 		const int32_t index = renderers.dense[i];
 		const DemoRenderComponent renderer = *renderers[i];
-		const DemoTransformComponent transform = transforms.instances[i];
+		const DemoTransformComponent transform = transforms.instances[index];
 
 		int32_t w, h;
 		SDL_QueryTexture(renderer.texture, nullptr, nullptr, &w, &h);

@@ -2,8 +2,8 @@
 #include <Gamejam/Core/Config.hpp>
 #include "Gamejam/SceneManagement/Scene.hpp"
 #include "Gamejam/JECS/Core/SystemManager.h"
-#include "SDL.h"
 #include <Gamejam/Demo/DemoRenderBehaviour.h>
+#include "DemoDummyFactory.h"
 
 namespace jam::demo
 {
@@ -13,16 +13,15 @@ namespace jam::demo
 		DemoMainScene();
 		~DemoMainScene();
 
+		void Enable() override;
 		void Disable() override;
 
 		bool Update(float deltaTime) override;
 		bool Render() override;
 
 	private:
-		SDL_Texture& GetTexture(std::string key);
-
 		jecs::SystemManager* m_systemManager = nullptr;
-		std::map<std::string, SDL_Texture*> m_textureMap;
-		DemoRenderBehaviour* m_renderBehaviour;
+		DemoRenderBehaviour* m_renderBehaviour = nullptr;
+		DemoDummyFactory* m_dummyFactory = nullptr;
 	};
 }
