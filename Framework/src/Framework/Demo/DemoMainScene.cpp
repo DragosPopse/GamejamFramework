@@ -56,12 +56,6 @@ void jam::demo::DemoMainScene::Disable()
 bool jam::demo::DemoMainScene::Update(const float deltaTime)
 {
 	// Update your behaviours.
-	const Uint8* state = SDL_GetKeyboardState(nullptr);
-	if (state[SDL_SCANCODE_E]) {
-		const auto ptr = std::make_shared<DemoMainScene>();
-		ptr.get()->m_renderBehaviour->m_angle = 5;
-		App::Get().m_manager.PushScene(ptr);
-	}
 
 	m_controllerBehaviour->Update(deltaTime);
 	return false;
