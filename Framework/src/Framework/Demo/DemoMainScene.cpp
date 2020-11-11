@@ -34,6 +34,8 @@ jam::demo::DemoMainScene::~DemoMainScene()
 
 void jam::demo::DemoMainScene::Enable()
 {
+	// Create the required entities.
+
 	for (int i = 0; i < 10; ++i)
 		m_dummyFactory->Construct();
 
@@ -44,17 +46,24 @@ void jam::demo::DemoMainScene::Enable()
 
 void jam::demo::DemoMainScene::Disable()
 {
+	// Destroy all entities in the scene.
+
+	m_systemManager->ClearEntities();
 	DemoTextureLib::Get().Clear();
 }
 
 bool jam::demo::DemoMainScene::Update(const float deltaTime)
 {
+	// Update your behaviours.
+
 	m_controllerBehaviour->Update(deltaTime);
 	return false;
 }
 
 bool jam::demo::DemoMainScene::Render()
 {
+	// Update render related behaviours.
+
 	m_renderBehaviour->Update();
 	return false;
 }

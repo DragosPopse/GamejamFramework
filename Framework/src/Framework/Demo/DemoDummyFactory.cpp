@@ -11,6 +11,8 @@ jam::demo::DemoDummyFactory::DemoDummyFactory(jecs::SystemManager& manager) :
 
 void jam::demo::DemoDummyFactory::OnConstruction()
 {
+	// Add the components you want, and setup some stuff like textures and position.
+
 	DemoTransformComponent& transform = Add<DemoTransformComponent>();
 	transform.x = rand() % 600;
 	transform.y = rand() % 400;
