@@ -7,10 +7,24 @@
 jam::demo::DemoRenderBehaviour::DemoRenderBehaviour(jecs::SystemManager& manager) :
 	ISystemBehaviour<DemoRenderComponent>(manager)
 {
+	SDL_Renderer* screen = App::Get().m_renderer;
+	App& app = App::Get();
+
+	m_texture = SDL_CreateTexture(screen, SDL_PIXELFORMAT_RGBA8888,
+		SDL_TEXTUREACCESS_TARGET, app.m_width, app.m_height);
+}
+
+jam::demo::DemoRenderBehaviour::~DemoRenderBehaviour()
+{
+	SDL_Renderer* screen = App::Get().m_renderer;
+	SDL_SetRenderTarget(screen, nullptr);
+	SDL_DestroyTexture(m_texture);
 }
 
 void jam::demo::DemoRenderBehaviour::Update()
 {
+	PreRender();
+
 	/*
 	This is a very simple version of a rendererbehaviour.
 	The Example in JECS contains a slightly more complex renderer that can also
@@ -19,36 +33,109 @@ void jam::demo::DemoRenderBehaviour::Update()
 
 	// Get the screen to render on.
 	SDL_Renderer* screen = App::Get().m_renderer;
+	App& app = App::Get();
 
 	// Get the required components.
 	auto& renderers = GetSet<DemoRenderComponent>();
 	auto& transforms = GetSet<DemoTransformComponent>();
 
+	const int32_t screenWidth = app.m_width, screenHeight =  app.m_height;
+	const int32_t DRAW_THRESHOLD = 64;
+
 	// Iterate over all the renderers to render them on the screen.
 	const int32_t count = renderers.GetCount();
 	for (int32_t i = 0; i < count; ++i)
 	{
+		auto& instance = *renderers[i];
 		const int32_t index = renderers.dense[i];
-		const DemoRenderComponent renderer = *renderers[i];
-		const DemoTransformComponent transform = transforms.instances[index];
+		auto& transform = transforms.instances[index];
+		auto& texture = instance.texture;
 
-		// Get width and height.
 		int32_t w, h;
-		SDL_QueryTexture(renderer.texture, nullptr, nullptr, &w, &h);
+		SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
+
+		int32_t x = transform.x + instance.xOffset - xOffset;
+		int32_t y = transform.y + instance.yOffset - yOffset;
+
+		const int32_t xSize = w / instance.count;
+		const int32_t ySize = h / instance.count;
+
+		const int32_t wHalf = xSize / 2;
+		const int32_t hHalf = ySize / 2;
+
+		if (instance.xCenter)
+			x -= wHalf;
+		if (instance.yCenter)
+			y -= hHalf;
+
+		// Out of bounds check.
+		const bool outOfBoundsLeft = x - wHalf < -DRAW_THRESHOLD;
+		if (outOfBoundsLeft)
+			continue;
+
+		const bool outOfBoundsBottom = y - hHalf < -DRAW_THRESHOLD;
+		if (outOfBoundsBottom)
+			continue;
+
+		const bool outOfBoundsRight = x + wHalf > screenWidth + DRAW_THRESHOLD;
+		if (outOfBoundsRight)
+			continue;
+
+		const bool outOfBoundsTop = y + hHalf > screenHeight + DRAW_THRESHOLD;
+		if (outOfBoundsTop)
+			continue;
 
 		SDL_Rect srcRect;
-		srcRect.x = 0;
+		srcRect.x = xSize * instance.index;
 		srcRect.y = 0;
-		srcRect.w = w;
+		srcRect.w = xSize;
 		srcRect.h = h;
 
-		SDL_Rect dstRect;
-		dstRect.x = transform.x;
-		dstRect.y = transform.y;
-		dstRect.w = w;
-		dstRect.h = h;
+		const float scaledModifier = instance.scale + transform.scale - 2;
+		const float xScaledOffset = scaledModifier * wHalf;
+		const float yScaledOffset = scaledModifier * hHalf;
 
-		// Draw the renderer on the screen.
-		SDL_RenderCopy(screen, renderer.texture, &srcRect, &dstRect);
+		SDL_Rect dstRect;
+		dstRect.x = x - xScaledOffset / 2;
+		dstRect.y = y - yScaledOffset / 2;
+		dstRect.w = w + xScaledOffset;
+		dstRect.h = h + yScaledOffset;
+
+		SDL_RenderCopyEx(screen, texture, &srcRect, &dstRect,
+			instance.angle + transform.angle, nullptr, instance.flip);
 	}
+
+	PostRender();
+}
+
+void jam::demo::DemoRenderBehaviour::PreRender() const
+{
+	SDL_Renderer* screen = App::Get().m_renderer;
+
+	int32_t color = 0xFF;
+	SDL_SetRenderDrawColor(screen, color, color, color, color);
+	SDL_SetRenderTarget(screen, m_texture);
+
+	color = 0x22;
+	SDL_SetRenderDrawColor(screen, color, color, color, color);
+	SDL_RenderClear(screen);
+}
+
+void jam::demo::DemoRenderBehaviour::PostRender() const
+{
+	SDL_Renderer* screen = App::Get().m_renderer;
+	App& app = App::Get();
+
+	SDL_SetRenderTarget(screen, nullptr);
+
+	SDL_Rect scaler;
+	scaler.x = app.m_width * (1 - m_zoom) / 2;
+	scaler.y = app.m_height * (1 - m_zoom) / 2;
+	scaler.w = app.m_width * m_zoom;
+	scaler.h = app.m_height * m_zoom;
+
+	SDL_RenderCopyEx(screen, m_texture, nullptr, &scaler,
+		m_angle, nullptr, SDL_FLIP_NONE);
+
+	SDL_RenderPresent(screen);
 }

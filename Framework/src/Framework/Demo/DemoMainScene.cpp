@@ -20,6 +20,9 @@ jam::demo::DemoMainScene::DemoMainScene()
 
 	// Add factories.
 	m_dummyFactory = new DemoDummyFactory(*m_systemManager);
+
+	m_renderBehaviour->m_angle = 45;
+	m_renderBehaviour->m_zoom = 1.5;
 }
 
 jam::demo::DemoMainScene::~DemoMainScene()

@@ -9,7 +9,19 @@ namespace jam::demo
 	class DemoRenderBehaviour final : public jecs::ISystemBehaviour<DemoRenderComponent>
 	{
 	public:
+		uint32_t m_zoom = 1;
+		double m_angle = 0;
+		float xOffset = 0, yOffset = 0;
+		
 		DemoRenderBehaviour(jecs::SystemManager& manager);
+		~DemoRenderBehaviour();
 		void Update();
+
+	private:
+		SDL_Texture* m_texture;
+
+
+		void PreRender() const;
+		void PostRender() const;
 	};
 }
