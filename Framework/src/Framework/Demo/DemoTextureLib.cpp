@@ -1,6 +1,6 @@
-﻿#include "Gamejam/Demo/DemoTextureLib.h"
-#include <SDL_image.h>
+﻿#include <SDL_image.h>
 #include <Gamejam/Core/App.hpp>
+#include "Gamejam/Demo/Other/DemoTextureLib.h"
 
 jam::demo::DemoTextureLib& jam::demo::DemoTextureLib::Get()
 {

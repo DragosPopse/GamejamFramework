@@ -1,11 +1,9 @@
-﻿#include "Gamejam/Demo/DemoMainScene.h"
-#include "Gamejam/Demo/DemoTransformComponent.h"
-#include "Gamejam/Demo/DemoRenderComponent.h"
-#include "SDL_image.h"
-#include <Gamejam/Demo/DemoTextureLib.h>
-#include <Gamejam/Demo/DemoDummyFactory.h>
-#include "Gamejam/Demo/DemoControllerComponent.h"
-#include "Gamejam/Demo/DemoControllerBehaviour.h"
+﻿#include "Gamejam/Demo/DemoControllerBehaviour.h"
+#include "Gamejam/Demo/Scenes/DemoMainScene.h"
+#include "Gamejam/Demo/Factories/DemoDummyFactory.h"
+#include "Gamejam/Demo/Behaviours/DemoRenderBehaviour.h"
+#include "Gamejam/Demo/Components/DemoTransformComponent.h"
+#include "Gamejam/Demo/Other/DemoTextureLib.h"
 
 jam::demo::DemoMainScene::DemoMainScene()
 {

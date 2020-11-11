@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include <Gamejam/Core/Config.hpp>
 #include "Gamejam/JECS/Core/ISystemBehaviour.h"
-#include "Gamejam/Demo/Components/DemoControllerComponent.h"
 #include "Gamejam/JECS/Core/SystemManager.h"
+#include "Gamejam/Demo/Components/DemoControllerComponent.h"
 
 namespace jam::demo
 {

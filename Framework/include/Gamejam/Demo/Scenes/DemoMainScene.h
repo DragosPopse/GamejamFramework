@@ -2,9 +2,9 @@
 #include <Gamejam/Core/Config.hpp>
 #include "Gamejam/SceneManagement/Scene.hpp"
 #include "Gamejam/JECS/Core/SystemManager.h"
-#include <Gamejam/Demo/DemoRenderBehaviour.h>
-#include "DemoDummyFactory.h"
-#include "DemoControllerBehaviour.h"
+#include "Gamejam/Demo/Behaviours/DemoRenderBehaviour.h"
+#include "Gamejam/Demo/Factories/DemoDummyFactory.h"
+#include "Gamejam/Demo/DemoControllerBehaviour.h"
 
 namespace jam::demo
 {

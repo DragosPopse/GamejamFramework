@@ -1,7 +1,7 @@
-﻿#include "Gamejam/Demo/DemoDummyFactory.h"
-#include "Gamejam/Demo/DemoTransformComponent.h"
-#include "Gamejam/Demo/DemoRenderComponent.h"
-#include "Gamejam/Demo/DemoTextureLib.h"
+﻿#include "Gamejam/Demo/Other/DemoTextureLib.h"
+#include "Gamejam/Demo/Components/DemoRenderComponent.h"
+#include "Gamejam/Demo/Factories/DemoDummyFactory.h"
+#include "Gamejam/Demo/Components/DemoTransformComponent.h"
 
 jam::demo::DemoDummyFactory::DemoDummyFactory(jecs::SystemManager& manager) :
 	EntityFactory(manager)
@@ -17,6 +17,6 @@ void jam::demo::DemoDummyFactory::OnConstruction()
 	transform.x = rand() % 600;
 	transform.y = rand() % 400;
 
-	DemoRenderComponent& renderer = Add<DemoRenderComponent>();
-	renderer.texture = DemoTextureLib::Get().GetTexture("Art/Doodle.png");
+	DemoRenderComponent& renderer = Add<jam::demo::DemoRenderComponent>();
+	renderer.texture = jam::demo::DemoTextureLib::Get().GetTexture("Art/Doodle.png");
 }

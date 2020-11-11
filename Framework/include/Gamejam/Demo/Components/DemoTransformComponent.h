@@ -7,5 +7,7 @@ namespace jam::demo
 	{
 	public:
 		float x = 0, y = 0;
+		float angle = 0;
+		float scale = 1;
 	};
 }

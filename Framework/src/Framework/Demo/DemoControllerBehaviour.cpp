@@ -1,6 +1,7 @@
-﻿#include <Gamejam/Demo/DemoControllerBehaviour.h>
-#include "Gamejam/Demo/DemoTransformComponent.h"
-#include "SDL.h"
+﻿#include "SDL.h"
+#include "Gamejam/Demo/Behaviours/DemoControllerBehaviour.h"
+#include "Gamejam/Demo/Components/DemoControllerComponent.h"
+#include "Gamejam/Demo/Components/DemoTransformComponent.h"
 
 jam::demo::DemoControllerBehaviour::DemoControllerBehaviour(jecs::SystemManager& manager) :
 	ISystemBehaviour<DemoControllerComponent>(manager)

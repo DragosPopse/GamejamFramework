@@ -1,7 +1,8 @@
 ﻿#include <Gamejam\Core\App.hpp>
-#include <Gamejam\Demo\DemoTransformComponent.h>
 #include "SDL.h"
-#include "Gamejam/Demo/DemoRenderBehaviour.h"
+#include "Gamejam/Demo/Behaviours/DemoRenderBehaviour.h"
+#include "Gamejam/Demo/Components/DemoTransformComponent.h"
+#include "Gamejam/Demo/Components/DemoRenderComponent.h"
 
 jam::demo::DemoRenderBehaviour::DemoRenderBehaviour(jecs::SystemManager& manager) :
 	ISystemBehaviour<DemoRenderComponent>(manager)
