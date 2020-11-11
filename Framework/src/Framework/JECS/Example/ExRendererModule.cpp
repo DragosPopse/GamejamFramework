@@ -1,5 +1,5 @@
-﻿#include "ExRendererModule.h"
-#include <SDL_image.h>
+﻿#include <SDL_image.h>
+#include "Gamejam/JECS/Examples/ExRendererModule.h"
 
 jam::jecs::Examples::ExRendererModule::ExRendererModule(int32_t w, int32_t h) :
 	WIDTH(w), HEIGHT(h)

@@ -1,14 +1,9 @@
-﻿#include "ExampleEngine.h"
-#include "../Core/SystemManager.h"
-#include <SDL.h>
+﻿#include <SDL.h>
 #include <ctime>
-#include "ExRendererModule.h"
-#include "ExTransform.h"
-#include "ExRenderer.h"
-#include "ExRendererBehaviour.h"
-#include "ExDoodleBrain.h"
-#include "ExDoodleBehaviour.h"
-#include "ExDoodleFactory.h"
+#include "Gamejam/JECS/Examples/ExampleEngine.h"
+#include "Gamejam/JECS/Core/SystemManager.h"
+#include "Gamejam/JECS/Examples/ExDoodleFactory.h"
+#include "Gamejam/JECS/Examples/ExRendererModule.h"
 
 jam::jecs::Examples::ExampleEngine::~ExampleEngine()
 {

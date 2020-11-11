@@ -1,5 +1,5 @@
-﻿#include "ExRendererBehaviour.h"
-#include "ExRendererModule.h"
+﻿#include "Gamejam/JECS/Examples/ExRendererBehaviour.h"
+#include "Gamejam/JECS/Examples/ExRendererModule.h"
 
 jam::jecs::Examples::ExRendererBehaviour::ExRendererBehaviour(
 	SystemManager& manager, ExRendererModule& module) : 

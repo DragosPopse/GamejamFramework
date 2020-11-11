@@ -1,8 +1,8 @@
-﻿#include "ExDoodleFactory.h"
-#include "ExTransform.h"
-#include "ExRenderer.h"
-#include "ExRendererModule.h"
-#include "ExDoodleBrain.h"
+﻿#include "Gamejam/JECS/Examples/ExDoodleFactory.h"
+#include "Gamejam/JECS/Examples/ExDoodleBrain.h"
+#include "Gamejam/JECS/Examples/ExTransform.h"
+#include "Gamejam/JECS/Examples/ExRenderer.h"
+#include "Gamejam/JECS/Examples/ExRendererModule.h"
 
 jam::jecs::Examples::ExDoodleFactory::ExDoodleFactory(SystemManager& manager, ExRendererModule& module) :
 	EntityFactory(manager), _renderModule(&module)

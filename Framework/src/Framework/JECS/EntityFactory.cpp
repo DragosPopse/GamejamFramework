@@ -1,4 +1,4 @@
-﻿#include "EntityFactory.h"
+﻿#include "Gamejam/JECS/Core/EntityFactory.h"
 
 using namespace jam::jecs;
 

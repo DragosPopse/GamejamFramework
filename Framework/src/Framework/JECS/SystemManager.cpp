@@ -1,5 +1,4 @@
-﻿#include "SystemManager.h"
-#include "ComponentSystem.h"
+﻿#include "Gamejam/JECS/Core/SystemManager.h"
 
 jam::jecs::SystemManager::~SystemManager()
 {
