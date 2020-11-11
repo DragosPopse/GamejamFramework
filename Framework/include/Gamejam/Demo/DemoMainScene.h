@@ -4,6 +4,7 @@
 #include "Gamejam/JECS/Core/SystemManager.h"
 #include <Gamejam/Demo/DemoRenderBehaviour.h>
 #include "DemoDummyFactory.h"
+#include "DemoControllerBehaviour.h"
 
 namespace jam::demo
 {
@@ -22,6 +23,7 @@ namespace jam::demo
 	private:
 		jecs::SystemManager* m_systemManager = nullptr;
 		DemoRenderBehaviour* m_renderBehaviour = nullptr;
+		DemoControllerBehaviour* m_controllerBehaviour = nullptr;
 		DemoDummyFactory* m_dummyFactory = nullptr;
 	};
 }

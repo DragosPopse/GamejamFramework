@@ -11,7 +11,10 @@ jam::demo::DemoDummyFactory::DemoDummyFactory(jecs::SystemManager& manager) :
 
 void jam::demo::DemoDummyFactory::OnConstruction()
 {
-	Add<DemoTransformComponent>();
+	DemoTransformComponent& transform = Add<DemoTransformComponent>();
+	transform.x = rand() % 600;
+	transform.y = rand() % 400;
+
 	DemoRenderComponent& renderer = Add<DemoRenderComponent>();
 	renderer.texture = DemoTextureLib::Get().GetTexture("Art/Doodle.png");
 }

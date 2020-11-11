@@ -8,16 +8,6 @@ jam::demo::DemoRenderBehaviour::DemoRenderBehaviour(jecs::SystemManager& manager
 {
 }
 
-jam::demo::DemoRenderBehaviour::~DemoRenderBehaviour() = default;
-
-void jam::demo::DemoRenderBehaviour::OnAddComponent(const int32_t index)
-{
-}
-
-void jam::demo::DemoRenderBehaviour::OnRemoveComponent(const int32_t index)
-{
-}
-
 void jam::demo::DemoRenderBehaviour::Update()
 {
 	SDL_Renderer* screen = App::Get().m_renderer;

@@ -10,11 +10,6 @@ namespace jam::demo
 	{
 	public:
 		DemoRenderBehaviour(jecs::SystemManager& manager);
-		~DemoRenderBehaviour() override;
-
-		void OnAddComponent(int32_t index) override;
-		void OnRemoveComponent(int32_t index) override;
-
 		void Update();
 	};
 }
