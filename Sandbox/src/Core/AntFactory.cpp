@@ -19,9 +19,9 @@ void jam::AntFactory::OnConstruction()
 
 	Add<demo::DemoTransformComponent>();
 	Add<demo::DemoCollisionComponent>();
-	auto& renderer = Add<jam::demo::DemoRenderComponent>();
+	auto& renderer = Add<demo::DemoRenderComponent>();
 
 	auto& lib = demo::DemoTextureLib::Get();
 	renderer.texture = lib.GetTexture("files/ant.png");
-	renderer.scale = .2;
+	renderer.scale = 1.0 / 8;
 }

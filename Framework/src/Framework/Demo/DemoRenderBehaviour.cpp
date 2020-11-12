@@ -103,7 +103,7 @@ void jam::demo::DemoRenderBehaviour::Update()
 		dstRect.y = y - dstRect.h / 2;
 
 		SDL_RenderCopyEx(screen, texture, &srcRect, &dstRect,
-			instance.angle + transform.angle, nullptr, instance.flip);
+			instance.degrees + transform.degrees, nullptr, instance.flip);
 	}
 
 	//PostRender();

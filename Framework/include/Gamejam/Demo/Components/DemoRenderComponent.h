@@ -13,7 +13,7 @@ namespace jam::demo
 		bool xCenter = true, yCenter = true;
 
 		SDL_RendererFlip flip = SDL_FLIP_NONE;
-		float angle = 0;
+		float degrees = 0;
 		float scale = 1;
 	};
 }
