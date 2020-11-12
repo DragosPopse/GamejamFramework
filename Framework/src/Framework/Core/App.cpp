@@ -7,6 +7,7 @@
 #include <imgui_impl_opengl3.h>
 #include <glad/glad.h>
 #include <imgui_sdl.h>
+#include <SDL_ttf.h>
 
 
 namespace jam
@@ -24,6 +25,7 @@ namespace jam
 	{
 		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 		IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG);
+		TTF_Init();
 		Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 
 		m_fixedDelta = info.fixedDelta;
@@ -39,6 +41,8 @@ namespace jam
 	{
 		SDL_DestroyRenderer(m_renderer);
 		SDL_DestroyWindow(m_window);
+		TTF_Quit();
+		IMG_Quit();
 		SDL_Quit();
 	}
 
