@@ -34,6 +34,12 @@ jam::MainScene::~MainScene()
 void jam::MainScene::Enable()
 {
 	// TODO ADD FACTORIES
+	DemoDummyFactory f = DemoDummyFactory(*m_systemManager);
+	for (int i = 0; i < 10; ++i)
+	{
+		f.Construct();
+	}
+	
 }
 
 void jam::MainScene::Disable()
