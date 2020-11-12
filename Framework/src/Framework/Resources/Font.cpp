@@ -23,7 +23,11 @@ namespace jam
 	{
 		Reset();
 		m_font = TTF_OpenFont(file, pointSize);
-
+		if (m_font)
+		{
+			return true;
+		}
+		return false;
 	}
 
 
