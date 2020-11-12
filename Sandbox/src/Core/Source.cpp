@@ -12,8 +12,8 @@ namespace jam
         Application()
         {
             App::Info info;
-            info.width = 600;
-            info.height = 400;
+            info.width = 32*20;
+            info.height = 32*20;
             info.title = "Gamer";
             info.flags = SDL_WINDOW_SHOWN;
             info.fixedDelta = 1.f / 60.f;

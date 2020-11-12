@@ -11,6 +11,7 @@ namespace jam
 	TileMapper::TileMapper()
 	{
 		LoadMap();
+		GenerateMap(m_MapDefaultPath);
 	}
 
 	// https://www.gormanalysis.com/blog/reading-and-writing-csv-files-with-cpp/
@@ -53,6 +54,66 @@ namespace jam
 		file.close();
 	}
 
+	void TileMapper::GenerateMap(string path)
+	{
+		int w, h;
+		SDL_GetRendererOutputSize(App::Get().m_renderer, &w, &h);
+
+		Uint32 rMask = 0x00000000;
+		Uint32 gMask = 0x00000000;
+		Uint32 bMask = 0x00000000;
+		Uint32 aMask = 0x00000000;
+
+		if (SDL_BYTEORDER == SDL_BIG_ENDIAN)														//taken from https://wiki.libsdl.org/SDL_CreateRGBSurface because I was lazy
+		{
+			rMask = 0xff000000;
+			gMask = 0x00ff0000;
+			bMask = 0x0000ff00;
+			aMask = 0x000000ff;
+		}
+		else {
+			rMask = 0x000000ff;
+			gMask = 0x0000ff00;
+			bMask = 0x00ff0000;
+			aMask = 0xff000000;
+		}
+
+		SDL_Surface* tempSurface = SDL_CreateRGBSurface(0, w, h, 32, rMask, gMask, bMask, aMask);	//create empty rgb Surface tempSurface depending on RendererSize & byte order of the users machine
+		
+
+		const char* c = path.c_str();
+		SDL_Surface* tileSheet = IMG_Load(c);														//loading tileSheet into Surface
+
+		for (int r = 0; r < m_Grid.size(); r++)														//copies tiles from tileSheet to tempSurface (scales them from 256x256 to 32x32, to change the scaling, 
+		{																							//change scaleTox/scaleToY to the corresponding sizes
+			for (int c = 0; c < m_Grid[r].size(); c++)
+			{
+				int tileIndex = m_Grid[r][c];
+
+				SDL_Rect srcRect;						
+				srcRect.x = tileIndex * 256;
+				srcRect.y = 0;
+				srcRect.w = 256;
+				srcRect.h = 256;
+
+				int scaleToX = 32;
+				int scaleToY = 32;
+
+				SDL_Rect dstRect;
+				dstRect.x = c * scaleToX;
+				dstRect.y = r * scaleToY;
+				dstRect.w = scaleToX;
+				dstRect.h = scaleToY;
+
+				SDL_BlitScaled(tileSheet, &srcRect, tempSurface, &dstRect);
+			}
+		}
+
+		m_Background = SDL_CreateTextureFromSurface(App::Get().m_renderer, tempSurface);
+		SDL_FreeSurface(tempSurface);
+		SDL_FreeSurface(tileSheet);
+	}
+
 	TileMapper* TileMapper::GetInstance()
 	{
 		if (m_Instance == nullptr)
@@ -66,5 +127,9 @@ namespace jam
 	bool TileMapper::HasTile(float x, float y, int& index)
 	{
 		return false;
+	}
+	SDL_Texture* TileMapper::GetMap()
+	{
+		return m_Background;
 	}
 }

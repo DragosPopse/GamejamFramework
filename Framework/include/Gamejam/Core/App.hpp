@@ -31,6 +31,8 @@ namespace jam
 
 		static App& Get();
 
+		SDL_Renderer* m_renderer = nullptr;
+
 	protected:
 		void Init(const App::Info& info);
 
@@ -47,7 +49,6 @@ namespace jam
 		uint32_t m_height = 0;
 		bool m_running = false;
 		SDL_Window* m_window = nullptr;
-		SDL_Renderer* m_renderer = nullptr;
 		SceneManager m_manager;
 	};
 }

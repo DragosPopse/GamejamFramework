@@ -1,5 +1,6 @@
 #include <Precomp/Precomp.h>
 #include "Managers/TileMapper.h"
+#include "GameJam/Core/App.hpp"
 
 namespace jam
 {
@@ -23,6 +24,9 @@ namespace jam
 		{
 			// Render stuff.
 
+			SDL_RenderClear(App::Get().m_renderer);
+			SDL_RenderCopy(App::Get().m_renderer, m_tileMapper->GetMap(), NULL, NULL);
+			SDL_RenderPresent(App::Get().m_renderer);
 			return true;
 		}
 
