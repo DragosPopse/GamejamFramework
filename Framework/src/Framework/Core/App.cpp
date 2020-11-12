@@ -87,6 +87,11 @@ namespace jam
 				m_manager.FixedUpdate(m_fixedDelta);
 			}
 
+			if (m_manager.IsEmpty())
+			{
+				running = false;
+			}
+
 			ImGui::NewFrame();
 
 			SDL_RenderClear(m_renderer);
