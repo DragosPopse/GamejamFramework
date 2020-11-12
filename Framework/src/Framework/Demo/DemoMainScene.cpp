@@ -6,8 +6,6 @@
 #include "Gamejam/Core/App.hpp"
 #include "Gamejam/Demo/Components/DemoCollisionComponent.h"
 #include "Gamejam/Demo/Behaviours/DemoCollisionBehaviour.h"
-#include "Gamejam/Algorithms/AStar.h"
-#include "Gamejam/Algorithms/AStarExample.h"
 #include <iostream>
 
 jam::demo::DemoMainScene::DemoMainScene()
@@ -29,9 +27,6 @@ jam::demo::DemoMainScene::DemoMainScene()
 	m_dummyFactory = new DemoDummyFactory(*m_systemManager);
 
 	m_renderBehaviour->m_angle = 45;
-
-	algorithms::examples::AStarExample example;
-	example.Run();
 }
 
 jam::demo::DemoMainScene::~DemoMainScene()
