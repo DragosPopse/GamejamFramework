@@ -1,72 +1,60 @@
-﻿#include "Gamejam/Demo/Behaviours/DemoControllerBehaviour.h"
+#include <Core/Scenes.h>
 #include "Gamejam/Demo/Scenes/DemoMainScene.h"
-#include "Gamejam/Demo/Factories/DemoDummyFactory.h"
 #include "Gamejam/Demo/Behaviours/DemoRenderBehaviour.h"
 #include "Gamejam/Demo/Components/DemoTransformComponent.h"
 #include "Gamejam/Core/App.hpp"
 #include "Gamejam/Demo/Components/DemoCollisionComponent.h"
 #include "Gamejam/Demo/Behaviours/DemoCollisionBehaviour.h"
-#include <iostream>
 
-jam::demo::DemoMainScene::DemoMainScene()
+using namespace jam::demo;
+
+jam::MainScene::MainScene()
 {
 	m_systemManager = new jecs::SystemManager();
 
-	// Add component types.
+	// Add component types you're going to use.
 	m_systemManager->AddSystem<DemoTransformComponent>();
 	m_systemManager->AddSystem<DemoRenderComponent>();
-	m_systemManager->AddSystem<DemoControllerComponent>();
 	m_systemManager->AddSystem<DemoCollisionComponent>();
 
-	// Add behaviours.
+	// Add behaviours / game logic.
 	m_renderBehaviour = new DemoRenderBehaviour(*m_systemManager);
-	m_controllerBehaviour = new DemoControllerBehaviour(*m_systemManager);
 	m_collisionBehaviour = new DemoCollisionBehaviour(*m_systemManager);
 
-	// Add factories.
-	m_dummyFactory = new DemoDummyFactory(*m_systemManager);
-
-	m_renderBehaviour->m_angle = 45;
+	// Add whatever other things you need.
 }
 
-jam::demo::DemoMainScene::~DemoMainScene()
+jam::MainScene::~MainScene()
 {
 	delete m_systemManager;
 	delete m_renderBehaviour;
-	delete m_controllerBehaviour;
 	delete m_collisionBehaviour;
-	delete m_dummyFactory;
 }
 
-void jam::demo::DemoMainScene::Enable()
+void jam::MainScene::Enable()
 {
-	// Create the required entities.
-
-	for (int i = 0; i < 5; ++i)
-		m_dummyFactory->Construct();
-
-	const int32_t id = m_dummyFactory->Construct();
-	m_systemManager->AddComponent<DemoControllerComponent>(id);
+	// TODO ADD FACTORIES
 }
-	
 
-void jam::demo::DemoMainScene::Disable()
+void jam::MainScene::Disable()
 {
 	// Destroy all entities in the scene.
 	m_systemManager->ClearEntities();
 }
 
-bool jam::demo::DemoMainScene::Update(const float deltaTime)
+bool jam::MainScene::Update(const float deltaTime)
 {
 	// Update your behaviours.
-	m_controllerBehaviour->Update(deltaTime);
 	m_collisionBehaviour->Update();
 	return false;
 }
 
-bool jam::demo::DemoMainScene::Render()
+bool jam::MainScene::Render()
 {
 	// Update render related behaviours.
+	SDL_Renderer* renderer = App::Get().m_renderer;
+	TileMapper* tileMapper = TileMapper::GetInstance();
+	SDL_RenderCopy(renderer, tileMapper->GetMap(), nullptr, nullptr);
 	m_renderBehaviour->Update();
 	return false;
 }

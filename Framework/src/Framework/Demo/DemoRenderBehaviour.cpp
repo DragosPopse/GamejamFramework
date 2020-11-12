@@ -23,7 +23,7 @@ jam::demo::DemoRenderBehaviour::~DemoRenderBehaviour()
 
 void jam::demo::DemoRenderBehaviour::Update()
 {
-	PreRender();
+	//PreRender();
 
 	/*
 	This is a very simple version of a rendererbehaviour.
@@ -107,7 +107,7 @@ void jam::demo::DemoRenderBehaviour::Update()
 			instance.angle + transform.angle, nullptr, instance.flip);
 	}
 
-	PostRender();
+	//PostRender();
 }
 
 void jam::demo::DemoRenderBehaviour::PreRender() const
@@ -138,6 +138,4 @@ void jam::demo::DemoRenderBehaviour::PostRender() const
 
 	SDL_RenderCopyEx(screen, m_texture, nullptr, &scaler,
 		m_angle, nullptr, SDL_FLIP_NONE);
-
-	SDL_RenderPresent(screen);
 }
