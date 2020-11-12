@@ -14,9 +14,6 @@ bin-int/
 bin/
 assets/config/Player.json
 assets/config/saves/
-Sandbox/
-
-
 
 # User-specific files
 *.rsuser

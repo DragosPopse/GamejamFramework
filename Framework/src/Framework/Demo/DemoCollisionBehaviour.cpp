@@ -35,6 +35,15 @@ void jam::demo::DemoCollisionBehaviour::Update()
 			const DemoCollisionComponent otherCollider = *colliders[j];
 			const DemoTransformComponent otherTransform = transforms.instances[otherIndex];
 
+			// Check ignored layers.
+			const int32_t aBitMask = collider.ignoredLayers & otherCollider.layer;
+			if (aBitMask != 0)
+				continue;
+
+			const int32_t bBitMask = otherCollider.ignoredLayers & collider.layer;
+			if (bBitMask != 0)
+				continue;
+
 			const float xOtherSize = otherTransform.xScale * otherCollider.xScale;
 			const float yOtherSize = otherTransform.xScale * otherCollider.yScale;
 

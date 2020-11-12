@@ -14,7 +14,8 @@ workspace "GamejamFramework"
     filter {"system:windows"}
         defines {
             "_CRT_SECURE_NO_WARNINGS",
-            "NOMINMAX"
+            "NOMINMAX",
+            "GLEW_STATIC"
         }
 
 
