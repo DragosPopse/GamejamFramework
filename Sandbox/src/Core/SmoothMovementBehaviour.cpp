@@ -1,6 +1,7 @@
 ﻿#include "Core/SmoothMovementBehaviour.h"
 #include "Gamejam/Demo/Components/DemoTransformComponent.h"
 #include "SDL_stdinc.h"
+#include <iostream>
 
 jam::SmoothMovementBehaviour::SmoothMovementBehaviour(jecs::SystemManager& manager) :
 	ISystemBehaviour<jam::SmoothMovement>(manager)
@@ -25,7 +26,22 @@ void jam::SmoothMovementBehaviour::Update(const float deltaTime)
 		transform.x += xDelta;
 		transform.y += yDelta;
 
-		const float degrees = atan2(smoother.xDir, -smoother.yDir) * 180 / M_PI;
-		transform.degrees = degrees;
+		const bool rotate = abs(xDelta) > .1 || abs(yDelta) > .1;
+		if (!rotate)
+			continue;
+		
+		float targetDegrees = atan2f(smoother.xDir, -smoother.yDir) * 180 / M_PI;
+		if (targetDegrees < 0)
+			targetDegrees += 360;
+
+		const float currentDegrees = transform.degrees - floor(transform.degrees / 360) * 360;
+
+		bool dir = currentDegrees > targetDegrees;
+		const bool reverse = abs(currentDegrees - targetDegrees) < 180;
+		if (reverse)
+			dir = !dir;
+
+		const float delta = smoother.rotationSpeed * (dir * 2 - 1) * deltaTime;
+		transform.degrees = currentDegrees + delta;
 	}
 }

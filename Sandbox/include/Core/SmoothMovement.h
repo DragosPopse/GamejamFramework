@@ -8,7 +8,7 @@ namespace jam
 		float xDir = 0;
 		float yDir = 0;
 
-		float rotationSpeed = 1;
-		float movementSpeed = 50;
+		float rotationSpeed = 500;
+		float movementSpeed = 100;
 	};
 }
