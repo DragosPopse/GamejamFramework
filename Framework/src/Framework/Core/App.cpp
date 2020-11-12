@@ -3,6 +3,10 @@
 #include <SDL_mixer.h>
 #include <SDL_image.h>
 #include <Gamejam/Core/Time.hpp>
+#include <imgui_impl_sdl.h>
+#include <imgui_impl_opengl3.h>
+#include <glad/glad.h>
+#include <imgui_sdl.h>
 
 
 namespace jam
@@ -40,18 +44,37 @@ namespace jam
 
 	void App::Run()
 	{
+		ImGui::CreateContext();
+		ImGuiSDL::Initialize(m_renderer, m_width, m_height);
 		bool running = true;
 		float timeSinceLastFrame = 0.f;
 		jam::Timer timer;
 		while (running)
 		{
+			ImGuiIO& io = ImGui::GetIO();
+			(void)io;
 			float dt = timer.Reset().count();
+			int wheel = 0;
 			timeSinceLastFrame += dt;
 			SDL_Event ev;
 			while (SDL_PollEvent(&ev))
 			{
+				ImGui_ImplSDL2_ProcessEvent(&ev);
+				
+				
 				m_manager.HandleEvent(ev);
 			}
+
+			int mouseX, mouseY;
+			const int buttons = SDL_GetMouseState(&mouseX, &mouseY);
+
+			// Setup low-level inputs (e.g. on Win32, GetKeyboardState(), or write to those fields from your Windows message loop handlers, etc.)
+
+			io.DeltaTime = 1.0f / 60.0f;
+			io.MousePos = ImVec2(static_cast<float>(mouseX), static_cast<float>(mouseY));
+			io.MouseDown[0] = buttons & SDL_BUTTON(SDL_BUTTON_LEFT);
+			io.MouseDown[1] = buttons & SDL_BUTTON(SDL_BUTTON_RIGHT);
+			io.MouseWheel = static_cast<float>(wheel);
 
 			m_manager.Update(dt);
 			while (timeSinceLastFrame > m_fixedDelta)
@@ -60,8 +83,13 @@ namespace jam
 				m_manager.FixedUpdate(m_fixedDelta);
 			}
 
+			ImGui::NewFrame();
+
 			SDL_RenderClear(m_renderer);
 			m_manager.Render();
+			ImGui::Render();
+			ImGuiSDL::Render(ImGui::GetDrawData());
+			//ImGui::EndFrame();
 			SDL_RenderPresent(m_renderer);
 			
 		}
