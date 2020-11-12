@@ -5,6 +5,7 @@
 #include "Gamejam/Demo/Behaviours/DemoCollisionBehaviour.h"
 #include "AntBehaviour.h"
 #include "SmoothMovementBehaviour.h"
+#include "AnimatorBehaviour.h"
 
 namespace jam
 {
@@ -27,5 +28,7 @@ namespace jam
 
 		AntBehaviour* m_antBehaviour = nullptr;
 		SmoothMovementBehaviour* m_smoothMovementBehaviour = nullptr;
+
+		AnimatorBehaviour* m_animatorBehaviour = nullptr;
 	};
 }

@@ -58,7 +58,7 @@ void jam::demo::DemoRenderBehaviour::Update()
 		int32_t y = transform.y + instance.yOffset - yOffset;
 
 		const int32_t xSize = w / instance.count;
-		const int32_t ySize = h / instance.count;
+		const int32_t ySize = h;
 
 		const int32_t wHalf = xSize / 2;
 		const int32_t hHalf = ySize / 2;
@@ -97,8 +97,8 @@ void jam::demo::DemoRenderBehaviour::Update()
 		const float yScaledModifier = instance.scale + transform.yScale - 2;
 
 		SDL_Rect dstRect;
-		dstRect.w = w * (1 + xScaledModifier);
-		dstRect.h = h * (1 + yScaledModifier);
+		dstRect.w = xSize * (1 + xScaledModifier);
+		dstRect.h = ySize * (1 + yScaledModifier);
 		dstRect.x = x - dstRect.w / 2;
 		dstRect.y = y - dstRect.h / 2;
 

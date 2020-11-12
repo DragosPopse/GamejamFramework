@@ -10,6 +10,8 @@
 #include "Core/SmoothMovement.h"
 #include "Core/AntBehaviour.h"
 #include "Core/SmoothMovementBehaviour.h"
+#include "Core/AnimatorComponent.h"
+#include "Core/AnimatorBehaviour.h"
 
 using namespace jam::demo;
 
@@ -26,6 +28,9 @@ jam::MainScene::MainScene()
 	m_systemManager->AddSystem<AntBrain>();
 	m_systemManager->AddSystem<SmoothMovement>();
 
+	// Non framework utility components.
+	m_systemManager->AddSystem<AnimatorComponent>();
+
 	// Add behaviours / game logic.
 	m_renderBehaviour = new DemoRenderBehaviour(*m_systemManager);
 	m_collisionBehaviour = new DemoCollisionBehaviour(*m_systemManager);
@@ -33,6 +38,9 @@ jam::MainScene::MainScene()
 	// Game specific behaviour.
 	m_antBehaviour = new AntBehaviour(*m_systemManager);
 	m_smoothMovementBehaviour = new SmoothMovementBehaviour(*m_systemManager);
+
+	// Non framework utility behaviour.
+	m_animatorBehaviour = new AnimatorBehaviour(*m_systemManager);
 
 	// Add whatever other things you need.
 }
@@ -45,6 +53,8 @@ jam::MainScene::~MainScene()
 
 	delete m_antBehaviour;
 	delete m_smoothMovementBehaviour;
+
+	delete m_animatorBehaviour;
 }
 
 void jam::MainScene::Enable()
@@ -75,6 +85,8 @@ bool jam::MainScene::Update(const float deltaTime)
 
 	// Update your behaviours.
 	m_collisionBehaviour->Update();
+
+	m_animatorBehaviour->Update(deltaTime);
 	return false;
 }
 
