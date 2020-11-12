@@ -6,15 +6,22 @@
 #include "Core/AntBrain.h"
 #include "Core/SmoothMovement.h"
 
-void demo::AntFactory::OnConstruction()
+jam::AntFactory::AntFactory(jecs::SystemManager& manager) :
+	EntityFactory(manager)
 {
-	Add<jam::AntBrain>();
-	Add<jam::SmoothMovement>();
 
-	Add<jam::demo::DemoTransformComponent>();
+}
+
+void jam::AntFactory::OnConstruction()
+{
+	Add<AntBrain>();
+	Add<SmoothMovement>();
+
+	Add<demo::DemoTransformComponent>();
+	Add<demo::DemoCollisionComponent>();
 	auto& renderer = Add<jam::demo::DemoRenderComponent>();
-	Add<jam::demo::DemoCollisionComponent>();
 
-	auto& lib = jam::demo::DemoTextureLib::Get();
+	auto& lib = demo::DemoTextureLib::Get();
 	renderer.texture = lib.GetTexture("files/ant.png");
+	renderer.scale = .2;
 }

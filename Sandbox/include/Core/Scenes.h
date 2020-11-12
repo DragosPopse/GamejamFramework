@@ -3,6 +3,8 @@
 #include "Gamejam/JECS/Core/SystemManager.h"
 #include "Gamejam/Demo/Behaviours/DemoRenderBehaviour.h"
 #include "Gamejam/Demo/Behaviours/DemoCollisionBehaviour.h"
+#include "AntBehaviour.h"
+#include "SmoothMovementBehaviour.h"
 
 namespace jam
 {
@@ -22,5 +24,8 @@ namespace jam
 		jecs::SystemManager* m_systemManager = nullptr;
 		demo::DemoRenderBehaviour* m_renderBehaviour = nullptr;
 		demo::DemoCollisionBehaviour* m_collisionBehaviour = nullptr;
+
+		AntBehaviour* m_antBehaviour = nullptr;
+		SmoothMovementBehaviour* m_smoothMovementBehaviour = nullptr;
 	};
 }

@@ -9,6 +9,6 @@ namespace jam
 	{
 	public:
 		AntBehaviour(jecs::SystemManager& manager);
-		void Update(float deltaTime);
+		void Update();
 	};
 }

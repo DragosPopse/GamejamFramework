@@ -68,6 +68,7 @@ void jam::demo::DemoRenderBehaviour::Update()
 		if (instance.yCenter)
 			y -= hHalf;
 
+		/*
 		// Out of bounds check.
 		const bool outOfBoundsLeft = x - wHalf < -DRAW_THRESHOLD;
 		if (outOfBoundsLeft)
@@ -84,6 +85,7 @@ void jam::demo::DemoRenderBehaviour::Update()
 		const bool outOfBoundsTop = y + hHalf > screenHeight + DRAW_THRESHOLD;
 		if (outOfBoundsTop)
 			continue;
+		*/
 
 		SDL_Rect srcRect;
 		srcRect.x = xSize * instance.index;
@@ -94,14 +96,11 @@ void jam::demo::DemoRenderBehaviour::Update()
 		const float xScaledModifier = instance.scale + transform.xScale - 2;
 		const float yScaledModifier = instance.scale + transform.yScale - 2;
 
-		const float xScaledOffset = xScaledModifier * wHalf;
-		const float yScaledOffset = yScaledModifier * hHalf;
-
 		SDL_Rect dstRect;
-		dstRect.x = x - xScaledOffset / 2;
-		dstRect.y = y - yScaledOffset / 2;
-		dstRect.w = w + xScaledOffset;
-		dstRect.h = h + yScaledOffset;
+		dstRect.w = w * (1 + xScaledModifier);
+		dstRect.h = h * (1 + yScaledModifier);
+		dstRect.x = x - dstRect.w / 2;
+		dstRect.y = y - dstRect.h / 2;
 
 		SDL_RenderCopyEx(screen, texture, &srcRect, &dstRect,
 			instance.angle + transform.angle, nullptr, instance.flip);

@@ -8,7 +8,7 @@ jam::AntBehaviour::AntBehaviour(jecs::SystemManager& manager) :
 
 }
 
-void jam::AntBehaviour::Update(const float deltaTime)
+void jam::AntBehaviour::Update()
 {
 	auto& antBrains = GetSet<AntBrain>();
 	auto& smootMovement = GetSet<SmoothMovement>();
