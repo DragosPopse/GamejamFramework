@@ -16,6 +16,9 @@
 #include "Core/AnimatorBehaviour.h"
 #include "Core/SandFactory.h"
 #include "Core/StoneFactory.h"
+#include "Core/BoulderFactory.h"
+#include "Core/GravityComponent.h"
+#include "Core/GravityBehaviour.h"
 
 using namespace jam::demo;
 
@@ -31,6 +34,7 @@ jam::MainScene::MainScene()
 	// Game specific components.
 	m_systemManager->AddSystem<AntBrain>();
 	m_systemManager->AddSystem<SmoothMovement>();
+	m_systemManager->AddSystem<GravityComponent>();
 
 	// Non framework utility components.
 	m_systemManager->AddSystem<AnimatorComponent>();
@@ -45,6 +49,7 @@ jam::MainScene::MainScene()
 
 	// Non framework utility behaviour.
 	m_animatorBehaviour = new AnimatorBehaviour(*m_systemManager);
+	m_gravityBehaviour = new GravityBehaviour(*m_systemManager);
 }
 
 jam::MainScene::~MainScene()
@@ -57,6 +62,7 @@ jam::MainScene::~MainScene()
 	delete m_smoothMovementBehaviour;
 
 	delete m_animatorBehaviour;
+	delete m_gravityBehaviour;
 }
 
 void jam::MainScene::Enable()
@@ -142,6 +148,13 @@ void jam::MainScene::CreateEntities()
 				transforms.instances[index].x = c * 32 + 16;
 				transforms.instances[index].y = r * 32 + 16;
 			}
+			else if (entityIndex == 3)
+			{
+				auto boulderFactory = BoulderFactory(*m_systemManager);	//create boulder
+				auto index = boulderFactory.Construct();
+				transforms.instances[index].x = c * 32 + 16;
+				transforms.instances[index].y = r * 32 + 16;
+			}
 		}
 	}
 }
@@ -153,6 +166,8 @@ bool jam::MainScene::Update(const float deltaTime)
 	m_smoothMovementBehaviour->Update(deltaTime);
 
 	// Update your behaviours.
+	m_gravityBehaviour->Update(deltaTime);
+
 	m_collisionBehaviour->Update();
 
 	m_animatorBehaviour->Update(deltaTime);
