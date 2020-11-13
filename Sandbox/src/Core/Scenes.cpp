@@ -22,6 +22,9 @@
 #include "Core/BoulderFactory.h"
 #include "Core/GravityComponent.h"
 #include "Core/GravityBehaviour.h"
+#include "Core/SpiderFactory.h"
+#include <Core\SpiderBrain.h>
+#include "Core/SpiderBehaviour.h"
 
 using namespace jam::demo;
 
@@ -38,6 +41,7 @@ jam::MainScene::MainScene()
 	m_systemManager->AddSystem<AntBrain>();
 	m_systemManager->AddSystem<SmoothMovement>();
 	m_systemManager->AddSystem<GravityComponent>();
+	m_systemManager->AddSystem<SpiderBrain>();
 
 	m_systemManager->AddSystem<SandBrain>();
 	m_systemManager->AddSystem<SandRemoverComponent>();
@@ -53,6 +57,7 @@ jam::MainScene::MainScene()
 	m_antBehaviour = new AntBehaviour(*m_systemManager);
 	m_smoothMovementBehaviour = new SmoothMovementBehaviour(*m_systemManager);
 	m_sandBehaviour = new SandBehaviour(*m_systemManager);
+	m_spiderBehaviour = new SpiderBehaviour(*m_systemManager);
 
 	// Non framework utility behaviour.
 	m_animatorBehaviour = new AnimatorBehaviour(*m_systemManager);
@@ -68,6 +73,7 @@ jam::MainScene::~MainScene()
 	delete m_antBehaviour;
 	delete m_smoothMovementBehaviour;
 	delete m_sandBehaviour;
+	delete m_spiderBehaviour;
 
 	delete m_animatorBehaviour;
 	delete m_gravityBehaviour;
@@ -85,6 +91,11 @@ void jam::MainScene::Enable()
 		transform.x = rand() % 600;
 		transform.y = rand() % 400;
 	}
+
+	auto spider = SpiderFactory(*m_systemManager);
+	auto id = spider.Construct();
+	set.instances[id].x = 600;
+	set.instances[id].y = 100;
 
 	// Add whatever other things you need.
 	CreateEntities();
@@ -171,12 +182,15 @@ bool jam::MainScene::Update(const float deltaTime)
 {
 	// Update custom game behaviour.
 	m_antBehaviour->Update();
+	m_spiderBehaviour->Update();
+
 	m_smoothMovementBehaviour->Update(deltaTime);
 
 	// Update your behaviours.
 	m_gravityBehaviour->Update(deltaTime);
-
 	m_collisionBehaviour->Update();
+
+	// Post collisions.
 	m_sandBehaviour->Update();
 
 	m_animatorBehaviour->Update(deltaTime);
