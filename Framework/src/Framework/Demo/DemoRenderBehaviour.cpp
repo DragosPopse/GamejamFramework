@@ -57,50 +57,33 @@ void jam::demo::DemoRenderBehaviour::Update()
 		int32_t x = transform.x + instance.xOffset - xOffset;
 		int32_t y = transform.y + instance.yOffset - yOffset;
 
-		const int32_t xSize = w / instance.count;
-		const int32_t ySize = h;
+		const float xScaledModifier = instance.scale + transform.xScale - 1;
+		const float yScaledModifier = instance.scale + transform.yScale - 1;
 
-		const int32_t wHalf = xSize / 2;
-		const int32_t hHalf = ySize / 2;
+		const float size = w / instance.count;
+
+		const float xSize = size * xScaledModifier;
+		const float ySize = h * yScaledModifier;
+
+		const float wHalf = xSize / 2;
+		const float hHalf = ySize / 2;
 
 		if (instance.xCenter)
 			x -= wHalf;
 		if (instance.yCenter)
 			y -= hHalf;
 
-		/*
-		// Out of bounds check.
-		const bool outOfBoundsLeft = x - wHalf < -DRAW_THRESHOLD;
-		if (outOfBoundsLeft)
-			continue;
-
-		const bool outOfBoundsBottom = y - hHalf < -DRAW_THRESHOLD;
-		if (outOfBoundsBottom)
-			continue;
-
-		const bool outOfBoundsRight = x + wHalf > screenWidth + DRAW_THRESHOLD;
-		if (outOfBoundsRight)
-			continue;
-
-		const bool outOfBoundsTop = y + hHalf > screenHeight + DRAW_THRESHOLD;
-		if (outOfBoundsTop)
-			continue;
-		*/
-
 		SDL_Rect srcRect;
-		srcRect.x = xSize * instance.index;
+		srcRect.x = size * instance.index;
 		srcRect.y = 0;
-		srcRect.w = xSize;
+		srcRect.w = size;
 		srcRect.h = h;
 
-		const float xScaledModifier = instance.scale + transform.xScale - 2;
-		const float yScaledModifier = instance.scale + transform.yScale - 2;
-
 		SDL_Rect dstRect;
-		dstRect.w = xSize * (1 + xScaledModifier);
-		dstRect.h = ySize * (1 + yScaledModifier);
-		dstRect.x = x - dstRect.w / 2;
-		dstRect.y = y - dstRect.h / 2;
+		dstRect.w = xSize;
+		dstRect.h = ySize;
+		dstRect.x = x;
+		dstRect.y = y;
 
 		SDL_RenderCopyEx(screen, texture, &srcRect, &dstRect,
 			instance.degrees + transform.degrees, nullptr, instance.flip);

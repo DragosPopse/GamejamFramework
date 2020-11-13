@@ -1,21 +1,21 @@
 #include "Precomp/Precomp.h"
-#include "Managers/TileMapper.h"
+#include "Managers/TileManager.h"
 #include <fstream>
 #include <string>
 #include <sstream>
 
 namespace jam
 {
-	TileMapper* TileMapper::m_Instance = nullptr;
+	TileManager* TileManager::m_Instance = nullptr;
 
-	TileMapper::TileMapper()
+	TileManager::TileManager()
 	{
 		LoadMap();
 		GenerateMap(m_MapDefaultPath);
 	}
 
 	// https://www.gormanalysis.com/blog/reading-and-writing-csv-files-with-cpp/
-	void TileMapper::LoadMap()
+	void TileManager::LoadMap()
 	{
 		std::ifstream file("files/Grid.csv");
 
@@ -54,7 +54,7 @@ namespace jam
 		file.close();
 	}
 
-	void TileMapper::GenerateMap(string path)
+	void TileManager::GenerateMap(string path)
 	{
 		int w, h;
 		SDL_GetRendererOutputSize(App::Get().m_renderer, &w, &h);
@@ -114,21 +114,21 @@ namespace jam
 		SDL_FreeSurface(tileSheet);
 	}
 
-	TileMapper* TileMapper::GetInstance()
+	TileManager* TileManager::GetInstance()
 	{
 		if (m_Instance == nullptr)
 		{
-			m_Instance = new TileMapper();
+			m_Instance = new TileManager();
 		}
 
 		return m_Instance;
 	}
 
-	bool TileMapper::HasTile(float x, float y, int& index)
+	bool TileManager::HasTile(float x, float y, int& index)
 	{
 		return false;
 	}
-	SDL_Texture* TileMapper::GetMap()
+	SDL_Texture* TileManager::GetMap()
 	{
 		return m_Background;
 	}
