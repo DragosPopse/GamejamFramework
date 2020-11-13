@@ -17,6 +17,9 @@ void jam::AnimatorBehaviour::Update(const float deltaTime)
 	{
 		const int32_t index = animators.dense[i];
 		auto& animator = *animators[i];
+		if (animator.paused)
+			continue;
+
 		auto& renderer = renderers.instances[index];
 
 		const int32_t from = animator.from;
