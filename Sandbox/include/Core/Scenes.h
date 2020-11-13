@@ -1,5 +1,5 @@
 #include <Precomp/Precomp.h>
-#include "Managers/TileMapper.h"
+#include "Managers/TileManager.h"
 #include "Gamejam/JECS/Core/SystemManager.h"
 #include "Gamejam/Demo/Behaviours/DemoRenderBehaviour.h"
 #include "Gamejam/Demo/Behaviours/DemoCollisionBehaviour.h"
@@ -17,6 +17,7 @@ namespace jam
 
 		void Enable() override;
 		void Disable() override;
+		void CreateEntities();
 
 		bool Update(float deltaTime) override;
 		bool Render() override;

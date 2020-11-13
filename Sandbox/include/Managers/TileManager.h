@@ -5,10 +5,10 @@ using std::string;
 
 namespace jam
 {
-	class TileMapper
+	class TileManager
 	{
 	public:
-		static TileMapper* GetInstance();
+		static TileManager* GetInstance();
 		bool HasTile(float x, float y, int& index);
 
 		SDL_Texture* GetMap();
@@ -17,10 +17,10 @@ namespace jam
 
 
 	private:
-		TileMapper();
+		TileManager();
 		void LoadMap();
 		void GenerateMap(string path);
-		static TileMapper* m_Instance;
+		static TileManager* m_Instance;
 		vector<vector<int>> m_Grid;
 		string m_MapDefaultPath = "files/tileSheet.png";
 	};
