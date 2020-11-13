@@ -17,14 +17,16 @@ void jam::AntFactory::OnConstruction()
 {
 	Add<AntBrain>();
 	Add<SmoothMovement>();
-	Add<AnimatorComponent>();
+	auto& animator = Add<AnimatorComponent>();
+	animator.to = 3;
+	animator.speed = 3;
 
 	Add<demo::DemoTransformComponent>();
 	Add<demo::DemoCollisionComponent>();
 	auto& renderer = Add<demo::DemoRenderComponent>();
-	renderer.count = 1;
+	renderer.count = 6;
 
 	auto& lib = demo::DemoTextureLib::Get();
-	renderer.texture = lib.GetTexture("files/ant.png");
+	renderer.texture = lib.GetTexture("files/ant_spritesheet.png");
 	renderer.scale = 1.0 / 8;
 }
