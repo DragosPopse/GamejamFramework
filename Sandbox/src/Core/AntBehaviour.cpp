@@ -1,6 +1,7 @@
 #include "Core/AntBehaviour.h"
 #include "Core/SmoothMovement.h"
 #include "SDL.h"
+#include "Core/AnimatorComponent.h"
 
 jam::AntBehaviour::AntBehaviour(jecs::SystemManager& manager) :
 	ISystemBehaviour<AntBrain>(manager)
@@ -12,6 +13,7 @@ void jam::AntBehaviour::Update()
 {
 	auto& antBrains = GetSet<AntBrain>();
 	auto& smootMovement = GetSet<SmoothMovement>();
+	auto& animators = GetSet<AnimatorComponent>();
 
 	const Uint8* state = SDL_GetKeyboardState(nullptr);
 	int32_t xDir = 0, yDir = 0;
@@ -25,6 +27,8 @@ void jam::AntBehaviour::Update()
 	if (state[SDL_SCANCODE_D])
 		xDir += 1;
 
+	const bool moving = xDir != 0 || yDir != 0;
+
 	const int32_t count = antBrains.GetCount();
 	for (int32_t i = 0; i < count; ++i)
 	{
@@ -33,5 +37,7 @@ void jam::AntBehaviour::Update()
 
 		movementInstance.xDir = xDir;
 		movementInstance.yDir = yDir;
+
+		animators.instances[index].paused = !moving;
 	}
 }

@@ -1,7 +1,6 @@
 ﻿#include "Core/SmoothMovementBehaviour.h"
 #include "Gamejam/Demo/Components/DemoTransformComponent.h"
 #include "SDL_stdinc.h"
-#include <iostream>
 
 jam::SmoothMovementBehaviour::SmoothMovementBehaviour(jecs::SystemManager& manager) :
 	ISystemBehaviour<jam::SmoothMovement>(manager)
@@ -26,7 +25,7 @@ void jam::SmoothMovementBehaviour::Update(const float deltaTime)
 		transform.x += xDelta;
 		transform.y += yDelta;
 
-		const bool rotate = abs(xDelta) > .1 || abs(yDelta) > .1;
+		const bool rotate = abs(xDelta) > 0 || abs(yDelta) > 0;
 		if (!rotate)
 			continue;
 		
