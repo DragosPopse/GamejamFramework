@@ -1,7 +1,7 @@
 #include "Precomp/Precomp.h"
 #include "Core/Scenes.h"
 
-JAM_ENTRY_SCENE(jam::EntryScene)
+JAM_ENTRY_SCENE(jam::MainScene)
 
 namespace jam
 {

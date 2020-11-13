@@ -23,7 +23,7 @@ void jam::demo::DemoCollisionBehaviour::Update()
 	for (int32_t i = 0; i < count; ++i)
 	{
 		const int32_t index = colliders.dense[i];
-		const DemoCollisionComponent collider = *colliders[i];
+		DemoCollisionComponent& collider = *colliders[i];
 		const DemoTransformComponent transform = transforms.instances[index];
 
 		const float xSize = transform.xScale * collider.xScale;
@@ -32,7 +32,7 @@ void jam::demo::DemoCollisionBehaviour::Update()
 		for (int32_t j = i + 1; j < count; ++j)
 		{
 			const int32_t otherIndex = colliders.dense[j];
-			const DemoCollisionComponent otherCollider = *colliders[j];
+			DemoCollisionComponent& otherCollider = *colliders[j];
 			const DemoTransformComponent otherTransform = transforms.instances[otherIndex];
 
 			// Check ignored layers.
@@ -66,13 +66,14 @@ void jam::demo::DemoCollisionBehaviour::Update()
 				yIntersect *= -1;
 
 			// Check if triggers.
-			if(!collider.isTrigger || !otherCollider.isTrigger)
-			{
-				DemoTransformComponent& a = transforms.instances[index];
-				DemoTransformComponent& b = transforms.instances[otherIndex];
+			DemoTransformComponent& a = transforms.instances[index];
+			DemoTransformComponent& b = transforms.instances[otherIndex];
 
+			const bool moving = !collider.isTrigger && !otherCollider.isTrigger;
+			if (moving)
+			{
 				// adjust position entities based on type.
-				if(!collider.isStatic)
+				if (!collider.isStatic)
 				{
 					const float mul = otherCollider.isStatic ? 1 : .5;
 					a.x -= xIntersect * mul * horizontalPriority;
@@ -87,11 +88,8 @@ void jam::demo::DemoCollisionBehaviour::Update()
 				}
 			}
 
-			DemoCollisionComponent& aCol = *colliders[i];
-			DemoCollisionComponent& bCol = *colliders[j];
-
-			aCol.collisions.push_back(j);
-			bCol.collisions.push_back(i);
+			collider.collisions.push_back(otherIndex);
+			otherCollider.collisions.push_back(index);
 		}
 	}
 }

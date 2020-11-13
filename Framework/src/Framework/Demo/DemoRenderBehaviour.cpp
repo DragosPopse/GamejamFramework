@@ -23,7 +23,7 @@ jam::demo::DemoRenderBehaviour::~DemoRenderBehaviour()
 
 void jam::demo::DemoRenderBehaviour::Update()
 {
-	PreRender();
+	//PreRender();
 
 	/*
 	This is a very simple version of a rendererbehaviour.
@@ -57,57 +57,39 @@ void jam::demo::DemoRenderBehaviour::Update()
 		int32_t x = transform.x + instance.xOffset - xOffset;
 		int32_t y = transform.y + instance.yOffset - yOffset;
 
-		const int32_t xSize = w / instance.count;
-		const int32_t ySize = h / instance.count;
+		const float xScaledModifier = instance.scale + transform.xScale - 1;
+		const float yScaledModifier = instance.scale + transform.yScale - 1;
 
-		const int32_t wHalf = xSize / 2;
-		const int32_t hHalf = ySize / 2;
+		const float size = w / instance.count;
+
+		const float xSize = size * xScaledModifier;
+		const float ySize = h * yScaledModifier;
+
+		const float wHalf = xSize / 2;
+		const float hHalf = ySize / 2;
 
 		if (instance.xCenter)
 			x -= wHalf;
 		if (instance.yCenter)
 			y -= hHalf;
 
-		// Out of bounds check.
-		const bool outOfBoundsLeft = x - wHalf < -DRAW_THRESHOLD;
-		if (outOfBoundsLeft)
-			continue;
-
-		const bool outOfBoundsBottom = y - hHalf < -DRAW_THRESHOLD;
-		if (outOfBoundsBottom)
-			continue;
-
-		const bool outOfBoundsRight = x + wHalf > screenWidth + DRAW_THRESHOLD;
-		if (outOfBoundsRight)
-			continue;
-
-		const bool outOfBoundsTop = y + hHalf > screenHeight + DRAW_THRESHOLD;
-		if (outOfBoundsTop)
-			continue;
-
 		SDL_Rect srcRect;
-		srcRect.x = xSize * instance.index;
+		srcRect.x = size * instance.index;
 		srcRect.y = 0;
-		srcRect.w = xSize;
+		srcRect.w = size;
 		srcRect.h = h;
 
-		const float xScaledModifier = instance.scale + transform.xScale - 2;
-		const float yScaledModifier = instance.scale + transform.yScale - 2;
-
-		const float xScaledOffset = xScaledModifier * wHalf;
-		const float yScaledOffset = yScaledModifier * hHalf;
-
 		SDL_Rect dstRect;
-		dstRect.x = x - xScaledOffset / 2;
-		dstRect.y = y - yScaledOffset / 2;
-		dstRect.w = w + xScaledOffset;
-		dstRect.h = h + yScaledOffset;
+		dstRect.w = xSize;
+		dstRect.h = ySize;
+		dstRect.x = x;
+		dstRect.y = y;
 
 		SDL_RenderCopyEx(screen, texture, &srcRect, &dstRect,
-			instance.angle + transform.angle, nullptr, instance.flip);
+			instance.degrees + transform.degrees, nullptr, instance.flip);
 	}
 
-	PostRender();
+	//PostRender();
 }
 
 void jam::demo::DemoRenderBehaviour::PreRender() const
@@ -138,6 +120,4 @@ void jam::demo::DemoRenderBehaviour::PostRender() const
 
 	SDL_RenderCopyEx(screen, m_texture, nullptr, &scaler,
 		m_angle, nullptr, SDL_FLIP_NONE);
-
-	SDL_RenderPresent(screen);
 }

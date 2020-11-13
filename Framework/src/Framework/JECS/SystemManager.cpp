@@ -1,4 +1,5 @@
 ﻿#include "Gamejam/JECS/Core/SystemManager.h"
+#include <iostream>
 
 jam::jecs::SystemManager::~SystemManager()
 {
@@ -19,7 +20,7 @@ void jam::jecs::SystemManager::DestroyEntity(const int32_t index)
 {
 	const Entity& entity = _entities.instances[index];
 	for (auto component : entity)
-		_systems[typeid(component)]->OnRemoveComponent(index);
+		_systems[component]->OnRemoveComponent(index);
 	_entities.Remove(index);
 }
 

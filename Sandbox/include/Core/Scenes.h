@@ -1,62 +1,39 @@
 #include <Precomp/Precomp.h>
-#include "Managers/TileMapper.h"
-#include "GameJam/Core/App.hpp"
+#include "Managers/TileManager.h"
+#include "Gamejam/JECS/Core/SystemManager.h"
+#include "Gamejam/Demo/Behaviours/DemoRenderBehaviour.h"
+#include "Gamejam/Demo/Behaviours/DemoCollisionBehaviour.h"
+#include "AntBehaviour.h"
+#include "SmoothMovementBehaviour.h"
+#include "AnimatorBehaviour.h"
+#include "SandBehaviour.h"
+#include "Core/GravityBehaviour.h"
 
 namespace jam
 {
-	class EntryScene :
-		public Scene
+	class MainScene final : public Scene
 	{
 	public:
-		void Enable() override
-		{
-			m_tileMapper = TileMapper::GetInstance();
-		}
+		MainScene();
+		~MainScene();
 
-		bool HandleEvent(const SDL_Event& ev) override
-		{
-			// Get input.
+		void Enable() override;
+		void Disable() override;
+		void CreateEntities();
 
-			return true;
-		}
-
-		bool Render() override
-		{
-			// Render stuff.
-
-			SDL_RenderClear(App::Get().m_renderer);
-			SDL_RenderCopy(App::Get().m_renderer, m_tileMapper->GetMap(), NULL, NULL);
-			SDL_RenderPresent(App::Get().m_renderer);
-			return true;
-		}
+		bool Update(float deltaTime) override;
+		bool Render() override;
 
 	private:
-		TileMapper* m_tileMapper;
-	};
+		jecs::SystemManager* m_systemManager = nullptr;
+		demo::DemoRenderBehaviour* m_renderBehaviour = nullptr;
+		demo::DemoCollisionBehaviour* m_collisionBehaviour = nullptr;
 
-	class MainScene :
-		public Scene
-	{
-	public:
-		bool HandleEvent(const SDL_Event& ev) override
-		{
-			// Get input.
+		AntBehaviour* m_antBehaviour = nullptr;
+		SmoothMovementBehaviour* m_smoothMovementBehaviour = nullptr;
+		SandBehaviour* m_sandBehaviour = nullptr;
+		GravityBehaviour* m_gravityBehaviour = nullptr;
 
-			return true;
-		}
-
-		bool Update(float dt) override
-		{
-			// Do stuff.
-
-			return true;
-		}
-
-		bool Render() override
-		{
-			// Render stuff.
-
-			return true;
-		}
+		AnimatorBehaviour* m_animatorBehaviour = nullptr;
 	};
 }
