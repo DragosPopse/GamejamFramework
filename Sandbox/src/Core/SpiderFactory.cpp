@@ -24,8 +24,10 @@ void jam::SpiderFactory::OnConstruction()
 
 	auto& renderer = Add<demo::DemoRenderComponent>();
 	auto& lib = demo::DemoTextureLib::Get();
-	renderer.texture = lib.GetTexture("files/spider.png");
+	renderer.texture = lib.GetTexture("files/spider_spritesheet.png");
 	renderer.scale = 1.0 / 8;
+	renderer.count = 3;
 
 	auto& animator = Add<AnimatorComponent>();
+	animator.speed = 3;
 }
