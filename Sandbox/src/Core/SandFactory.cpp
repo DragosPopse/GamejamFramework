@@ -4,9 +4,6 @@
 #include "Gamejam/Demo/Components/DemoRenderComponent.h"
 #include "Gamejam/Demo/Components/DemoCollisionComponent.h"
 #include "Gamejam/Demo/Other/DemoTextureLib.h"
-#include "Core/AntBrain.h"
-#include "Core/SmoothMovement.h"
-#include "Core/AnimatorComponent.h"
 
 jam::SandFactory::SandFactory(jecs::SystemManager& manager) : EntityFactory(manager)
 {

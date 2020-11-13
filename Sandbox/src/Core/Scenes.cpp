@@ -44,9 +44,6 @@ jam::MainScene::MainScene()
 
 	// Non framework utility behaviour.
 	m_animatorBehaviour = new AnimatorBehaviour(*m_systemManager);
-
-	// Add whatever other things you need.
-	CreateEntities();
 }
 
 jam::MainScene::~MainScene()
@@ -64,7 +61,7 @@ jam::MainScene::~MainScene()
 void jam::MainScene::Enable()
 {
 	// TODO ADD FACTORIES
-	/*auto& set = m_systemManager->GetSet<DemoTransformComponent>();
+	auto& set = m_systemManager->GetSet<DemoTransformComponent>();
 	auto factory = AntFactory(*m_systemManager);
 	for (int32_t i = 0; i < 100; ++i)
 	{
@@ -72,7 +69,10 @@ void jam::MainScene::Enable()
 		auto& transform = set.instances[id];
 		transform.x = rand() % 600;
 		transform.y = rand() % 400;
-	}*/
+	}
+
+	// Add whatever other things you need.
+	CreateEntities();
 }
 
 void jam::MainScene::Disable()
@@ -135,9 +135,8 @@ void jam::MainScene::CreateEntities()
 			{
 				auto sandFactory = SandFactory(*m_systemManager);
 				auto index = sandFactory.Construct();
-				transforms.instances[index].x = c * 32;
-				transforms.instances[index].y = r * 32;
-
+				transforms.instances[index].x = c * 32 + 16;
+				transforms.instances[index].y = r * 32 + 16;
 			}
 		}
 	}
