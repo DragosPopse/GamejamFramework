@@ -22,7 +22,7 @@ void jam::AntFactory::OnConstruction()
 	Add<demo::DemoTransformComponent>();
 	Add<demo::DemoCollisionComponent>();
 	auto& renderer = Add<demo::DemoRenderComponent>();
-	renderer.count = 2;
+	renderer.count = 1;
 
 	auto& lib = demo::DemoTextureLib::Get();
 	renderer.texture = lib.GetTexture("files/ant.png");

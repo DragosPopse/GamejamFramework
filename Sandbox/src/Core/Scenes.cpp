@@ -63,7 +63,7 @@ void jam::MainScene::Enable()
 	// TODO ADD FACTORIES
 	auto& set = m_systemManager->GetSet<DemoTransformComponent>();
 	auto factory = AntFactory(*m_systemManager);
-	for (int32_t i = 0; i < 100; ++i)
+	for (int32_t i = 0; i < 1; ++i)
 	{
 		const int32_t id = factory.Construct();
 		auto& transform = set.instances[id];
