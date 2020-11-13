@@ -15,7 +15,7 @@ void jam::SandFactory::OnConstruction()
 	Add<demo::DemoTransformComponent>();
 
 	auto& collider = Add<demo::DemoCollisionComponent>();
-	collider.isStatic = true;
+	collider.isTrigger = true;
 
 	auto& lib = demo::DemoTextureLib::Get();
 	renderer.texture = lib.GetTexture("files/tileSheet.png");

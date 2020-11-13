@@ -29,6 +29,8 @@ void jam::demo::DemoCollisionBehaviour::Update()
 		const float xSize = transform.xScale * collider.xScale;
 		const float ySize = transform.xScale * collider.yScale;
 
+		collider.collisions.clear();
+
 		for (int32_t j = i + 1; j < count; ++j)
 		{
 			const int32_t otherIndex = colliders.dense[j];
@@ -66,13 +68,14 @@ void jam::demo::DemoCollisionBehaviour::Update()
 				yIntersect *= -1;
 
 			// Check if triggers.
-			if(!collider.isTrigger || !otherCollider.isTrigger)
-			{
-				DemoTransformComponent& a = transforms.instances[index];
-				DemoTransformComponent& b = transforms.instances[otherIndex];
+			DemoTransformComponent& a = transforms.instances[index];
+			DemoTransformComponent& b = transforms.instances[otherIndex];
 
+			const bool moving = !collider.isTrigger && !otherCollider.isTrigger;
+			if (moving)
+			{
 				// adjust position entities based on type.
-				if(!collider.isStatic)
+				if (!collider.isStatic)
 				{
 					const float mul = otherCollider.isStatic ? 1 : .5;
 					a.x -= xIntersect * mul * horizontalPriority;
