@@ -15,6 +15,9 @@
 #include "Core/AnimatorComponent.h"
 #include "Core/AnimatorBehaviour.h"
 #include "Core/SandFactory.h"
+#include "Core/SandBrain.h"
+#include "Core/SandRemoverComponent.h"
+#include "Core/SandBehaviour.h"
 
 using namespace jam::demo;
 
@@ -31,6 +34,9 @@ jam::MainScene::MainScene()
 	m_systemManager->AddSystem<AntBrain>();
 	m_systemManager->AddSystem<SmoothMovement>();
 
+	m_systemManager->AddSystem<SandBrain>();
+	m_systemManager->AddSystem<SandRemoverComponent>();
+
 	// Non framework utility components.
 	m_systemManager->AddSystem<AnimatorComponent>();
 
@@ -41,6 +47,7 @@ jam::MainScene::MainScene()
 	// Game specific behaviour.
 	m_antBehaviour = new AntBehaviour(*m_systemManager);
 	m_smoothMovementBehaviour = new SmoothMovementBehaviour(*m_systemManager);
+	m_sandBehaviour = new SandBehaviour(*m_systemManager);
 
 	// Non framework utility behaviour.
 	m_animatorBehaviour = new AnimatorBehaviour(*m_systemManager);
@@ -54,6 +61,7 @@ jam::MainScene::~MainScene()
 
 	delete m_antBehaviour;
 	delete m_smoothMovementBehaviour;
+	delete m_sandBehaviour;
 
 	delete m_animatorBehaviour;
 }
@@ -150,6 +158,7 @@ bool jam::MainScene::Update(const float deltaTime)
 
 	// Update your behaviours.
 	m_collisionBehaviour->Update();
+	m_sandBehaviour->Update();
 
 	m_animatorBehaviour->Update(deltaTime);
 	return false;

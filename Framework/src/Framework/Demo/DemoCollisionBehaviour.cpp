@@ -29,8 +29,6 @@ void jam::demo::DemoCollisionBehaviour::Update()
 		const float xSize = transform.xScale * collider.xScale;
 		const float ySize = transform.xScale * collider.yScale;
 
-		collider.collisions.clear();
-
 		for (int32_t j = i + 1; j < count; ++j)
 		{
 			const int32_t otherIndex = colliders.dense[j];
@@ -90,8 +88,8 @@ void jam::demo::DemoCollisionBehaviour::Update()
 				}
 			}
 
-			collider.collisions.push_back(j);
-			otherCollider.collisions.push_back(i);
+			collider.collisions.push_back(otherIndex);
+			otherCollider.collisions.push_back(index);
 		}
 	}
 }
