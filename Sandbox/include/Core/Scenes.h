@@ -6,6 +6,7 @@
 #include "AntBehaviour.h"
 #include "SmoothMovementBehaviour.h"
 #include "AnimatorBehaviour.h"
+#include "SandBehaviour.h"
 #include "Core/GravityBehaviour.h"
 
 namespace jam
@@ -30,6 +31,7 @@ namespace jam
 
 		AntBehaviour* m_antBehaviour = nullptr;
 		SmoothMovementBehaviour* m_smoothMovementBehaviour = nullptr;
+		SandBehaviour* m_sandBehaviour = nullptr;
 		GravityBehaviour* m_gravityBehaviour = nullptr;
 
 		AnimatorBehaviour* m_animatorBehaviour = nullptr;

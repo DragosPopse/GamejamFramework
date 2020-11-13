@@ -99,7 +99,7 @@ namespace jam
 		{
 			GetSystem<T>().OnAddComponent(index);
 
-			auto entity = _entities.instances[index];
+			auto& entity = _entities.instances[index];
 			entity.insert(typeid(T));
 		}
 
@@ -108,7 +108,7 @@ namespace jam
 		{
 			GetSystem<T>().OnRemoveComponent(index);
 
-			auto entity = _entities.instances[index];
+			auto& entity = _entities.instances[index];
 			entity.erase(typeid(T));
 		}
 

@@ -33,6 +33,7 @@ namespace jam
 		protected:
 			template <typename U>
 			Utilities::SparseSet<U>& GetSet();
+			void RemoveEntity(int32_t index) const;
 
 		private:
 			SystemManager& _manager;
@@ -52,6 +53,12 @@ namespace jam
 		Utilities::SparseSet<U>& ISystemBehaviour<T>::GetSet()
 		{
 			return _manager.GetSet<U>();
+		}
+
+		template <typename T>
+		void ISystemBehaviour<T>::RemoveEntity(const int32_t index) const
+		{
+			_manager.DestroyEntity(index);
 		}
 	}
 }

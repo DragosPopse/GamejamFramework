@@ -6,6 +6,7 @@
 #include "Core/AntBrain.h"
 #include "Core/SmoothMovement.h"
 #include "Core/AnimatorComponent.h"
+#include "Core/SandRemoverComponent.h"
 
 jam::AntFactory::AntFactory(jecs::SystemManager& manager) :
 	EntityFactory(manager)
@@ -17,6 +18,8 @@ void jam::AntFactory::OnConstruction()
 {
 	Add<AntBrain>();
 	Add<SmoothMovement>();
+	Add<SandRemoverComponent>();
+
 	auto& animator = Add<AnimatorComponent>();
 	animator.to = 3;
 	animator.speed = 3;
