@@ -15,6 +15,7 @@
 #include "Core/AnimatorComponent.h"
 #include "Core/AnimatorBehaviour.h"
 #include "Core/SandFactory.h"
+#include "Core/StoneFactory.h"
 
 using namespace jam::demo;
 
@@ -127,11 +128,14 @@ void jam::MainScene::CreateEntities()
 		{
 			int entityIndex = entities[r][c];
 
-			if (entityIndex == 1)
+			if (entityIndex == 1)										//create stone
 			{
-
+				auto stoneFactory = StoneFactory(*m_systemManager);		
+				auto index = stoneFactory.Construct();
+				transforms.instances[index].x = c * 32 + 16;
+				transforms.instances[index].y = r * 32 + 16;
 			}
-			else if (entityIndex == 2)									//sand
+			else if (entityIndex == 2)									//create sand
 			{
 				auto sandFactory = SandFactory(*m_systemManager);
 				auto index = sandFactory.Construct();
