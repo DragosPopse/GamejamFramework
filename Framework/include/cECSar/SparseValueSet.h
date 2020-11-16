@@ -17,7 +17,6 @@ namespace Utilities
 		void Add(int32_t index);
 		void Remove(int32_t index);
 		bool Contains(int32_t index) const;
-		T* TryGet(int32_t index);
 
 		int32_t GetCount() const;
 
@@ -63,6 +62,9 @@ namespace Utilities
 	template <typename T>
 	void SparseValueSet<T>::Add(const int32_t index)
 	{
+		if (Contains(index))
+			return;
+
 		m_dense[m_count] = index;
 		m_sparse[index] = m_count++;
 
@@ -72,6 +74,9 @@ namespace Utilities
 	template <typename T>
 	void SparseValueSet<T>::Remove(const int32_t index)
 	{
+		if (!Contains(index))
+			return;
+
 		const int32_t denseIndex = m_sparse[index];
 
 		m_dense[denseIndex] = m_dense[--m_count];
@@ -85,14 +90,6 @@ namespace Utilities
 		if (m_denseIndex >= m_count)
 			return false;
 		return index == m_dense[m_denseIndex];
-	}
-
-	template <typename T>
-	T* SparseValueSet<T>::TryGet(const int32_t index)
-	{
-		if (!Contains(index))
-			return nullptr;
-		return &m_instances[index];
 	}
 
 	template <typename T>
