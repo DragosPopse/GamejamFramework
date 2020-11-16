@@ -53,5 +53,5 @@ bool jam::cecsar::ECSystemManager::ContainsEntity(const int32_t index, const int
 
 int32_t jam::cecsar::ECSystemManager::GetEntityUniqueId(const int32_t index) const
 {
-	return m_entities->operator[](index)->m_uniqueId;
+	return m_entities->m_instances[index].m_uniqueId;
 }

@@ -10,8 +10,6 @@ namespace Utilities
 		int32_t* m_dense;
 		T* m_instances;
 
-		T* operator [](int32_t index);
-
 		SparseValueSet(int32_t capacity);
 		~SparseValueSet();
 
@@ -29,12 +27,6 @@ namespace Utilities
 		int32_t m_count = 0;
 		int32_t m_capacity;
 	};
-
-	template <typename T>
-	T* SparseValueSet<T>::operator[](const int32_t index)
-	{
-		return &m_instances[m_dense[index]];
-	}
 
 	template <typename T>
 	SparseValueSet<T>::SparseValueSet(const int32_t capacity) :

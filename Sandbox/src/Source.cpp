@@ -78,8 +78,9 @@ namespace jam
 			const auto count = aSet.GetCount();
 			for (int32_t i = 0; i < count; ++i)
 			{
-				auto& a = *aSet[i];
-				auto& b = bSet.m_instances[aSet.m_dense[i]];
+				const auto index = aSet.m_dense[i];
+				auto& a = aSet.m_instances[index];
+				auto& b = bSet.m_instances[index];
 
 				a.b++;
 				b.c--;
@@ -92,7 +93,7 @@ namespace jam
 	public:
 		void Enable() override
 		{
-			delete [] manager.CreateFactoryEntities<ABFactory>(20);
+			delete [] manager.CreateFactoryEntities<ABFactory>(1000);
 			manager.DestroyEntity(5);
 			int32_t index = manager.CreateEntity();
 		}
