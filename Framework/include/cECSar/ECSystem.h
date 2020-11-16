@@ -5,13 +5,15 @@
 
 namespace jam::cecsar
 {
+	class ECSystemManager;
+
 	template <typename T>
-	class ECSystem final : IECSystem
+	class ECSystem final : public IECSystem
 	{
 	public:
 		Utilities::SparseValueSet<T>* m_set;
 
-		ECSystem(int32_t capacity);
+		ECSystem(ECSystemManager& manager, int32_t capacity);
 		~ECSystem();
 
 		void Add(int32_t index) override;
@@ -19,7 +21,8 @@ namespace jam::cecsar
 	};
 
 	template <typename T>
-	ECSystem<T>::ECSystem(const int32_t capacity) :
+	ECSystem<T>::ECSystem(ECSystemManager& manager, const int32_t capacity) :
+		IECSystem(manager),
 		m_set(new Utilities::SparseValueSet<T>(capacity))
 	{
 		

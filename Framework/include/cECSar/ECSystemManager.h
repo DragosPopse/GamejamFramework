@@ -29,7 +29,7 @@ namespace jam::cecsar
 
 		// Components.
 		template <typename T>
-		void AddComponent(int32_t index);
+		T& AddComponent(int32_t index);
 		template <typename T>
 		void RemoveComponent(int32_t index);
 
@@ -74,16 +74,18 @@ namespace jam::cecsar
 		std::unordered_map<std::type_index, IEntityPack*> m_packs;
 
 		template <typename T>
-		ECSystem<T*>& GetSystem();
+		ECSystem<T>& GetSystem();
 
 		template <typename T>
 		T& GetPack();
 	};
 
 	template <typename T>
-	void ECSystemManager::AddComponent(const int32_t index)
+	T& ECSystemManager::AddComponent(const int32_t index)
 	{
-		GetSystem<T>().Add(index);
+		auto& system = GetSystem<T>();
+		system.Add(index);
+		return system.m_set->m_instances[index];
 	}
 
 	template <typename T>
@@ -107,7 +109,7 @@ namespace jam::cecsar
 	template <typename T>
 	Utilities::SparseValueSet<T>& ECSystemManager::GetSet()
 	{
-		return GetSystem<T>().m_set;
+		return *GetSystem<T>().m_set;
 	}
 
 	template <typename T>
@@ -123,7 +125,7 @@ namespace jam::cecsar
 	{
 		if (m_modules.count(typeid(T)) == 0)
 			m_modules[typeid(T)] = new T(*this);
-		return *m_modules[typeid(T)];
+		return *static_cast<T*>(m_modules[typeid(T)]);
 	}
 
 	template <typename T>
@@ -131,7 +133,7 @@ namespace jam::cecsar
 	{
 		if (m_factories.count(typeid(T)) == 0)
 			m_factories[typeid(T)] = new T(*this);
-		T& factory = m_factories[typeid(T)];
+		IEntityFactory& factory = *m_factories[typeid(T)];
 
 		int32_t* indexes = new int32_t[count];
 
@@ -159,12 +161,12 @@ namespace jam::cecsar
 	}
 
 	template <typename T>
-	ECSystem<T*>& ECSystemManager::GetSystem()
+	ECSystem<T>& ECSystemManager::GetSystem()
 	{
 		if (m_systems.count(typeid(T)) == 0)
-			m_systems[typeid(T)] = new ECSystem<T*>(m_capacity);
-		auto system = static_cast<ECSystem<T>*>(m_systems[typeid(T)]);
-		return system;
+			m_systems[typeid(T)] = new ECSystem<T>(*this, m_capacity);
+		ECSystem<T>* system = static_cast<ECSystem<T>*>(m_systems[typeid(T)]);
+		return *system;
 	}
 
 	template <typename T>
@@ -172,6 +174,6 @@ namespace jam::cecsar
 	{
 		if (m_packs.count(typeid(T)) == 0)
 			m_packs[typeid(T)] = new T(*this);
-		return m_packs[typeid(T)];
+		return *static_cast<T*>(m_packs[typeid(T)]);
 	}
 }
