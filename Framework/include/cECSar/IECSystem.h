@@ -3,11 +3,13 @@
 
 namespace jam::cecsar
 {
+	class ECSystemManager;
 	class IECSubscribeable;
 
 	class IECSystem
 	{
 	public:
+		IECSystem(ECSystemManager& manager);
 		virtual ~IECSystem();
 
 		virtual void Add(int32_t index);

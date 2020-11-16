@@ -11,6 +11,10 @@ jam::cecsar::ECSystemManager::~ECSystemManager()
 	delete m_entities;
 	for (auto system : m_systems)
 		delete system.second;
+	for (auto system : m_componentSystems)
+		delete system.second;
+	for (auto system : m_modules)
+		delete system.second;
 }
 
 int32_t jam::cecsar::ECSystemManager::CreateEntity()

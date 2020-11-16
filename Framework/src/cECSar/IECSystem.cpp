@@ -1,6 +1,10 @@
 ﻿#include "cECSar/IECSystem.h"
 #include "cECSar/IECSubscribeable.h"
 
+jam::cecsar::IECSystem::IECSystem(ECSystemManager& manager)
+{
+}
+
 jam::cecsar::IECSystem::~IECSystem() = default;
 
 void jam::cecsar::IECSystem::Add(const int32_t index)

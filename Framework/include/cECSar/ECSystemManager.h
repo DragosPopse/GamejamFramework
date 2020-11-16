@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include "ECSystem.h"
 #include "IComponentSystem.h"
+#include "IModule.h"
 
 namespace jam::cecsar
 {
@@ -21,7 +22,7 @@ namespace jam::cecsar
 		void DestroyEntity(int32_t index);
 		void ClearEntities();
 
-		bool ContainsEntity(int32_t index, int32_t uniqueId=-1) const;
+		bool ContainsEntity(int32_t index, int32_t uniqueId= -1) const;
 		int32_t GetEntityUniqueId(int32_t index) const;
 
 		// Components.
@@ -42,6 +43,10 @@ namespace jam::cecsar
 		template <typename T>
 		void Update();
 
+		// Modules.
+		template <typename T>
+		T& GetModule();
+
 	private:
 		int32_t m_globalEntityIdIndex = 0;
 		const int32_t m_capacity;
@@ -49,6 +54,7 @@ namespace jam::cecsar
 		Utilities::SparseValueSet<Entity>* m_entities;
 		std::unordered_map<std::type_index, IECSystem*> m_systems;
 		std::unordered_map<std::type_index, IComponentSystem*> m_componentSystems;
+		std::unordered_map<std::type_index, IModule*> m_modules;
 
 		template <typename T>
 		ECSystem<T*>& GetSystem();
@@ -88,8 +94,16 @@ namespace jam::cecsar
 	void ECSystemManager::Update()
 	{
 		if (m_componentSystems.count(typeid(T)) == 0)
-			m_componentSystems[typeid(T)] = new T();
+			m_componentSystems[typeid(T)] = new T(*this);
 		m_componentSystems[typeid(T)]->Update(*this);
+	}
+
+	template <typename T>
+	T& ECSystemManager::GetModule()
+	{
+		if (m_modules.count(typeid(T)) == 0)
+			m_modules[typeid(T)] = new T(*this);
+		return *m_modules[typeid(T)];
 	}
 
 	template <typename T>
