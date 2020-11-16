@@ -7,6 +7,8 @@ namespace jam::cecsar
 	class IComponentSystem
 	{
 	public:
+		IComponentSystem(ECSystemManager& manager);
+
 		virtual ~IComponentSystem();
 		virtual void Update(ECSystemManager& systemManager) = 0;
 	};
