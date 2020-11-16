@@ -1,7 +1,9 @@
-#include "Precomp/Precomp.h"
-#include "Core/Scenes.h"
+#include "Gamejam/Core/Entry.hpp"
+#include <SDL_vulkan.h>
+#include "Gamejam/Core/App.hpp"
+#include "Gamejam/SceneManagement/Scene.hpp"
+#include "cECSar/ECSystemManager.h"
 
-JAM_ENTRY_SCENE(jam::MainScene)
 
 namespace jam
 {
@@ -11,7 +13,7 @@ namespace jam
     public:
         Application()
         {
-            App::Info info;
+            Info info;
             info.width = 32*20;
             info.height = 32*20;
             info.title = "Gamer";
@@ -21,6 +23,12 @@ namespace jam
             Init(info);
         }
     };
+
+	class MainScene final : public Scene
+	{
+		cecsar::ECSystemManager manager = cecsar::ECSystemManager(1000);
+	};
 }
 
+JAM_ENTRY_SCENE(jam::MainScene)
 JAM_APP(jam::Application)

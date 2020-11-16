@@ -4,9 +4,12 @@
 #include "Entity.h"
 #include <unordered_map>
 #include "ECSystem.h"
+#include "IComponentSystem.h"
 
 namespace jam::cecsar
 {
+	class IECSubscribeable;
+
 	class ECSystemManager final
 	{
 	public:
@@ -28,12 +31,16 @@ namespace jam::cecsar
 		void RemoveComponent(int32_t index);
 
 		template <typename T>
-		void Subscribe(IECSubscribeable* subscribeable);
+		void Subscribe(IECSubscribeable& subscribeable);
 		template <typename T>
-		void Unsubscribe(IECSubscribeable* subscribeable);
+		void Unsubscribe(IECSubscribeable& subscribeable);
 
 		template <typename T>
 		Utilities::SparseValueSet<T>& GetSet();
+
+		// Systems.
+		template <typename T>
+		void Update();
 
 	private:
 		int32_t m_globalEntityIdIndex = 0;
@@ -41,38 +48,56 @@ namespace jam::cecsar
 
 		Utilities::SparseValueSet<Entity>* m_entities;
 		std::unordered_map<std::type_index, IECSystem*> m_systems;
+		std::unordered_map<std::type_index, IComponentSystem*> m_componentSystems;
+
+		template <typename T>
+		ECSystem<T*>& GetSystem();
 	};
 
 	template <typename T>
 	void ECSystemManager::AddComponent(const int32_t index)
 	{
-		m_systems[typeid(T)]->Add(index);
+		GetSystem<T>().Add(index);
 	}
 
 	template <typename T>
 	void ECSystemManager::RemoveComponent(const int32_t index)
 	{
-		m_systems[typeid(T)]->Remove(index);
+		GetSystem<T>().Remove(index);
 	}
 
 	template <typename T>
-	void ECSystemManager::Subscribe(IECSubscribeable* subscribeable)
+	void ECSystemManager::Subscribe(IECSubscribeable& subscribeable)
 	{
-		m_systems[typeid(T)]->Subscribe(subscribeable);
+		GetSystem<T>().Subscribe(subscribeable);
 	}
 
 	template <typename T>
-	void ECSystemManager::Unsubscribe(IECSubscribeable* subscribeable)
+	void ECSystemManager::Unsubscribe(IECSubscribeable& subscribeable)
 	{
-		m_systems[typeid(T)]->Unsubscribe(subscribeable);
+		GetSystem<T>().Unsubscribe(subscribeable);
 	}
 
 	template <typename T>
 	Utilities::SparseValueSet<T>& ECSystemManager::GetSet()
 	{
+		return GetSystem<T>().m_set;
+	}
+
+	template <typename T>
+	void ECSystemManager::Update()
+	{
+		if (m_componentSystems.count(typeid(T)) == 0)
+			m_componentSystems[typeid(T)] = new T();
+		m_componentSystems[typeid(T)]->Update(*this);
+	}
+
+	template <typename T>
+	ECSystem<T*>& ECSystemManager::GetSystem()
+	{
 		if (m_systems.count(typeid(T)) == 0)
 			m_systems[typeid(T)] = new ECSystem<T*>(m_capacity);
 		auto system = static_cast<ECSystem<T>*>(m_systems[typeid(T)]);
-		return system->m_set;
+		return system;
 	}
 }
