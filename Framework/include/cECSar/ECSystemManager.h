@@ -13,6 +13,21 @@ namespace jam::cecsar
 {
 	class IECSubscribeable;
 
+	/*
+	You don't need to set up anything else besides this class to start working with cecsar.
+	Anything you access is automatically instantiated, so you just need to define those classes.
+
+	There are four interfaces you can inherit from, which work with this class.
+	- IComponentSystem.
+	Inherit to create a system that defines the behaviour for one or more components.
+	- IECSubscribable.
+	Inherit to be able to subscribe to component related events.
+	- IEntityFactory.
+	Inherit to be able to create a blueprint for an entity.
+	- IModule.
+	Inherit to make utility classes that can be accessed from anywhere within the framework.
+	An example would be a TextureLibraryModule, or a RenderModule, or TimeModule.
+	*/
 	class ECSystemManager final
 	{
 	public:

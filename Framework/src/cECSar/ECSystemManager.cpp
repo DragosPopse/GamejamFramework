@@ -48,7 +48,7 @@ bool jam::cecsar::ECSystemManager::ContainsEntity(const int32_t index, const int
 {
 	if (!m_entities->Contains(index))
 		return false;
-	return uniqueId ? true : m_entities->m_instances[index].m_uniqueId == uniqueId;
+	return uniqueId == -1 ? true : m_entities->m_instances[index].m_uniqueId == uniqueId;
 }
 
 int32_t jam::cecsar::ECSystemManager::GetEntityUniqueId(const int32_t index) const

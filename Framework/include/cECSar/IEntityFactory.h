@@ -5,6 +5,13 @@ namespace jam::cecsar
 {
 	class ECSystemManager;
 
+	/*
+	You can inherit this interface to make it automatically generated
+	and accessable for everything within the ECSystemManager.
+
+	You can define a blueprint for an entity here.
+	You can add components to the target entity, call events, set variables and so on.
+	*/
 	class IEntityFactory
 	{
 		friend ECSystemManager;
