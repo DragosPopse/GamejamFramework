@@ -115,26 +115,38 @@ namespace jam::cecsar
 	template <typename T>
 	void ECSystemManager::Update()
 	{
-		if (m_componentSystems.count(typeid(T)) == 0)
-			m_componentSystems[typeid(T)] = new T(*this);
+		if (m_componentSystems.count(typeid(T)) == 0) 
+		{
+			auto cSystem = new T();
+			cSystem->Initialize(*this);
+			m_componentSystems[typeid(T)] = cSystem;
+		}
 		m_componentSystems[typeid(T)]->Update(*this);
 	}
 
 	template <typename T>
 	T& ECSystemManager::GetModule()
 	{
-		if (m_modules.count(typeid(T)) == 0)
-			m_modules[typeid(T)] = new T(*this);
+		if (m_modules.count(typeid(T)) == 0) 
+		{
+			auto module = new T();
+			module->Initialize(*this);
+			m_modules[typeid(T)] = module;
+		}
 		return *static_cast<T*>(m_modules[typeid(T)]);
 	}
 
 	template <typename T>
 	int32_t* ECSystemManager::CreateFactoryEntities(const int32_t count)
 	{
-		if (m_factories.count(typeid(T)) == 0)
-			m_factories[typeid(T)] = new T(*this);
-		IEntityFactory& factory = *m_factories[typeid(T)];
+		if (m_factories.count(typeid(T)) == 0) 
+		{
+			auto factory = new T();
+			factory->Initialize(*this);
+			m_factories[typeid(T)] = factory;
+		}
 
+		IEntityFactory& factory = *m_factories[typeid(T)];
 		int32_t* indexes = new int32_t[count];
 
 		for (int32_t i = 0; i < count; ++i)
@@ -163,8 +175,9 @@ namespace jam::cecsar
 	template <typename T>
 	ECSystem<T>& ECSystemManager::GetSystem()
 	{
-		if (m_systems.count(typeid(T)) == 0)
+		if (m_systems.count(typeid(T)) == 0) 
 			m_systems[typeid(T)] = new ECSystem<T>(*this, m_capacity);
+
 		ECSystem<T>* system = static_cast<ECSystem<T>*>(m_systems[typeid(T)]);
 		return *system;
 	}
@@ -172,8 +185,13 @@ namespace jam::cecsar
 	template <typename T>
 	T& ECSystemManager::GetPack()
 	{
-		if (m_packs.count(typeid(T)) == 0)
-			m_packs[typeid(T)] = new T(*this);
+		if (m_packs.count(typeid(T)) == 0) 
+		{
+			auto pack = new T();
+			pack->Initialize(*this);
+			m_packs[typeid(T)] = pack;
+		}
+
 		return *static_cast<T*>(m_packs[typeid(T)]);
 	}
 }

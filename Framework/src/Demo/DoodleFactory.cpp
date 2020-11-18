@@ -4,11 +4,6 @@
 #include "Demo/Components/RenderComponent.h"
 #include "Demo/Modules/RenderModule.h"
 
-jam::demo::DoodleFactory::DoodleFactory(cecsar::ECSystemManager& manager) :
-	IEntityFactory(manager)
-{
-}
-
 void jam::demo::DoodleFactory::OnConstruction(cecsar::ECSystemManager& manager, const int32_t index)
 {
 	auto& transform = manager.AddComponent<TransformComponent>(index);

@@ -6,8 +6,12 @@ namespace jam::cecsar
 
 	class IModule
 	{
+		friend ECSystemManager;
+
 	public:
-		IModule(ECSystemManager& manager);
 		virtual ~IModule();
+
+	protected:
+		virtual void Initialize(ECSystemManager& manager);
 	};
 }

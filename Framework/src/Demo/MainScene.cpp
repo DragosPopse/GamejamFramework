@@ -20,7 +20,7 @@ bool jam::demo::MainScene::Render()
 
 void jam::demo::MainScene::Enable()
 {
-	delete [] m_ecsManager.CreateFactoryEntities<DoodleFactory>(50);
+	delete [] m_ecsManager.CreateFactoryEntities<DoodleFactory>(1000);
 }
 
 void jam::demo::MainScene::Disable()

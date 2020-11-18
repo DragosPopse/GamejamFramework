@@ -6,10 +6,13 @@ namespace jam::cecsar
 
 	class IComponentSystem
 	{
-	public:
-		IComponentSystem(ECSystemManager& manager);
+		friend ECSystemManager;
 
+	public:
 		virtual ~IComponentSystem();
 		virtual void Update(ECSystemManager& systemManager) = 0;
+
+	protected:
+		virtual void Initialize(ECSystemManager& manager);
 	};
 }
