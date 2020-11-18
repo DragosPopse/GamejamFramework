@@ -55,6 +55,8 @@ void jam::demo::TransformSystem::Update(cecsar::ECSystemManager& systemManager)
 		{
 			transform.xPosGlobal = transform.xPos;
 			transform.yPosGlobal = transform.yPos;
+
+			transform.degreesGlobal = transform.degrees;
 			continue;
 		}
 
@@ -62,6 +64,8 @@ void jam::demo::TransformSystem::Update(cecsar::ECSystemManager& systemManager)
 
 		transform.xPosGlobal = transform.xPos + parent.xPosGlobal;
 		transform.yPosGlobal = transform.yPos + parent.yPosGlobal;
+
+		transform.degreesGlobal = transform.degrees + parent.degreesGlobal;
 	}
 }
 

@@ -72,7 +72,7 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 		dstRect.x = x;
 		dstRect.y = y;
 
-		const float degrees = renderer.degrees + transform.degrees;
+		const float degrees = renderer.degrees + transform.degreesGlobal;
 		SDL_RenderCopyEx(screen, texture, &srcRect, &dstRect,
 			degrees, nullptr, renderer.flip);
 	}

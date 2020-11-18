@@ -9,7 +9,7 @@ bool jam::demo::MainScene::Update(float dt)
 {
 	m_ecsManager.GetSet<TransformComponent>().instances[3].xPos += dt * 20;
 	m_ecsManager.GetSet<TransformComponent>().instances[1].yPos += dt * 20;
-	m_ecsManager.GetSet<TransformComponent>().instances[1].xScale += dt / 2;
+	m_ecsManager.GetSet<TransformComponent>().instances[1].degrees += dt * 10;
 	m_ecsManager.GetSet<TransformComponent>().instances[2].yScale += dt / 3;
 	m_ecsManager.GetSet<TransformComponent>().instances[2].depth += dt;
 
