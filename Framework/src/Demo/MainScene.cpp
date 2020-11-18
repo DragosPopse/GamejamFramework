@@ -9,9 +9,9 @@ bool jam::demo::MainScene::Update(float dt)
 {
 	m_ecsManager.GetSet<TransformComponent>().instances[3].xPos += dt * 20;
 	m_ecsManager.GetSet<TransformComponent>().instances[1].yPos += dt * 20;
-	m_ecsManager.GetSet<TransformComponent>().instances[1].degrees += dt * 10;
-	m_ecsManager.GetSet<TransformComponent>().instances[2].yScale += dt / 3;
-	m_ecsManager.GetSet<TransformComponent>().instances[2].depth += dt;
+	m_ecsManager.GetSet<TransformComponent>().instances[2].yPos = 150;
+	m_ecsManager.GetSet<TransformComponent>().instances[1].degrees += dt * 100;
+	m_ecsManager.GetSet<TransformComponent>().instances[1].yScale += dt / 4;
 
 	m_ecsManager.Update<TransformSystem>();
 	return false;
@@ -36,11 +36,11 @@ void jam::demo::MainScene::Enable()
 	const auto indexes = m_ecsManager.CreateFactoryEntities<DoodleFactory>(count);
 	m_ecsManager.GetSet<TransformComponent>().instances[1].parent = 3;
 	m_ecsManager.GetSet<TransformComponent>().instances[1].xPos = 20;
-	m_ecsManager.GetSet<TransformComponent>().instances[1].yPos = 30;
+	m_ecsManager.GetSet<TransformComponent>().instances[1].yPos = 50;
 
 	m_ecsManager.GetSet<TransformComponent>().instances[2].parent = 1;
-	m_ecsManager.GetSet<TransformComponent>().instances[2].xPos = -20;
-	m_ecsManager.GetSet<TransformComponent>().instances[2].yPos = 40;
+	m_ecsManager.GetSet<TransformComponent>().instances[2].xPos = 50;
+	m_ecsManager.GetSet<TransformComponent>().instances[2].yPos = 50;
 	delete [] indexes;
 	m_ecsManager.GetModule<RenderModule>().zoom = .8;
 	m_ecsManager.GetModule<RenderModule>().angle = 30;

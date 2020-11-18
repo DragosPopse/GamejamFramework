@@ -12,13 +12,14 @@ namespace jam::demo
 		float xPosGlobal = 0;
 		float yPosGlobal = 0;
 
-		float depth = 0;
-
 		float degrees = 0;
 		float degreesGlobal;
 
 		float xScale = 1;
 		float yScale = 1;
+
+		float xScaleGlobal = 0;
+		float yScaleGlobal = 0;
 
 		int32_t parent = -1;
 	};

@@ -57,15 +57,29 @@ void jam::demo::TransformSystem::Update(cecsar::ECSystemManager& systemManager)
 			transform.yPosGlobal = transform.yPos;
 
 			transform.degreesGlobal = transform.degrees;
+
+			transform.xScaleGlobal = transform.xScale;
+			transform.yScaleGlobal = transform.yScale;
 			continue;
 		}
 
 		auto& parent = transforms.instances[transform.parent];
 
-		transform.xPosGlobal = transform.xPos + parent.xPosGlobal;
-		transform.yPosGlobal = transform.yPos + parent.yPosGlobal;
+		const float lerp = parent.degreesGlobal / 45;
+
+		const float sin = std::sin(lerp);
+		const float cos = std::cos(lerp);
+
+		const float xPos = transform.yPos * sin + transform.xPos * cos;
+		const float yPos = transform.yPos * cos - transform.xPos * sin;
+
+		transform.xPosGlobal = -xPos + parent.xPosGlobal;
+		transform.yPosGlobal = yPos + parent.yPosGlobal;
 
 		transform.degreesGlobal = transform.degrees + parent.degreesGlobal;
+
+		transform.xScaleGlobal = transform.xScale + parent.xScaleGlobal;
+		transform.yScaleGlobal = transform.yScale + parent.yScaleGlobal;
 	}
 }
 
