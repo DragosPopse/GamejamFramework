@@ -19,28 +19,28 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 	const int32_t screenWidth = app.m_width, screenHeight = app.m_height;
 
 	RenderModule& module = systemManager.GetModule<RenderModule>();
-	const int32_t xCameraOffset = module.m_xCameraOffset;
-	const int32_t yCameraOffset = module.m_yCameraOffset;
+	const int32_t xCameraOffset = module.xCameraOffset;
+	const int32_t yCameraOffset = module.yCameraOffset;
 
 	// Iterate over all the renderers to render them on the screen.
 	const int32_t count = renderers.GetCount();
 	for (int32_t i = 0; i < count; ++i)
 	{
-		const int32_t index = renderers.m_dense[i];
-		auto& renderer = renderers.m_instances[index];
-		auto& transform = transforms.m_instances[index];
-		auto& texture = renderer.m_texture;
+		const int32_t index = renderers.dense[i];
+		auto& renderer = renderers.instances[index];
+		auto& transform = transforms.instances[index];
+		auto& texture = renderer.texture;
 
 		int32_t w, h;
 		SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
 
-		int32_t x = transform.m_x + renderer.m_xOffset - xCameraOffset;
-		int32_t y = transform.m_y + renderer.m_yOffset - yCameraOffset;
+		int32_t x = transform.x + renderer.xOffset - xCameraOffset;
+		int32_t y = transform.y + renderer.yOffset - yCameraOffset;
 
-		const float xScaledModifier = renderer.m_xScale + transform.m_xScale - 1;
-		const float yScaledModifier = renderer.m_yScale + transform.m_yScale - 1;
+		const float xScaledModifier = renderer.xScale + transform.xScale - 1;
+		const float yScaledModifier = renderer.yScale + transform.yScale - 1;
 
-		const float size = w / renderer.m_count;
+		const float size = w / renderer.count;
 
 		const float xSize = size * xScaledModifier;
 		const float ySize = h * yScaledModifier;
@@ -48,9 +48,9 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 		const float wHalf = xSize / 2;
 		const float hHalf = ySize / 2;
 
-		if (renderer.m_xCenter)
+		if (renderer.xCenter)
 			x -= wHalf;
-		if (renderer.m_yCenter)
+		if (renderer.yCenter)
 			y -= hHalf;
 
 		if (x + wHalf < 0 || y + hHalf < 0)
@@ -59,7 +59,7 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 			continue;
 
 		SDL_Rect srcRect;
-		srcRect.x = size * renderer.m_index;
+		srcRect.x = size * renderer.index;
 		srcRect.y = 0;
 		srcRect.w = size;
 		srcRect.h = h;
@@ -70,7 +70,7 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 		dstRect.x = x;
 		dstRect.y = y;
 
-		const float degrees = renderer.m_degrees + transform.m_degrees;
+		const float degrees = renderer.degrees + transform.degrees;
 		SDL_RenderCopyEx(screen, texture, &srcRect, &dstRect,
 			degrees, nullptr, renderer.flip);
 	}

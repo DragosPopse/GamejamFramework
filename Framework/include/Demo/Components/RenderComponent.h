@@ -6,19 +6,19 @@ namespace jam::demo
 	class RenderComponent final
 	{
 	public:
-		SDL_Texture* m_texture = nullptr;
-		int32_t m_xScale = 1;
-		int32_t m_yScale = 1;
-		float m_degrees = 0;
+		SDL_Texture* texture = nullptr;
+		int32_t xScale = 1;
+		int32_t yScale = 1;
+		float degrees = 0;
 
-		int32_t m_xOffset = 0;
-		int32_t m_yOffset = 0;
+		int32_t xOffset = 0;
+		int32_t yOffset = 0;
 
-		int32_t m_index = 0;
-		int32_t m_count = 1;
+		int32_t index = 0;
+		int32_t count = 1;
 
-		bool m_xCenter = true;
-		bool m_yCenter = true;
+		bool xCenter = true;
+		bool yCenter = true;
 		SDL_RendererFlip flip = SDL_FLIP_NONE;
 	};
 }

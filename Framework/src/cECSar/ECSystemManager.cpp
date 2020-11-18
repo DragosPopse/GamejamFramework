@@ -25,14 +25,14 @@ jam::cecsar::ECSystemManager::~ECSystemManager()
 int32_t jam::cecsar::ECSystemManager::CreateEntity()
 {
 	const int32_t index = m_entities->Add();
-	m_entities->m_instances[index].m_uniqueId = m_globalEntityIdIndex++;
+	m_entities->instances[index].uniqueId = m_globalEntityIdIndex++;
 	return index;
 }
 
 void jam::cecsar::ECSystemManager::DestroyEntity(const int32_t index)
 {
-	auto& entity = m_entities->m_instances[index];
-	for (auto component : entity.m_components)
+	auto& entity = m_entities->instances[index];
+	for (auto component : entity.components)
 		m_systems[component]->Remove(index);
 
 	m_entities->Remove(index);
@@ -48,10 +48,10 @@ bool jam::cecsar::ECSystemManager::ContainsEntity(const int32_t index, const int
 {
 	if (!m_entities->Contains(index))
 		return false;
-	return uniqueId == -1 ? true : m_entities->m_instances[index].m_uniqueId == uniqueId;
+	return uniqueId == -1 ? true : m_entities->instances[index].uniqueId == uniqueId;
 }
 
 int32_t jam::cecsar::ECSystemManager::GetEntityUniqueId(const int32_t index) const
 {
-	return m_entities->m_instances[index].m_uniqueId;
+	return m_entities->instances[index].uniqueId;
 }

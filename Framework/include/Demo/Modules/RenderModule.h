@@ -9,13 +9,13 @@ namespace jam::demo
 	class RenderModule final : public cecsar::IModule
 	{
 	public:
-		float m_zoom = 1;
-		float m_angle = 0;
-		float m_xOffset = 0, m_yOffset = 0;
-		float m_xCameraOffset = 0, m_yCameraOffset = 0;
+		float zoom = 1;
+		float angle = 0;
+		float xOffset = 0, yOffset = 0;
+		float xCameraOffset = 0, yCameraOffset = 0;
 
-		int32_t m_colorForegroundClear = 0xff;
-		int32_t m_colorBackgroundClear = 0x00;
+		int32_t colorForegroundClear = 0xff;
+		int32_t colorBackgroundClear = 0x00;
 
 		RenderModule();
 		~RenderModule();

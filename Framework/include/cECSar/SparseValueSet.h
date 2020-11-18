@@ -12,8 +12,8 @@ namespace Utilities
 	class SparseValueSet final
 	{
 	public:
-		int32_t* m_dense;
-		T* m_instances;
+		int32_t* dense;
+		T* instances;
 
 		SparseValueSet(int32_t capacity);
 		~SparseValueSet();
@@ -34,9 +34,9 @@ namespace Utilities
 
 	template <typename T>
 	SparseValueSet<T>::SparseValueSet(const int32_t capacity) :
-		m_dense(new int32_t[capacity]()),
+		dense(new int32_t[capacity]()),
 		m_sparse(new int32_t[capacity]()),
-		m_instances(new T[capacity]()),
+		instances(new T[capacity]()),
 		m_capacity(capacity)
 	{
 
@@ -45,9 +45,9 @@ namespace Utilities
 	template <typename T>
 	SparseValueSet<T>::~SparseValueSet()
 	{
-		delete[] m_dense;
+		delete[] dense;
 		delete[] m_sparse;
-		delete[] m_instances;
+		delete[] instances;
 	}
 
 	template <typename T>
@@ -70,10 +70,10 @@ namespace Utilities
 		if (Contains(index))
 			return;
 
-		m_dense[m_count] = index;
+		dense[m_count] = index;
 		m_sparse[index] = m_count++;
 
-		m_instances[index] = T();
+		instances[index] = T();
 	}
 
 	template <typename T>
@@ -84,8 +84,8 @@ namespace Utilities
 
 		const int32_t denseIndex = m_sparse[index];
 
-		m_dense[denseIndex] = m_dense[--m_count];
-		m_sparse[m_dense[denseIndex]] = denseIndex;
+		dense[denseIndex] = dense[--m_count];
+		m_sparse[dense[denseIndex]] = denseIndex;
 	}
 
 	template <typename T>
@@ -94,7 +94,7 @@ namespace Utilities
 		const int32_t m_denseIndex = m_sparse[index];
 		if (m_denseIndex >= m_count)
 			return false;
-		return index == m_dense[m_denseIndex];
+		return index == dense[m_denseIndex];
 	}
 
 	template <typename T>

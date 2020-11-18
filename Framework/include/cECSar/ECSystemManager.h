@@ -100,7 +100,7 @@ namespace jam::cecsar
 	{
 		auto& system = GetSystem<T>();
 		system.Add(index);
-		return system.m_set->m_instances[index];
+		return system.set->instances[index];
 	}
 
 	template <typename T>
@@ -124,7 +124,7 @@ namespace jam::cecsar
 	template <typename T>
 	Utilities::SparseValueSet<T>& ECSystemManager::GetSet()
 	{
-		return *GetSystem<T>().m_set;
+		return *GetSystem<T>().set;
 	}
 
 	template <typename T>

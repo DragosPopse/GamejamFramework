@@ -7,11 +7,11 @@
 
 bool jam::demo::MainScene::Update(float dt)
 {
-	m_ecsManager.GetSet<TransformComponent>().m_instances[3].m_x += dt * 20;
-	m_ecsManager.GetSet<TransformComponent>().m_instances[1].m_y += dt * 20;
-	m_ecsManager.GetSet<TransformComponent>().m_instances[1].m_xScale += dt / 2;
-	m_ecsManager.GetSet<TransformComponent>().m_instances[1].m_yScale += dt / 3;
-	m_ecsManager.GetSet<TransformComponent>().m_instances[1].m_degrees += dt * 10;
+	m_ecsManager.GetSet<TransformComponent>().instances[3].x += dt * 20;
+	m_ecsManager.GetSet<TransformComponent>().instances[1].y += dt * 20;
+	m_ecsManager.GetSet<TransformComponent>().instances[1].xScale += dt / 2;
+	m_ecsManager.GetSet<TransformComponent>().instances[1].yScale += dt / 3;
+	m_ecsManager.GetSet<TransformComponent>().instances[1].degrees += dt * 10;
 
 	m_ecsManager.Update<TransformSystem>();
 	return false;
@@ -34,16 +34,16 @@ void jam::demo::MainScene::Enable()
 {
 	const int32_t count = 5;
 	const auto indexes = m_ecsManager.CreateFactoryEntities<DoodleFactory>(count);
-	m_ecsManager.GetSet<TransformComponent>().m_instances[1].m_parent = 3;
-	m_ecsManager.GetSet<TransformComponent>().m_instances[1].m_x = 20;
-	m_ecsManager.GetSet<TransformComponent>().m_instances[1].m_y = 30;
+	m_ecsManager.GetSet<TransformComponent>().instances[1].parent = 3;
+	m_ecsManager.GetSet<TransformComponent>().instances[1].x = 20;
+	m_ecsManager.GetSet<TransformComponent>().instances[1].y = 30;
 
-	m_ecsManager.GetSet<TransformComponent>().m_instances[2].m_parent = 1;
-	m_ecsManager.GetSet<TransformComponent>().m_instances[2].m_x = -20;
-	m_ecsManager.GetSet<TransformComponent>().m_instances[2].m_y = 40;
+	m_ecsManager.GetSet<TransformComponent>().instances[2].parent = 1;
+	m_ecsManager.GetSet<TransformComponent>().instances[2].x = -20;
+	m_ecsManager.GetSet<TransformComponent>().instances[2].y = 40;
 	delete [] indexes;
-	m_ecsManager.GetModule<RenderModule>().m_zoom = .8;
-	m_ecsManager.GetModule<RenderModule>().m_angle = 30;
+	m_ecsManager.GetModule<RenderModule>().zoom = .8;
+	m_ecsManager.GetModule<RenderModule>().angle = 30;
 }
 
 void jam::demo::MainScene::Disable()

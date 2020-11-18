@@ -9,15 +9,15 @@ namespace jam::demo
 		friend TransformSystem;
 
 	public:
-		float m_x = 0;
-		float m_y = 0;
+		float x = 0;
+		float y = 0;
 
-		float m_degrees = 0;
+		float degrees = 0;
 
-		float m_xScale = 1;
-		float m_yScale = 1;
+		float xScale = 1;
+		float yScale = 1;
 
-		int32_t m_parent = -1;
+		int32_t parent = -1;
 
 	private:
 		float m_xPrevious = 0;

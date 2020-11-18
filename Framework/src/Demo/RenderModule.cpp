@@ -25,11 +25,11 @@ void jam::demo::RenderModule::PreRender() const
 	SDL_Renderer* screen = App::Get().m_renderer;
 
 	SDL_SetRenderDrawColor(screen, 
-		m_colorForegroundClear, m_colorForegroundClear, m_colorForegroundClear, 0);
+		colorForegroundClear, colorForegroundClear, colorForegroundClear, 0);
 	SDL_SetRenderTarget(screen, m_texture);
 
 	SDL_SetRenderDrawColor(screen, 
-		m_colorBackgroundClear, m_colorBackgroundClear, m_colorBackgroundClear, 0);
+		colorBackgroundClear, colorBackgroundClear, colorBackgroundClear, 0);
 	SDL_RenderClear(screen);
 }
 
@@ -41,13 +41,13 @@ void jam::demo::RenderModule::PostRender() const
 	SDL_SetRenderTarget(screen, nullptr);
 
 	SDL_Rect scaler;
-	scaler.x = m_xOffset + app.m_width * (1 - m_zoom) / 2;
-	scaler.y = m_yOffset + app.m_height * (1 - m_zoom) / 2;
-	scaler.w = app.m_width * m_zoom;
-	scaler.h = app.m_height * m_zoom;
+	scaler.x = xOffset + app.m_width * (1 - zoom) / 2;
+	scaler.y = yOffset + app.m_height * (1 - zoom) / 2;
+	scaler.w = app.m_width * zoom;
+	scaler.h = app.m_height * zoom;
 
 	SDL_RenderCopyEx(screen, m_texture, nullptr, &scaler,
-		m_angle, nullptr, SDL_FLIP_NONE);
+		angle, nullptr, SDL_FLIP_NONE);
 }
 
 SDL_Texture* jam::demo::RenderModule::GetTexture(const std::string& path)
