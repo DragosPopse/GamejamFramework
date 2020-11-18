@@ -5,6 +5,8 @@
 #include "Demo/Components/RenderComponent.h"
 #include "Demo/Components/TransformComponent.h"
 #include "Demo/Modules/RenderModule.h"
+#include <stdlib.h>
+#include <stdlib.h>
 
 void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 {
@@ -34,11 +36,11 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 		int32_t w, h;
 		SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
 
-		int32_t x = transform.x + renderer.xOffset - xCameraOffset;
-		int32_t y = transform.y + renderer.yOffset - yCameraOffset;
+		int32_t x = transform.xPosGlobal + renderer.xOffset - xCameraOffset;
+		int32_t y = transform.yPosGlobal + renderer.yOffset - yCameraOffset;
 
 		const float xScaledModifier = renderer.xScale + transform.xScale - 1;
-		const float yScaledModifier = renderer.yScale + transform.yScale - 1;
+		const float yScaledModifier = renderer.yScale + transform.yScale - 1 ;
 
 		const float size = w / renderer.count;
 

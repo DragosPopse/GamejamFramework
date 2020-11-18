@@ -55,3 +55,8 @@ int32_t jam::cecsar::ECSystemManager::GetEntityUniqueId(const int32_t index) con
 {
 	return m_entities->instances[index].uniqueId;
 }
+
+int32_t jam::cecsar::ECSystemManager::GetCapacity() const
+{
+	return m_capacity;
+}

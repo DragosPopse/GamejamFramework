@@ -74,6 +74,8 @@ namespace jam::cecsar
 		template <typename T>
 		void RemovePackFromEntity(int32_t index);
 
+		int32_t GetCapacity() const;
+
 	private:
 		int32_t m_globalEntityIdIndex = 0;
 		const int32_t m_capacity;

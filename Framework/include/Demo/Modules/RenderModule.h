@@ -14,6 +14,9 @@ namespace jam::demo
 		float xOffset = 0, yOffset = 0;
 		float xCameraOffset = 0, yCameraOffset = 0;
 
+		float depth = 0;
+		float depthModifier = 1;
+
 		int32_t colorForegroundClear = 0xff;
 		int32_t colorBackgroundClear = 0x00;
 
