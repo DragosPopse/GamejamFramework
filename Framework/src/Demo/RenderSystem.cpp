@@ -27,7 +27,7 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 	for (int32_t i = 0; i < count; ++i)
 	{
 		const int32_t index = renderers.m_dense[i];
-		auto& renderer = renderers.m_instances[i];
+		auto& renderer = renderers.m_instances[index];
 		auto& transform = transforms.m_instances[index];
 		auto& texture = renderer.m_texture;
 
@@ -37,8 +37,8 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 		int32_t x = transform.m_x + renderer.m_xOffset - xCameraOffset;
 		int32_t y = transform.m_y + renderer.m_yOffset - yCameraOffset;
 
-		const float xScaledModifier = renderer.m_scale + transform.m_xScale - 1;
-		const float yScaledModifier = renderer.m_scale + transform.m_yScale - 1;
+		const float xScaledModifier = renderer.m_xScale + transform.m_xScale - 1;
+		const float yScaledModifier = renderer.m_yScale + transform.m_yScale - 1;
 
 		const float size = w / renderer.m_count;
 
@@ -53,9 +53,9 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 		if (renderer.m_yCenter)
 			y -= hHalf;
 
-		if (x - wHalf < 0 || y - hHalf < 0)
+		if (x + wHalf < 0 || y + hHalf < 0)
 			continue;
-		if (x + wHalf > screenWidth || y + hHalf > screenHeight)
+		if (x - wHalf > screenWidth || y - hHalf > screenHeight)
 			continue;
 
 		SDL_Rect srcRect;

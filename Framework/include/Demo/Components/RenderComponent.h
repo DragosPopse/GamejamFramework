@@ -7,7 +7,8 @@ namespace jam::demo
 	{
 	public:
 		SDL_Texture* m_texture = nullptr;
-		int32_t m_scale = 1;
+		int32_t m_xScale = 1;
+		int32_t m_yScale = 1;
 		float m_degrees = 0;
 
 		int32_t m_xOffset = 0;

@@ -18,6 +18,15 @@ void jam::demo::TransformSystem::Update(cecsar::ECSystemManager& systemManager)
 
 		transform.m_xPrevious = transform.m_x;
 		transform.m_yPrevious = transform.m_y;
+
+		transform.m_degreesDelta = transform.m_degrees - transform.m_degreesPrevious;
+		transform.m_degreesPrevious = transform.m_degrees;
+
+		transform.m_xScaleDelta = transform.m_xScale - transform.m_xScalePrevious;
+		transform.m_yScaleDelta = transform.m_yScale - transform.m_yScalePrevious;
+
+		transform.m_xScalePrevious = transform.m_xScale;
+		transform.m_yScalePrevious = transform.m_yScale;
 	}
 
 	// Update positions.
@@ -29,17 +38,33 @@ void jam::demo::TransformSystem::Update(cecsar::ECSystemManager& systemManager)
 		float xDelta = 0;
 		float yDelta = 0;
 
+		float degreesDelta = 0;
+		float xOffset = 0;
+		float yOffset = 0;
+
+		float xScaleDelta = 0;
+		float yScaleDelta = 0;
+
 		int32_t parentIndex = transform.m_parent;
 		while(parentIndex != -1)
 		{
 			auto& parent = transforms.m_instances[parentIndex];
 			xDelta += parent.m_xDelta;
 			yDelta += parent.m_yDelta;
+
+			degreesDelta += parent.m_degreesDelta;
+			xScaleDelta += parent.m_xScaleDelta;
+			yScaleDelta += parent.m_yScaleDelta;
+
 			parentIndex = parent.m_parent;
 		}
 
 		// move transform based on delta.
-		transform.m_x += xDelta;
-		transform.m_y += yDelta;
+		transform.m_x += xDelta + xOffset;
+		transform.m_y += yDelta + yOffset;
+
+		transform.m_degrees += degreesDelta;
+		transform.m_xScale += xScaleDelta;
+		transform.m_yScale += yScaleDelta;
 	}
 }

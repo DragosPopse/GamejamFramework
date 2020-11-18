@@ -9,6 +9,10 @@ bool jam::demo::MainScene::Update(float dt)
 {
 	m_ecsManager.GetSet<TransformComponent>().m_instances[3].m_x += dt * 20;
 	m_ecsManager.GetSet<TransformComponent>().m_instances[1].m_y += dt * 20;
+	m_ecsManager.GetSet<TransformComponent>().m_instances[1].m_xScale += dt / 2;
+	m_ecsManager.GetSet<TransformComponent>().m_instances[1].m_yScale += dt / 3;
+	m_ecsManager.GetSet<TransformComponent>().m_instances[1].m_degrees += dt * 10;
+
 	m_ecsManager.Update<TransformSystem>();
 	return false;
 }
@@ -39,6 +43,7 @@ void jam::demo::MainScene::Enable()
 	m_ecsManager.GetSet<TransformComponent>().m_instances[2].m_y = 40;
 	delete [] indexes;
 	m_ecsManager.GetModule<RenderModule>().m_zoom = .8;
+	m_ecsManager.GetModule<RenderModule>().m_angle = 30;
 }
 
 void jam::demo::MainScene::Disable()
