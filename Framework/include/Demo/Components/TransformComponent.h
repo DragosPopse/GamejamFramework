@@ -10,5 +10,8 @@ namespace jam::demo
 
 		float m_degrees = 0;
 		float m_scale = 1;
+
+		int32_t m_xScale = 1;
+		int32_t m_yScale = 1;
 	};
 }
