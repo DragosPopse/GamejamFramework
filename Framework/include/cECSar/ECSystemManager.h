@@ -13,6 +13,21 @@ namespace jam::cecsar
 {
 	class IECSubscribeable;
 
+	/*
+	You don't need to set up anything else besides this class to start working with cecsar.
+	Anything you access is automatically instantiated, so you just need to define those classes.
+
+	There are four interfaces you can inherit from, which work with this class.
+	- IComponentSystem.
+	Inherit to create a system that defines the behaviour for one or more components.
+	- IECSubscribable.
+	Inherit to be able to subscribe to component related events.
+	- IEntityFactory.
+	Inherit to be able to create a blueprint for an entity.
+	- IModule.
+	Inherit to make utility classes that can be accessed from anywhere within the framework.
+	An example would be a TextureLibraryModule, or a RenderModule, or TimeModule.
+	*/
 	class ECSystemManager final
 	{
 	public:
@@ -115,26 +130,38 @@ namespace jam::cecsar
 	template <typename T>
 	void ECSystemManager::Update()
 	{
-		if (m_componentSystems.count(typeid(T)) == 0)
-			m_componentSystems[typeid(T)] = new T(*this);
+		if (m_componentSystems.count(typeid(T)) == 0) 
+		{
+			auto cSystem = new T();
+			cSystem->Initialize(*this);
+			m_componentSystems[typeid(T)] = cSystem;
+		}
 		m_componentSystems[typeid(T)]->Update(*this);
 	}
 
 	template <typename T>
 	T& ECSystemManager::GetModule()
 	{
-		if (m_modules.count(typeid(T)) == 0)
-			m_modules[typeid(T)] = new T(*this);
+		if (m_modules.count(typeid(T)) == 0) 
+		{
+			auto module = new T();
+			module->Initialize(*this);
+			m_modules[typeid(T)] = module;
+		}
 		return *static_cast<T*>(m_modules[typeid(T)]);
 	}
 
 	template <typename T>
 	int32_t* ECSystemManager::CreateFactoryEntities(const int32_t count)
 	{
-		if (m_factories.count(typeid(T)) == 0)
-			m_factories[typeid(T)] = new T(*this);
-		IEntityFactory& factory = *m_factories[typeid(T)];
+		if (m_factories.count(typeid(T)) == 0) 
+		{
+			auto factory = new T();
+			factory->Initialize(*this);
+			m_factories[typeid(T)] = factory;
+		}
 
+		IEntityFactory& factory = *m_factories[typeid(T)];
 		int32_t* indexes = new int32_t[count];
 
 		for (int32_t i = 0; i < count; ++i)
@@ -163,8 +190,9 @@ namespace jam::cecsar
 	template <typename T>
 	ECSystem<T>& ECSystemManager::GetSystem()
 	{
-		if (m_systems.count(typeid(T)) == 0)
+		if (m_systems.count(typeid(T)) == 0) 
 			m_systems[typeid(T)] = new ECSystem<T>(*this, m_capacity);
+
 		ECSystem<T>* system = static_cast<ECSystem<T>*>(m_systems[typeid(T)]);
 		return *system;
 	}
@@ -172,8 +200,13 @@ namespace jam::cecsar
 	template <typename T>
 	T& ECSystemManager::GetPack()
 	{
-		if (m_packs.count(typeid(T)) == 0)
-			m_packs[typeid(T)] = new T(*this);
+		if (m_packs.count(typeid(T)) == 0) 
+		{
+			auto pack = new T();
+			pack->Initialize(*this);
+			m_packs[typeid(T)] = pack;
+		}
+
 		return *static_cast<T*>(m_packs[typeid(T)]);
 	}
 }

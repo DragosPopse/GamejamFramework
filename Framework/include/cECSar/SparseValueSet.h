@@ -3,6 +3,11 @@
 
 namespace Utilities
 {
+	/*
+	This is a sort of combination of a map and a normal vector.
+	You can access the instances with a key, where the key is an integer.
+	You can also use the dense array plus the count to iterate over the populated section of the set.
+	*/
 	template <typename T>
 	class SparseValueSet final
 	{
