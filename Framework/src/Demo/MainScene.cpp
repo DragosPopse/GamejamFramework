@@ -2,9 +2,14 @@
 #include "Demo/ComponentSystems/RenderSystem.h"
 #include "Demo/Factories/DoodleFactory.h"
 #include "Demo/Modules/RenderModule.h"
+#include "Demo/ComponentSystems/TransformSystem.h"
+#include "Demo/Components/TransformComponent.h"
 
 bool jam::demo::MainScene::Update(float dt)
 {
+	m_ecsManager.GetSet<TransformComponent>().m_instances[3].m_x += dt * 20;
+	m_ecsManager.GetSet<TransformComponent>().m_instances[1].m_y += dt * 20;
+	m_ecsManager.Update<TransformSystem>();
 	return false;
 }
 
@@ -23,8 +28,17 @@ bool jam::demo::MainScene::Render()
 
 void jam::demo::MainScene::Enable()
 {
-	delete [] m_ecsManager.CreateFactoryEntities<DoodleFactory>(1000);
-	m_ecsManager.GetModule<RenderModule>().m_zoom = 3;
+	const int32_t count = 5;
+	const auto indexes = m_ecsManager.CreateFactoryEntities<DoodleFactory>(count);
+	m_ecsManager.GetSet<TransformComponent>().m_instances[1].m_parent = 3;
+	m_ecsManager.GetSet<TransformComponent>().m_instances[1].m_x = 20;
+	m_ecsManager.GetSet<TransformComponent>().m_instances[1].m_y = 30;
+
+	m_ecsManager.GetSet<TransformComponent>().m_instances[2].m_parent = 1;
+	m_ecsManager.GetSet<TransformComponent>().m_instances[2].m_x = -20;
+	m_ecsManager.GetSet<TransformComponent>().m_instances[2].m_y = 40;
+	delete [] indexes;
+	m_ecsManager.GetModule<RenderModule>().m_zoom = .8;
 }
 
 void jam::demo::MainScene::Disable()
