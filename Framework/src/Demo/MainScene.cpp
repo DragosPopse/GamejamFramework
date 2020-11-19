@@ -1,18 +1,12 @@
 ﻿#include "Demo/Scenes/MainScene.h"
 #include "Demo/ComponentSystems/RenderSystem.h"
-#include "Demo/Factories/DoodleFactory.h"
 #include "Demo/Modules/RenderModule.h"
 #include "Demo/ComponentSystems/TransformSystem.h"
 #include "Demo/Components/TransformComponent.h"
+#include "Demo/Factories/GroundBlockFactory.h"
 
 bool jam::demo::MainScene::Update(float dt)
 {
-	m_ecsManager.GetSet<TransformComponent>().instances[3].xPos += dt * 20;
-	m_ecsManager.GetSet<TransformComponent>().instances[1].yPos += dt * 20;
-	m_ecsManager.GetSet<TransformComponent>().instances[2].yPos = 150;
-	m_ecsManager.GetSet<TransformComponent>().instances[1].degrees += dt * 100;
-	m_ecsManager.GetSet<TransformComponent>().instances[1].yScale += dt / 4;
-
 	m_ecsManager.Update<TransformSystem>();
 	return false;
 }
@@ -32,18 +26,28 @@ bool jam::demo::MainScene::Render()
 
 void jam::demo::MainScene::Enable()
 {
-	const int32_t count = 1000;
-	const auto indexes = m_ecsManager.CreateFactoryEntities<DoodleFactory>(count);
-	m_ecsManager.GetSet<TransformComponent>().instances[1].parent = 3;
-	m_ecsManager.GetSet<TransformComponent>().instances[1].xPos = 20;
-	m_ecsManager.GetSet<TransformComponent>().instances[1].yPos = 50;
+	const int32_t groundBlockWidth = 30;
+	const auto indexes = m_ecsManager.CreateFactoryEntities<GroundBlockFactory>(
+		groundBlockWidth * groundBlockWidth);
 
-	m_ecsManager.GetSet<TransformComponent>().instances[2].parent = 1;
-	m_ecsManager.GetSet<TransformComponent>().instances[2].xPos = 50;
-	m_ecsManager.GetSet<TransformComponent>().instances[2].yPos = 50;
+	auto& transforms = m_ecsManager.GetSet<TransformComponent>();
+	for (int32_t x = 0; x < groundBlockWidth; ++x)
+		for (int32_t y = 0; y < groundBlockWidth; ++y)
+		{
+			const int32_t index = indexes[x + y * groundBlockWidth];
+			auto& transform = transforms.instances[index];
+
+			transform.xPos = x * 8;
+			transform.yPos = y * 8;
+		}
+	
 	delete [] indexes;
-	//m_ecsManager.GetModule<RenderModule>().zoom = .8;
-	//m_ecsManager.GetModule<RenderModule>().angle = 30;
+
+	auto& renderModule = m_ecsManager.GetModule<RenderModule>();
+	renderModule.zoom = 2.6;
+	renderModule.xOffset = 100;
+	renderModule.yOffset = 300;
+	renderModule.angle = 30;
 }
 
 void jam::demo::MainScene::Disable()
