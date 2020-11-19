@@ -32,7 +32,7 @@ bool jam::demo::MainScene::Render()
 
 void jam::demo::MainScene::Enable()
 {
-	const int32_t count = 5;
+	const int32_t count = 1000;
 	const auto indexes = m_ecsManager.CreateFactoryEntities<DoodleFactory>(count);
 	m_ecsManager.GetSet<TransformComponent>().instances[1].parent = 3;
 	m_ecsManager.GetSet<TransformComponent>().instances[1].xPos = 20;
@@ -42,8 +42,8 @@ void jam::demo::MainScene::Enable()
 	m_ecsManager.GetSet<TransformComponent>().instances[2].xPos = 50;
 	m_ecsManager.GetSet<TransformComponent>().instances[2].yPos = 50;
 	delete [] indexes;
-	m_ecsManager.GetModule<RenderModule>().zoom = .8;
-	m_ecsManager.GetModule<RenderModule>().angle = 30;
+	//m_ecsManager.GetModule<RenderModule>().zoom = .8;
+	//m_ecsManager.GetModule<RenderModule>().angle = 30;
 }
 
 void jam::demo::MainScene::Disable()

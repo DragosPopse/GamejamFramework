@@ -1,5 +1,4 @@
 #pragma once
-#include "Demo/ComponentSystems/TransformSystem.h"
 
 namespace jam::demo
 {
@@ -20,6 +19,8 @@ namespace jam::demo
 
 		float xScaleGlobal = 0;
 		float yScaleGlobal = 0;
+
+		float depth = 0;
 
 		int32_t parent = -1;
 	};

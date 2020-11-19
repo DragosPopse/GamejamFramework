@@ -55,9 +55,9 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 		if (renderer.yCenter)
 			y -= hHalf;
 
-		if (x + wHalf < 0 || y + hHalf < 0)
+		if (x + xSize < 0 || y + ySize < 0)
 			continue;
-		if (x - wHalf > screenWidth || y - hHalf > screenHeight)
+		if (x - xSize > screenWidth || y - ySize > screenHeight)
 			continue;
 
 		SDL_Rect srcRect;
@@ -66,11 +66,15 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 		srcRect.w = size;
 		srcRect.h = h;
 
+		const float depthModifier = std::max(module.minDepth, 
+			1.0f - transform.depth * module.depthModifier);
+		const float positionModifier = (1 - depthModifier) / 2;
+
 		SDL_Rect dstRect;
-		dstRect.w = xSize;
-		dstRect.h = ySize;
-		dstRect.x = x;
-		dstRect.y = y;
+		dstRect.w = xSize * depthModifier;
+		dstRect.h = ySize * depthModifier;
+		dstRect.x = x * depthModifier + positionModifier * screenWidth;
+		dstRect.y = y * depthModifier + positionModifier * screenHeight;
 
 		const float degrees = renderer.degrees + transform.degreesGlobal;
 		SDL_RenderCopyEx(screen, texture, &srcRect, &dstRect,

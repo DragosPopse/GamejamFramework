@@ -41,6 +41,8 @@ void jam::demo::TransformSystem::Update(cecsar::ECSystemManager& systemManager)
 		Sortable& sortable = sortables[i];
 		sortable.index = index;
 		sortable.depth = depth;
+
+		transforms.instances[index].depth += 0.0002;
 	}
 
 	// Sort based on depth. Parents first.
@@ -77,6 +79,7 @@ void jam::demo::TransformSystem::Update(cecsar::ECSystemManager& systemManager)
 		transform.yPosGlobal = yPos + parent.yPosGlobal;
 
 		transform.degreesGlobal = transform.degrees + parent.degreesGlobal;
+		transform.depth = parent.depth;
 
 		transform.xScaleGlobal = transform.xScale + parent.xScaleGlobal;
 		transform.yScaleGlobal = transform.yScale + parent.yScaleGlobal;
