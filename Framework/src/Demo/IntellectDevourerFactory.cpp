@@ -7,6 +7,7 @@
 #include "Demo/Components/PlayerInputComponent.h"
 #include "Demo/Components/MovementComponent.h"
 #include "Demo/Components/CameraTargetComponent.h"
+#include "Demo/Components/AnimatorComponent.h"
 
 void jam::demo::IntellectDevourerFactory::OnConstruction(
 	cecsar::ECSystemManager& manager, const int32_t index)
@@ -21,4 +22,7 @@ void jam::demo::IntellectDevourerFactory::OnConstruction(
 	auto& renderer = manager.AddComponent<RenderComponent>(index);
 	renderer.texture = manager.GetModule<RenderModule>().GetTexture("files/IntellectDevourer.png");
 	renderer.count = 4;
+
+	auto& animator = manager.AddComponent<AnimatorComponent>(index);
+	animator.to = 2;
 }

@@ -6,6 +6,7 @@
 #include "Demo/Components/MovementComponent.h"
 #include "Demo/Components/ControllerComponent.h"
 #include "Demo/Components/BatComponent.h"
+#include "Demo/Components/AnimatorComponent.h"
 
 void jam::demo::BatFactory::OnConstruction(cecsar::ECSystemManager& manager, int32_t index)
 {
@@ -14,6 +15,8 @@ void jam::demo::BatFactory::OnConstruction(cecsar::ECSystemManager& manager, int
 	auto& renderer = manager.AddComponent<RenderComponent>(index);
 	renderer.texture = manager.GetModule<RenderModule>().GetTexture("files/Bat.png");
 	renderer.count = 2;
+
+	manager.AddComponent<AnimatorComponent>(index);
 
 	auto& movement = manager.AddComponent<MovementComponent>(index);
 	movement.movementSpeed /= 2;

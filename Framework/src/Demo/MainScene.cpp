@@ -13,6 +13,7 @@
 #include "Demo/Factories/BatFactory.h"
 #include "Demo/ComponentSystems/BatSystem.h"
 #include "Demo/Components/MovementComponent.h"
+#include "Demo/ComponentSystems/AnimatorSystem.h"
 
 bool jam::demo::MainScene::Update(const float dt)
 {
@@ -39,6 +40,7 @@ bool jam::demo::MainScene::FixedUpdate(const float dt)
 bool jam::demo::MainScene::Render()
 {
 	m_ecsManager.GetModule<RenderModule>().PreRender();
+	m_ecsManager.Update<AnimatorSystem>();
 	m_ecsManager.Update<RenderSystem>();
 	m_ecsManager.GetModule<RenderModule>().PostRender();
 	return false;
