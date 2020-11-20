@@ -26,7 +26,7 @@ void jam::cecsar::IECSystem::Subscribe(IECSubscribeable& subscribeable)
 
 void jam::cecsar::IECSystem::Unsubscribe(IECSubscribeable& subscribeable)
 {
-	auto ptr = &subscribeable;
+	const auto ptr = &subscribeable;
 
 	for (auto i = m_subscribers.begin(); i != m_subscribers.end(); ++i)
 		if (*i == ptr)

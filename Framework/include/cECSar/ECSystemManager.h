@@ -8,6 +8,7 @@
 #include "IModule.h"
 #include "IEntityFactory.h"
 #include "IEntityPack.h"
+#include "ECSystemSmall.h"
 
 namespace jam::cecsar
 {
@@ -49,12 +50,20 @@ namespace jam::cecsar
 		void RemoveComponent(int32_t index);
 
 		template <typename T>
+		T& AddComponentSmall(int32_t index);
+		template <typename T>
+		void RemoveComponentSmall(int32_t index);
+
+		template <typename T>
 		void Subscribe(IECSubscribeable& subscribeable);
 		template <typename T>
 		void Unsubscribe(IECSubscribeable& subscribeable);
 
 		template <typename T>
 		Utilities::SparseValueSet<T>& GetSet();
+
+		template <typename T>
+		std::unordered_map<int32_t, T>& GetSetSmall();
 
 		// Systems.
 		template <typename T>
@@ -83,6 +92,7 @@ namespace jam::cecsar
 		// Core.
 		Utilities::SparseValueSet<Entity>* m_entities;
 		std::unordered_map<std::type_index, IECSystem*> m_systems;
+		std::unordered_map<std::type_index, IECSystem*> m_systemsSmall;
 		std::unordered_map<std::type_index, IComponentSystem*> m_componentSystems;
 
 		// Utilities.
@@ -94,12 +104,17 @@ namespace jam::cecsar
 		ECSystem<T>& GetSystem();
 
 		template <typename T>
+		ECSystemSmall<T>& GetSystemSmall();
+
+		template <typename T>
 		T& GetPack();
 	};
 
 	template <typename T>
 	T& ECSystemManager::AddComponent(const int32_t index)
 	{
+		m_entities->instances[index].components.insert(typeid(T));
+
 		auto& system = GetSystem<T>();
 		system.Add(index);
 		return system.set->instances[index];
@@ -108,7 +123,27 @@ namespace jam::cecsar
 	template <typename T>
 	void ECSystemManager::RemoveComponent(const int32_t index)
 	{
+		m_entities->instances[index].components.erase(typeid(T));
+
 		GetSystem<T>().Remove(index);
+	}
+
+	template <typename T>
+	T& ECSystemManager::AddComponentSmall(const int32_t index)
+	{
+		m_entities->instances[index].componentsSmall.insert(typeid(T));
+
+		auto& system = GetSystemSmall<T>();
+		system.Add(index);
+		return system.map[index];
+	}
+
+	template <typename T>
+	void ECSystemManager::RemoveComponentSmall(const int32_t index)
+	{
+		m_entities->instances[index].componentsSmall.erase(typeid(T));
+
+		GetSystemSmall<T>().Remove(index);
 	}
 
 	template <typename T>
@@ -127,6 +162,12 @@ namespace jam::cecsar
 	Utilities::SparseValueSet<T>& ECSystemManager::GetSet()
 	{
 		return *GetSystem<T>().set;
+	}
+
+	template <typename T>
+	std::unordered_map<int32_t, T>& ECSystemManager::GetSetSmall()
+	{
+		return *GetSmallSystem<T>().map;
 	}
 
 	template <typename T>
@@ -196,6 +237,16 @@ namespace jam::cecsar
 			m_systems[typeid(T)] = new ECSystem<T>(*this, m_capacity);
 
 		ECSystem<T>* system = static_cast<ECSystem<T>*>(m_systems[typeid(T)]);
+		return *system;
+	}
+
+	template <typename T>
+	ECSystemSmall<T>& ECSystemManager::GetSystemSmall()
+	{
+		if (m_systems.count(typeid(T)) == 0)
+			m_systems[typeid(T)] = new ECSystemSmall<T>(*this, m_capacity);
+
+		ECSystemSmall<T>* system = static_cast<ECSystemSmall<T>*>(m_systems[typeid(T)]);
 		return *system;
 	}
 

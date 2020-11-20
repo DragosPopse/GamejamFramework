@@ -34,6 +34,8 @@ void jam::cecsar::ECSystemManager::DestroyEntity(const int32_t index)
 	auto& entity = m_entities->instances[index];
 	for (auto component : entity.components)
 		m_systems[component]->Remove(index);
+	for (auto component : entity.componentsSmall)
+		m_systemsSmall[component]->Remove(index);
 
 	m_entities->Remove(index);
 }
