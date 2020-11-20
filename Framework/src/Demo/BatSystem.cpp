@@ -1,0 +1,47 @@
+﻿#include "Demo/ComponentSystems/BatSystem.h"
+#include "cECSar/ECSystemManager.h"
+#include "Demo/Components/BatComponent.h"
+#include "Gamejam/Core/App.hpp"
+#include "Demo/Components/TransformComponent.h"
+#include "Demo/Components/CameraTargetComponent.h"
+#include "Demo/Components/ControllerComponent.h"
+
+void jam::demo::BatSystem::Update(cecsar::ECSystemManager& systemManager)
+{
+	auto& bats = systemManager.GetSet<BatComponent>();
+	auto& transforms = systemManager.GetSet<TransformComponent>();
+	auto& targets = systemManager.GetSetSmall<CameraTargetComponent>();
+	auto& controllers = systemManager.GetSet<ControllerComponent>();
+
+	float xPosTarget = 0;
+	float yPosTarget = 0;
+
+	for (auto& keyPair : targets)
+	{
+		const int32_t index = keyPair.first;
+		auto& transform = transforms.instances[index];
+
+		xPosTarget += transform.xPosGlobal;
+		yPosTarget += transform.yPosGlobal;
+	}
+
+	const int32_t targetSize = targets.size();
+	xPosTarget /= targetSize;
+	yPosTarget /= targetSize;
+
+	const int32_t count = bats.GetCount();
+	for (int32_t i = 0; i < count; ++i)
+	{
+		const int32_t index = bats.dense[i];
+		auto& controller = controllers.instances[index];
+		auto& transform = transforms.instances[index];
+
+		const float xOffset = transform.xPosGlobal - xPosTarget;
+		const float yOffset = transform.yPosGlobal - yPosTarget;
+
+		controller.xDir = (xOffset < 0) * 2 - 1;
+		controller.yDir = (yOffset < 0) * 2 - 1;
+
+		transform.zPos = abs(xOffset) / 100;
+	}
+}
