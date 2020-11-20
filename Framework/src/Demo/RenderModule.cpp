@@ -47,7 +47,7 @@ void jam::demo::RenderModule::PostRender() const
 	scaler.h = app.m_height * zoom;
 
 	SDL_RenderCopyEx(screen, m_texture, nullptr, &scaler,
-		angle, nullptr, SDL_FLIP_NONE);
+		degrees, nullptr, SDL_FLIP_NONE);
 }
 
 SDL_Texture* jam::demo::RenderModule::GetTexture(const std::string& path)

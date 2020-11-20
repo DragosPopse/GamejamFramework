@@ -10,5 +10,6 @@ namespace jam::demo
 
 		float deltaTime = 1;
 		float fixedDeltaTime = 1;
+		float time = 0;
 	};
 }

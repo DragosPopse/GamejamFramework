@@ -5,7 +5,7 @@ namespace jam::demo
 	class MovementComponent final
 	{
 	public:
-		float movementSpeed = 20;
+		float movementSpeed = 40;
 		float rotationSpeed = 500;
 	};
 }

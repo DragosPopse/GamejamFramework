@@ -5,8 +5,6 @@
 #include "Demo/Components/RenderComponent.h"
 #include "Demo/Components/TransformComponent.h"
 #include "Demo/Modules/RenderModule.h"
-#include <stdlib.h>
-#include <stdlib.h>
 
 void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 {
@@ -39,8 +37,8 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 		int32_t x = transform.xPosGlobal + renderer.xOffset - xCameraOffset;
 		int32_t y = transform.yPosGlobal + renderer.yOffset - yCameraOffset;
 
-		const float xScaledModifier = renderer.xScale + transform.xScaleGlobal - 1;
-		const float yScaledModifier = renderer.yScale + transform.yScaleGlobal - 1 ;
+		const float xScaledModifier = renderer.xScale + transform.xScaleGlobal + module.scale - 2;
+		const float yScaledModifier = renderer.yScale + transform.yScaleGlobal + module.scale - 2;
 
 		const float size = w / renderer.count;
 

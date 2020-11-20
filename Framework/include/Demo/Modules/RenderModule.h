@@ -9,9 +9,13 @@ namespace jam::demo
 	class RenderModule final : public cecsar::IModule
 	{
 	public:
+		int32_t spriteSize = 8;
+		float scale = 1;
+
 		float zoom = 1;
-		float angle = 0;
+		float degrees = 0;
 		float xOffset = 0, yOffset = 0;
+
 		float xCameraOffset = 0, yCameraOffset = 0;
 
 		float depth = 0;
