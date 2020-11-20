@@ -167,7 +167,7 @@ namespace jam::cecsar
 	template <typename T>
 	std::unordered_map<int32_t, T>& ECSystemManager::GetSetSmall()
 	{
-		return *GetSmallSystem<T>().map;
+		return GetSystemSmall<T>().map;
 	}
 
 	template <typename T>
@@ -243,10 +243,10 @@ namespace jam::cecsar
 	template <typename T>
 	ECSystemSmall<T>& ECSystemManager::GetSystemSmall()
 	{
-		if (m_systems.count(typeid(T)) == 0)
-			m_systems[typeid(T)] = new ECSystemSmall<T>(*this, m_capacity);
+		if (m_systemsSmall.count(typeid(T)) == 0)
+			m_systemsSmall[typeid(T)] = new ECSystemSmall<T>(*this);
 
-		ECSystemSmall<T>* system = static_cast<ECSystemSmall<T>*>(m_systems[typeid(T)]);
+		ECSystemSmall<T>* system = static_cast<ECSystemSmall<T>*>(m_systemsSmall[typeid(T)]);
 		return *system;
 	}
 

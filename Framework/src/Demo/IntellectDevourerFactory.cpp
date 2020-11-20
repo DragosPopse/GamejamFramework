@@ -13,7 +13,7 @@ void jam::demo::IntellectDevourerFactory::OnConstruction(
 {
 	manager.AddComponent<TransformComponent>(index);
 	manager.AddComponent<MovementComponent>(index);
-	manager.AddComponent<CameraTargetComponent>(index);
+	manager.AddComponentSmall<CameraTargetComponent>(index);
 
 	manager.AddComponent<ControllerComponent>(index);
 	manager.AddComponent<PlayerInputComponent>(index);

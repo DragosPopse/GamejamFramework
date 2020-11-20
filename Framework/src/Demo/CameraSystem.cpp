@@ -9,9 +9,9 @@
 
 void jam::demo::CameraSystem::Update(cecsar::ECSystemManager& systemManager)
 {
-	auto& targets = systemManager.GetSet<CameraTargetComponent>();
+	auto& targets = systemManager.GetSetSmall<CameraTargetComponent>();
 	auto& transforms = systemManager.GetSet<TransformComponent>();
-	auto& cameras = systemManager.GetSet<CameraComponent>();
+	auto& cameras = systemManager.GetSetSmall<CameraComponent>();
 
 	auto& renderModule = systemManager.GetModule<RenderModule>();
 	auto& timeModule = systemManager.GetModule<TimeModule>();
@@ -21,20 +21,19 @@ void jam::demo::CameraSystem::Update(cecsar::ECSystemManager& systemManager)
 	float xTargetPos = 0;
 	float yTargetPos = 0;
 
-	const int32_t targetsCount = targets.GetCount();
-
-	for (int i = 0; i < targetsCount; ++i)
+	for (auto& keyPair : targets)
 	{
-		const int32_t index = targets.dense[i];
-		auto& target = targets.instances[index];
+		const int32_t index = keyPair.first;
+		auto& target = keyPair.second;
 		auto& transform = transforms.instances[index];
 
 		xTargetPos += transform.xPosGlobal + target.xOffset;
 		yTargetPos += transform.yPosGlobal + target.yOffset;
 	}
 
-	xTargetPos /= targetsCount;
-	yTargetPos /= targetsCount;
+	const int32_t targetsSize = targets.size();
+	xTargetPos /= targetsSize;
+	yTargetPos /= targetsSize;
 
 	// Calculate cameras.
 	const int32_t xOffset = app.m_width / 2;
@@ -42,12 +41,10 @@ void jam::demo::CameraSystem::Update(cecsar::ECSystemManager& systemManager)
 
 	const float deltaTime = timeModule.deltaTime;
 
-	const int32_t camerasCount = cameras.GetCount();
-
-	for (int32_t i = 0; i < camerasCount; ++i)
+	for (auto& keyPair : cameras)
 	{
-		const int32_t index = cameras.dense[i];
-		auto& camera = cameras.instances[index];
+		const int32_t index = keyPair.first;
+		auto& camera = keyPair.second;
 		auto& transform = transforms.instances[index];
 
 		renderModule.xCameraOffset = -xOffset + transform.xPosGlobal;
@@ -70,7 +67,7 @@ void jam::demo::CameraSystem::Update(cecsar::ECSystemManager& systemManager)
 
 		if (xCameraOffsetAbs > camera.xWarpThreshold)
 			transform.xPos += xWarpModifier;
-		else if (xCameraOffsetAbs > camera.xFollowThreshold) 
+		else if (xCameraOffsetAbs > camera.xFollowThreshold)
 		{
 			const int32_t dir = (xCameraOffset < 0) * 2 - 1;
 			const float offset = xCameraOffsetAbs - camera.xFollowThreshold;
