@@ -59,6 +59,7 @@ void jam::demo::MainScene::Enable()
 
 			transform.xPos = x * renderModule.spriteSize;
 			transform.yPos = y * renderModule.spriteSize;
+			transform.zPos = std::fmod(rand(), 5.0f);
 		}
 	
 	delete [] indexes;

@@ -36,7 +36,7 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 
 		Sortable& sortable = m_sortables[i];
 		sortable.index = index;
-		sortable.depth = -transform.depth;
+		sortable.z = transform.zPos;
 	}
 
 	std::sort(m_sortables, m_sortables + count);
@@ -89,7 +89,7 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 		srcRect.h = h;
 
 		const float depthModifier = std::max(module.minDepth, 
-			1.0f - transform.depth * module.depthModifier);
+			1.0f + transform.zPos * module.depthModifier);
 		const float positionModifier = (1 - depthModifier) / 2;
 
 		SDL_Rect dstRect;
@@ -106,5 +106,5 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 
 bool jam::demo::RenderSystem::Sortable::operator<(const Sortable& other) const
 {
-	return depth < other.depth;
+	return z < other.z;
 }

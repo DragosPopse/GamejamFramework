@@ -77,7 +77,7 @@ void jam::demo::TransformSystem::Update(cecsar::ECSystemManager& systemManager)
 		transform.yPosGlobal = yPos + parent.yPosGlobal;
 
 		transform.degreesGlobal = transform.degrees + parent.degreesGlobal;
-		transform.depth = parent.depth;
+		transform.zPos = parent.zPos;
 
 		transform.xScaleGlobal = transform.xScale + parent.xScaleGlobal;
 		transform.yScaleGlobal = transform.yScale + parent.yScaleGlobal;
@@ -86,5 +86,5 @@ void jam::demo::TransformSystem::Update(cecsar::ECSystemManager& systemManager)
 
 bool jam::demo::TransformSystem::Sortable::operator<(const Sortable& other) const
 {
-	return depth < other.depth;
+	return depth > other.depth;
 }

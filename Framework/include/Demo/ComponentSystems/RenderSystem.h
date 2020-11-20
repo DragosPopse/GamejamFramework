@@ -17,7 +17,7 @@ namespace jam::demo
 		{
 		public:
 			int32_t index;
-			float depth;
+			float z;
 
 			bool operator<(const Sortable& other) const;
 		};
