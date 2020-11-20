@@ -10,7 +10,6 @@ namespace jam::demo
 	{
 	public:
 		int32_t spriteSize = 8;
-		float scale = 1;
 
 		float zoom = 1;
 		float degrees = 0;

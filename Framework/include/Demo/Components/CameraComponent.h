@@ -8,14 +8,14 @@ namespace jam::demo
 		float xOffset = 0;
 		float yOffset = 0;
 
-		float zoom = 2;
+		float zoom = 6;
 		float degrees = 0;
 
-		float xFollowThreshold = 20;
-		float yFollowThreshold = 20;
+		float xFollowThreshold = 10;
+		float yFollowThreshold = 10;
 
-		float xWarpThreshold = 50;
-		float yWarpThreshold = 50;
+		float xWarpThreshold = 20;
+		float yWarpThreshold = 20;
 
 		float minFollowSpeed = 20;
 		float maxFollowSpeed = 40;

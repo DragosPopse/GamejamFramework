@@ -14,6 +14,7 @@
 #include "Demo/ComponentSystems/BatSystem.h"
 #include "Demo/Components/MovementComponent.h"
 #include "Demo/ComponentSystems/AnimatorSystem.h"
+#include "Demo/Components/CameraComponent.h"
 
 bool jam::demo::MainScene::Update(const float dt)
 {
@@ -48,13 +49,15 @@ bool jam::demo::MainScene::Render()
 
 void jam::demo::MainScene::Enable()
 {
-	delete[] m_ecsManager.CreateFactoryEntities<PlayerCameraFactory>(1);
+	auto& transforms = m_ecsManager.GetSet<TransformComponent>();
+
+	const int32_t* camIndex = m_ecsManager.CreateFactoryEntities<PlayerCameraFactory>(1);
+	delete [] camIndex;
 
 	const int32_t groundBlockWidth = 20;
 	const auto indexes = m_ecsManager.CreateFactoryEntities<GroundBlockFactory>(
 		groundBlockWidth * groundBlockWidth);
-
-	auto& transforms = m_ecsManager.GetSet<TransformComponent>();
+	
 	auto& renderModule = m_ecsManager.GetModule<RenderModule>();
 
 	for (int32_t x = 0; x < groundBlockWidth; ++x)
