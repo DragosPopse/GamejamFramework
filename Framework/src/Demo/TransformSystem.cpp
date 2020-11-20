@@ -5,13 +5,13 @@
 
 jam::demo::TransformSystem::~TransformSystem()
 {
-	delete[] sortables;
+	delete[] m_sortables;
 }
 
 void jam::demo::TransformSystem::Initialize(cecsar::ECSystemManager& manager)
 {
 	const int32_t capacity = manager.GetCapacity();
-	sortables = new Sortable[capacity];
+	m_sortables = new Sortable[capacity];
 }
 
 void jam::demo::TransformSystem::Update(cecsar::ECSystemManager& systemManager)
@@ -38,18 +38,18 @@ void jam::demo::TransformSystem::Update(cecsar::ECSystemManager& systemManager)
 			currentIndex = child.parent;
 		}
 
-		Sortable& sortable = sortables[i];
+		Sortable& sortable = m_sortables[i];
 		sortable.index = index;
 		sortable.depth = depth;
 	}
 
 	// Sort based on depth. Parents first.
-	std::sort(sortables, sortables + count);
+	std::sort(m_sortables, m_sortables + count);
 
 	// Update postions based on parents.
 	for (int32_t i = 0; i < count; ++i)
 	{
-		const auto sortable = sortables[i];
+		const auto sortable = m_sortables[i];
 		auto& transform = transforms.instances[sortable.index];
 		if (transform.parent == -1)
 		{

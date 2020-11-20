@@ -6,6 +6,17 @@
 #include "Demo/Components/TransformComponent.h"
 #include "Demo/Modules/RenderModule.h"
 
+jam::demo::RenderSystem::~RenderSystem()
+{
+	delete[] m_sortables;
+}
+
+void jam::demo::RenderSystem::Initialize(cecsar::ECSystemManager& manager)
+{
+	const int32_t capacity = manager.GetCapacity();
+	m_sortables = new Sortable[capacity];
+}
+
 void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 {
 	// Get the screen to render on.
@@ -16,6 +27,20 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 	auto& renderers = systemManager.GetSet<RenderComponent>();
 	auto& transforms = systemManager.GetSet<TransformComponent>();
 
+	const int32_t count = renderers.GetCount();
+
+	for (int32_t i = 0; i < count; ++i)
+	{
+		const int32_t index = renderers.dense[i];
+		auto& transform = transforms.instances[index];
+
+		Sortable& sortable = m_sortables[i];
+		sortable.index = index;
+		sortable.depth = -transform.depth;
+	}
+
+	std::sort(m_sortables, m_sortables + count);
+
 	const int32_t screenWidth = app.m_width, screenHeight = app.m_height;
 
 	RenderModule& module = systemManager.GetModule<RenderModule>();
@@ -23,10 +48,9 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 	const int32_t yCameraOffset = module.yCameraOffset;
 
 	// Iterate over all the renderers to render them on the screen.
-	const int32_t count = renderers.GetCount();
 	for (int32_t i = 0; i < count; ++i)
 	{
-		const int32_t index = renderers.dense[i];
+		const int32_t index = m_sortables[i].index;
 		auto& renderer = renderers.instances[index];
 		auto& transform = transforms.instances[index];
 		auto& texture = renderer.texture;
@@ -78,4 +102,9 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 		SDL_RenderCopyEx(screen, texture, &srcRect, &dstRect,
 			degrees, nullptr, renderer.flip);
 	}
+}
+
+bool jam::demo::RenderSystem::Sortable::operator<(const Sortable& other) const
+{
+	return depth < other.depth;
 }

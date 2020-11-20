@@ -13,7 +13,7 @@ namespace jam::demo
 		void Update(cecsar::ECSystemManager& systemManager) override;
 
 	private:
-		class Sortable
+		class Sortable final
 		{
 		public:
 			int32_t index;
@@ -22,6 +22,6 @@ namespace jam::demo
 			bool operator<(const Sortable& other) const;
 		};
 
-		Sortable* sortables = nullptr;
+		Sortable* m_sortables = nullptr;
 	};
 }
