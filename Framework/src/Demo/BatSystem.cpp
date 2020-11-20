@@ -39,9 +39,12 @@ void jam::demo::BatSystem::Update(cecsar::ECSystemManager& systemManager)
 		const float xOffset = transform.xPosGlobal - xPosTarget;
 		const float yOffset = transform.yPosGlobal - yPosTarget;
 
-		controller.xDir = (xOffset < 0) * 2 - 1;
-		controller.yDir = (yOffset < 0) * 2 - 1;
+		const float magnitude = sqrtf(pow(xOffset, 2) + pow(yOffset, 2));
 
-		transform.zPos = abs(xOffset) / 100;
+		if (magnitude == 0)
+			continue;
+
+		controller.xDir = -xOffset / magnitude;
+		controller.yDir = -yOffset / magnitude;
 	}
 }

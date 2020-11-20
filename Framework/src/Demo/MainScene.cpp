@@ -63,7 +63,7 @@ void jam::demo::MainScene::Enable()
 
 			transform.xPos = x * renderModule.spriteSize;
 			transform.yPos = y * renderModule.spriteSize;
-			//transform.zPos = rand() % 2;
+			transform.zPos = rand() % 1000 / -10000.0;
 		}
 	
 	delete [] indexes;
@@ -82,9 +82,9 @@ void jam::demo::MainScene::Enable()
 		auto& transform = transforms.instances[batIndex];
 		transform.xPos = rand() % 600;
 		transform.yPos = rand() % 600;
-		transform.zPos = rand() % 1000 / 200;
+		transform.zPos = rand() % 1000 / 200.0;
 
-		movements.instances[batIndex].movementSpeed = rand() % 1000 / 20;
+		movements.instances[batIndex].movementSpeed = rand() % 1000 / 20.0;
 	}
 	delete[] bats;
 }

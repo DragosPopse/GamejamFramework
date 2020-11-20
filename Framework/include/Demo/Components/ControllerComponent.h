@@ -6,8 +6,8 @@ namespace jam::demo
 	class ControllerComponent final
 	{
 	public:
-		int32_t xDir = 0;
-		int32_t yDir = 0;
+		float xDir = 0;
+		float yDir = 0;
 
 		int32_t xMouse = 0;
 		int32_t yMouse = 0;
