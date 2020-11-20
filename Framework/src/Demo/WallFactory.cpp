@@ -9,6 +9,7 @@ void jam::demo::WallFactory::OnConstruction(
 {
 	manager.AddComponent<TransformComponent>(index);
 	auto& renderer = manager.AddComponent<RenderComponent>(index);
-	renderer.texture = manager.GetModule<RenderModule>().GetTexture("files/Wall.png");
-	renderer.sideTexture = renderer.texture;
+
+	auto& module = manager.GetModule<RenderModule>();
+	renderer.texture = module.GetTexture("files/Wall.png");
 }

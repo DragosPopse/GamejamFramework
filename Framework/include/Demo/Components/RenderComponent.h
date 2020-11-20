@@ -7,9 +7,6 @@ namespace jam::demo
 	{
 	public:
 		SDL_Texture* texture = nullptr;
-		SDL_Texture* sideTexture = nullptr;
-
-		float height = .2;
 
 		int32_t xScale = 1;
 		int32_t yScale = 1;
