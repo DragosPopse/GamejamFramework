@@ -15,6 +15,7 @@
 #include "Demo/Components/MovementComponent.h"
 #include "Demo/ComponentSystems/AnimatorSystem.h"
 #include "Demo/Components/CameraComponent.h"
+#include "Demo/Factories/WallFactory.h"
 
 bool jam::demo::MainScene::Update(const float dt)
 {
@@ -49,6 +50,8 @@ bool jam::demo::MainScene::Render()
 
 void jam::demo::MainScene::Enable()
 {
+	// Shitty testing code.
+
 	auto& transforms = m_ecsManager.GetSet<TransformComponent>();
 
 	const int32_t* camIndex = m_ecsManager.CreateFactoryEntities<PlayerCameraFactory>(1);
@@ -57,10 +60,16 @@ void jam::demo::MainScene::Enable()
 	const int32_t groundBlockWidth = 20;
 	const auto indexes = m_ecsManager.CreateFactoryEntities<GroundBlockFactory>(
 		groundBlockWidth * groundBlockWidth);
+	const auto walls = m_ecsManager.CreateFactoryEntities<WallFactory>(groundBlockWidth);
 	
 	auto& renderModule = m_ecsManager.GetModule<RenderModule>();
 
-	for (int32_t x = 0; x < groundBlockWidth; ++x)
+	for (int32_t x = 0; x < groundBlockWidth; ++x) 
+	{
+		const int32_t wall = walls[x];
+		transforms.instances[wall].xPos = x * renderModule.spriteSize;
+		transforms.instances[wall].zPos = .2;
+
 		for (int32_t y = 0; y < groundBlockWidth; ++y)
 		{
 			const int32_t index = indexes[x + y * groundBlockWidth];
@@ -68,9 +77,11 @@ void jam::demo::MainScene::Enable()
 
 			transform.xPos = x * renderModule.spriteSize;
 			transform.yPos = y * renderModule.spriteSize;
-			transform.zPos = rand() % 1000 / -10000.0;
+			transform.zPos = rand() % 3 - 1;
 		}
-	
+	}
+
+	delete[] walls;
 	delete [] indexes;
 
 	const auto index = m_ecsManager.CreateFactoryEntities<IntellectDevourerFactory>(1);
@@ -80,8 +91,8 @@ void jam::demo::MainScene::Enable()
 	delete [] index;
 
 	auto& movements = m_ecsManager.GetSet<MovementComponent>();
-	const auto bats = m_ecsManager.CreateFactoryEntities<BatFactory>(200);
-	for (int32_t i = 0; i < 200; ++i)
+	const auto bats = m_ecsManager.CreateFactoryEntities<BatFactory>(5);
+	for (int32_t i = 0; i < 5; ++i)
 	{
 		const int32_t batIndex = bats[i];
 		auto& transform = transforms.instances[batIndex];
