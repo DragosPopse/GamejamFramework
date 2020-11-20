@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdint>
 
 namespace jam::demo
 {
@@ -12,7 +13,7 @@ namespace jam::demo
 		float yPosGlobal = 0;
 
 		float degrees = 0;
-		float degreesGlobal;
+		float degreesGlobal = 0;
 
 		float xScale = 1;
 		float yScale = 1;

@@ -4,15 +4,26 @@
 #include "Demo/ComponentSystems/TransformSystem.h"
 #include "Demo/Components/TransformComponent.h"
 #include "Demo/Factories/GroundBlockFactory.h"
+#include "Demo/Factories/IntellectDevourerFactory.h"
+#include "Demo/Modules/TimeModule.h"
+#include "Demo/ComponentSystems/PlayerInputSystem.h"
+#include "Demo/ComponentSystems/MovementSystem.h"
 
-bool jam::demo::MainScene::Update(float dt)
+bool jam::demo::MainScene::Update(const float dt)
 {
+	auto& timeModule = m_ecsManager.GetModule<TimeModule>();
+	timeModule.deltaTime = dt * timeModule.timeScale;
+
+	m_ecsManager.Update<PlayerInputSystem>();
+	m_ecsManager.Update<MovementSystem>();
 	m_ecsManager.Update<TransformSystem>();
 	return false;
 }
 
-bool jam::demo::MainScene::FixedUpdate(float dt)
+bool jam::demo::MainScene::FixedUpdate(const float dt)
 {
+	m_ecsManager.GetModule<TimeModule>().fixedDeltaTime = dt;
+
 	return false;
 }
 
@@ -43,11 +54,17 @@ void jam::demo::MainScene::Enable()
 	
 	delete [] indexes;
 
+	const auto index = m_ecsManager.CreateFactoryEntities<IntellectDevourerFactory>(1);
+	transforms.instances[index[0]].xPos = 100;
+	transforms.instances[index[0]].yPos = 100;
+
+	delete [] index;
+
 	auto& renderModule = m_ecsManager.GetModule<RenderModule>();
-	renderModule.zoom = 2.6;
-	renderModule.xOffset = 100;
-	renderModule.yOffset = 300;
-	renderModule.angle = 30;
+	renderModule.zoom = 4.8;
+	renderModule.xOffset = 900;
+	renderModule.yOffset = 900;
+	renderModule.angle = 0;
 }
 
 void jam::demo::MainScene::Disable()
