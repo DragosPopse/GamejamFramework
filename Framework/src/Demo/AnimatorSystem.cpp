@@ -6,8 +6,8 @@
 
 void jam::demo::AnimatorSystem::Update(cecsar::ECSystemManager& systemManager)
 {
-	auto& animators = systemManager.GetSet<AnimatorComponent>();
-	auto& renderers = systemManager.GetSet<RenderComponent>();
+	auto& animators = systemManager.GetSparseSet<AnimatorComponent>();
+	auto& renderers = systemManager.GetSparseSet<RenderComponent>();
 
 	auto& timeModule = systemManager.GetModule<TimeModule>();
 	const float deltaTime = timeModule.deltaTime;

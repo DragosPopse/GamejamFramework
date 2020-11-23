@@ -9,8 +9,12 @@ jam::cecsar::ECSystemManager::ECSystemManager(const int32_t capacity) :
 jam::cecsar::ECSystemManager::~ECSystemManager()
 {
 	delete m_entities;
-	for (auto system : m_systems)
+
+	for (auto system : m_sparseSystems)
 		delete system.second;
+	for (auto system : m_mapSystems)
+		delete system.second;
+
 	for (auto cSystem : m_componentSystems)
 		delete cSystem.second;
 	for (auto modules : m_modules)
@@ -32,10 +36,10 @@ int32_t jam::cecsar::ECSystemManager::CreateEntity()
 void jam::cecsar::ECSystemManager::DestroyEntity(const int32_t index)
 {
 	auto& entity = m_entities->instances[index];
-	for (auto component : entity.components)
-		m_systems[component]->Remove(index);
-	for (auto component : entity.componentsSmall)
-		m_systemsSmall[component]->Remove(index);
+	for (auto component : entity.sparseComponents)
+		m_sparseSystems[component]->Remove(index);
+	for (auto component : entity.mapComponents)
+		m_mapSystems[component]->Remove(index);
 
 	m_entities->Remove(index);
 }

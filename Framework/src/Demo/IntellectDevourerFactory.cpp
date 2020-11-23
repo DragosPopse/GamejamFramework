@@ -12,17 +12,17 @@
 void jam::demo::IntellectDevourerFactory::OnConstruction(
 	cecsar::ECSystemManager& manager, const int32_t index)
 {
-	manager.AddComponent<TransformComponent>(index);
-	manager.AddComponent<MovementComponent>(index);
-	manager.AddComponentSmall<CameraTargetComponent>(index);
+	manager.AddSparseComponent<TransformComponent>(index);
+	manager.AddSparseComponent<MovementComponent>(index);
+	manager.AddMapComponent<CameraTargetComponent>(index);
 
-	manager.AddComponent<ControllerComponent>(index);
-	manager.AddComponent<PlayerInputComponent>(index);
+	manager.AddSparseComponent<ControllerComponent>(index);
+	manager.AddSparseComponent<PlayerInputComponent>(index);
 
-	auto& renderer = manager.AddComponent<RenderComponent>(index);
+	auto& renderer = manager.AddSparseComponent<RenderComponent>(index);
 	renderer.texture = manager.GetModule<RenderModule>().GetTexture("files/IntellectDevourer.png");
 	renderer.count = 4;
 
-	auto& animator = manager.AddComponent<AnimatorComponent>(index);
+	auto& animator = manager.AddSparseComponent<AnimatorComponent>(index);
 	animator.to = 2;
 }

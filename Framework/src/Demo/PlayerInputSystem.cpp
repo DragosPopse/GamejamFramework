@@ -6,8 +6,8 @@
 
 void jam::demo::PlayerInputSystem::Update(cecsar::ECSystemManager& systemManager)
 {
-	auto& inputComponents = systemManager.GetSet<PlayerInputComponent>();
-	auto& controllers = systemManager.GetSet<ControllerComponent>();
+	auto& inputComponents = systemManager.GetSparseSet<PlayerInputComponent>();
+	auto& controllers = systemManager.GetSparseSet<ControllerComponent>();
 
 	const int32_t count = inputComponents.GetCount();
 	const auto updatedController = GetUpdatedController();

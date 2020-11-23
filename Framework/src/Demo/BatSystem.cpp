@@ -8,10 +8,10 @@
 
 void jam::demo::BatSystem::Update(cecsar::ECSystemManager& systemManager)
 {
-	auto& bats = systemManager.GetSet<BatComponent>();
-	auto& transforms = systemManager.GetSet<TransformComponent>();
-	auto& targets = systemManager.GetSetSmall<CameraTargetComponent>();
-	auto& controllers = systemManager.GetSet<ControllerComponent>();
+	auto& bats = systemManager.GetSparseSet<BatComponent>();
+	auto& transforms = systemManager.GetSparseSet<TransformComponent>();
+	auto& targets = systemManager.GetMapSet<CameraTargetComponent>();
+	auto& controllers = systemManager.GetSparseSet<ControllerComponent>();
 
 	float xPosTarget = 0;
 	float yPosTarget = 0;

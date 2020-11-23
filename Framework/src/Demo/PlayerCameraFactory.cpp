@@ -6,6 +6,6 @@
 void jam::demo::PlayerCameraFactory::OnConstruction(
 	cecsar::ECSystemManager& manager, const int32_t index)
 {
-	manager.AddComponent<TransformComponent>(index);
-	manager.AddComponentSmall<CameraComponent>(index);
+	manager.AddSparseComponent<TransformComponent>(index);
+	manager.AddMapComponent<CameraComponent>(index);
 }

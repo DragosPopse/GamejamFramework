@@ -24,8 +24,8 @@ void jam::demo::RenderSystem::Update(cecsar::ECSystemManager& systemManager)
 	App& app = App::Get();
 
 	// Get the required components.
-	auto& renderers = systemManager.GetSet<RenderComponent>();
-	auto& transforms = systemManager.GetSet<TransformComponent>();
+	auto& renderers = systemManager.GetSparseSet<RenderComponent>();
+	auto& transforms = systemManager.GetSparseSet<TransformComponent>();
 
 	const int32_t count = renderers.GetCount();
 

@@ -9,9 +9,9 @@
 
 void jam::demo::MovementSystem::Update(cecsar::ECSystemManager& systemManager)
 {
-	auto& movementComponents = systemManager.GetSet<MovementComponent>();
-	auto& controllerComponents = systemManager.GetSet<ControllerComponent>();
-	auto& transformComponents = systemManager.GetSet<TransformComponent>();
+	auto& movementComponents = systemManager.GetSparseSet<MovementComponent>();
+	auto& controllerComponents = systemManager.GetSparseSet<ControllerComponent>();
+	auto& transformComponents = systemManager.GetSparseSet<TransformComponent>();
 
 	auto& timeModule = systemManager.GetModule<TimeModule>();
 	const float deltaTime = timeModule.deltaTime;

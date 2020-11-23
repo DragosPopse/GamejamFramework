@@ -7,8 +7,8 @@
 void jam::demo::GroundBlockFactory::OnConstruction(
 	cecsar::ECSystemManager& manager, const int32_t index)
 {
-	manager.AddComponent<TransformComponent>(index);
-	auto& renderer = manager.AddComponent<RenderComponent>(index);
+	manager.AddSparseComponent<TransformComponent>(index);
+	auto& renderer = manager.AddSparseComponent<RenderComponent>(index);
 	renderer.texture = manager.GetModule<RenderModule>().GetTexture("files/Spritesheet.png");
 	renderer.count = 15;
 	renderer.index = 3;

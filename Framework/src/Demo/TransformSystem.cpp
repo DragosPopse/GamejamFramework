@@ -16,7 +16,7 @@ void jam::demo::TransformSystem::Initialize(cecsar::ECSystemManager& manager)
 
 void jam::demo::TransformSystem::Update(cecsar::ECSystemManager& systemManager)
 {
-	auto& transforms = systemManager.GetSet<TransformComponent>();
+	auto& transforms = systemManager.GetSparseSet<TransformComponent>();
 
 	const int32_t count = transforms.GetCount();
 

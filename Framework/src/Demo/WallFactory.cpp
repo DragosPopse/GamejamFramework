@@ -7,8 +7,8 @@
 void jam::demo::WallFactory::OnConstruction(
 	cecsar::ECSystemManager& manager, const int32_t index)
 {
-	manager.AddComponent<TransformComponent>(index);
-	auto& renderer = manager.AddComponent<RenderComponent>(index);
+	manager.AddSparseComponent<TransformComponent>(index);
+	auto& renderer = manager.AddSparseComponent<RenderComponent>(index);
 
 	auto& module = manager.GetModule<RenderModule>();
 	renderer.texture = module.GetTexture("files/Wall.png");

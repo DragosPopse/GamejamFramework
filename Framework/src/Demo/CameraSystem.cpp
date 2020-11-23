@@ -9,9 +9,9 @@
 
 void jam::demo::CameraSystem::Update(cecsar::ECSystemManager& systemManager)
 {
-	auto& targets = systemManager.GetSetSmall<CameraTargetComponent>();
-	auto& transforms = systemManager.GetSet<TransformComponent>();
-	auto& cameras = systemManager.GetSetSmall<CameraComponent>();
+	auto& targets = systemManager.GetMapSet<CameraTargetComponent>();
+	auto& transforms = systemManager.GetSparseSet<TransformComponent>();
+	auto& cameras = systemManager.GetMapSet<CameraComponent>();
 
 	auto& renderModule = systemManager.GetModule<RenderModule>();
 	auto& timeModule = systemManager.GetModule<TimeModule>();

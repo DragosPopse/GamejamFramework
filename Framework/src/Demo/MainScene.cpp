@@ -52,7 +52,7 @@ void jam::demo::MainScene::Enable()
 {
 	// Shitty testing code.
 
-	auto& transforms = m_ecsManager.GetSet<TransformComponent>();
+	auto& transforms = m_ecsManager.GetSparseSet<TransformComponent>();
 
 	const int32_t* camIndex = m_ecsManager.CreateFactoryEntities<PlayerCameraFactory>(1);
 	delete [] camIndex;
@@ -90,7 +90,7 @@ void jam::demo::MainScene::Enable()
 
 	delete [] index;
 
-	auto& movements = m_ecsManager.GetSet<MovementComponent>();
+	auto& movements = m_ecsManager.GetSparseSet<MovementComponent>();
 	const auto bats = m_ecsManager.CreateFactoryEntities<BatFactory>(5);
 	for (int32_t i = 0; i < 5; ++i)
 	{

@@ -10,18 +10,18 @@
 
 void jam::demo::BatFactory::OnConstruction(cecsar::ECSystemManager& manager, int32_t index)
 {
-	manager.AddComponent<TransformComponent>(index);
+	manager.AddSparseComponent<TransformComponent>(index);
 
-	auto& renderer = manager.AddComponent<RenderComponent>(index);
+	auto& renderer = manager.AddSparseComponent<RenderComponent>(index);
 	renderer.texture = manager.GetModule<RenderModule>().GetTexture("files/Bat.png");
 	renderer.count = 2;
 
-	manager.AddComponent<AnimatorComponent>(index);
+	manager.AddSparseComponent<AnimatorComponent>(index);
 
-	auto& movement = manager.AddComponent<MovementComponent>(index);
+	auto& movement = manager.AddSparseComponent<MovementComponent>(index);
 	movement.movementSpeed /= 2;
 	movement.rotationSpeed /= 4;
 
-	manager.AddComponent<ControllerComponent>(index);
-	manager.AddComponent<BatComponent>(index);
+	manager.AddSparseComponent<ControllerComponent>(index);
+	manager.AddSparseComponent<BatComponent>(index);
 }

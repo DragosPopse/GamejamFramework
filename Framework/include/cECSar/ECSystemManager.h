@@ -8,7 +8,7 @@
 #include "IModule.h"
 #include "IEntityFactory.h"
 #include "IEntityPack.h"
-#include "ECSystemSmall.h"
+#include "ECSMapSystem.h"
 
 namespace jam::cecsar
 {
@@ -45,14 +45,14 @@ namespace jam::cecsar
 
 		// Components.
 		template <typename T>
-		T& AddComponent(int32_t index);
+		T& AddSparseComponent(int32_t index);
 		template <typename T>
-		void RemoveComponent(int32_t index);
+		void RemoveSparseComponent(int32_t index);
 
 		template <typename T>
-		T& AddComponentSmall(int32_t index);
+		T& AddMapComponent(int32_t index);
 		template <typename T>
-		void RemoveComponentSmall(int32_t index);
+		void RemoveMapComponent(int32_t index);
 
 		template <typename T>
 		void Subscribe(IECSubscribeable& subscribeable);
@@ -60,10 +60,10 @@ namespace jam::cecsar
 		void Unsubscribe(IECSubscribeable& subscribeable);
 
 		template <typename T>
-		Utilities::SparseValueSet<T>& GetSet();
+		Utilities::SparseValueSet<T>& GetSparseSet();
 
 		template <typename T>
-		std::unordered_map<int32_t, T>& GetSetSmall();
+		std::unordered_map<int32_t, T>& GetMapSet();
 
 		// Systems.
 		template <typename T>
@@ -91,8 +91,8 @@ namespace jam::cecsar
 
 		// Core.
 		Utilities::SparseValueSet<Entity>* m_entities;
-		std::unordered_map<std::type_index, IECSystem*> m_systems;
-		std::unordered_map<std::type_index, IECSystem*> m_systemsSmall;
+		std::unordered_map<std::type_index, IECSystem*> m_sparseSystems;
+		std::unordered_map<std::type_index, IECSystem*> m_mapSystems;
 		std::unordered_map<std::type_index, IComponentSystem*> m_componentSystems;
 
 		// Utilities.
@@ -101,73 +101,73 @@ namespace jam::cecsar
 		std::unordered_map<std::type_index, IEntityPack*> m_packs;
 
 		template <typename T>
-		ECSystem<T>& GetSystem();
+		ECSystem<T>& GetSparseSystem();
 
 		template <typename T>
-		ECSystemSmall<T>& GetSystemSmall();
+		ECSMapSystem<T>& GetMapSystem();
 
 		template <typename T>
 		T& GetPack();
 	};
 
 	template <typename T>
-	T& ECSystemManager::AddComponent(const int32_t index)
+	T& ECSystemManager::AddSparseComponent(const int32_t index)
 	{
-		m_entities->instances[index].components.insert(typeid(T));
+		m_entities->instances[index].sparseComponents.insert(typeid(T));
 
-		auto& system = GetSystem<T>();
+		auto& system = GetSparseSystem<T>();
 		system.Add(index);
 		return system.set->instances[index];
 	}
 
 	template <typename T>
-	void ECSystemManager::RemoveComponent(const int32_t index)
+	void ECSystemManager::RemoveSparseComponent(const int32_t index)
 	{
-		m_entities->instances[index].components.erase(typeid(T));
+		m_entities->instances[index].sparseComponents.erase(typeid(T));
 
-		GetSystem<T>().Remove(index);
+		GetSparseSystem<T>().Remove(index);
 	}
 
 	template <typename T>
-	T& ECSystemManager::AddComponentSmall(const int32_t index)
+	T& ECSystemManager::AddMapComponent(const int32_t index)
 	{
-		m_entities->instances[index].componentsSmall.insert(typeid(T));
+		m_entities->instances[index].mapComponents.insert(typeid(T));
 
-		auto& system = GetSystemSmall<T>();
+		auto& system = GetMapSystem<T>();
 		system.Add(index);
 		return system.map[index];
 	}
 
 	template <typename T>
-	void ECSystemManager::RemoveComponentSmall(const int32_t index)
+	void ECSystemManager::RemoveMapComponent(const int32_t index)
 	{
-		m_entities->instances[index].componentsSmall.erase(typeid(T));
+		m_entities->instances[index].mapComponents.erase(typeid(T));
 
-		GetSystemSmall<T>().Remove(index);
+		GetMapSystem<T>().Remove(index);
 	}
 
 	template <typename T>
 	void ECSystemManager::Subscribe(IECSubscribeable& subscribeable)
 	{
-		GetSystem<T>().Subscribe(subscribeable);
+		GetSparseSystem<T>().Subscribe(subscribeable);
 	}
 
 	template <typename T>
 	void ECSystemManager::Unsubscribe(IECSubscribeable& subscribeable)
 	{
-		GetSystem<T>().Unsubscribe(subscribeable);
+		GetSparseSystem<T>().Unsubscribe(subscribeable);
 	}
 
 	template <typename T>
-	Utilities::SparseValueSet<T>& ECSystemManager::GetSet()
+	Utilities::SparseValueSet<T>& ECSystemManager::GetSparseSet()
 	{
-		return *GetSystem<T>().set;
+		return *GetSparseSystem<T>().set;
 	}
 
 	template <typename T>
-	std::unordered_map<int32_t, T>& ECSystemManager::GetSetSmall()
+	std::unordered_map<int32_t, T>& ECSystemManager::GetMapSet()
 	{
-		return GetSystemSmall<T>().map;
+		return GetMapSystem<T>().map;
 	}
 
 	template <typename T>
@@ -231,22 +231,22 @@ namespace jam::cecsar
 	}
 
 	template <typename T>
-	ECSystem<T>& ECSystemManager::GetSystem()
+	ECSystem<T>& ECSystemManager::GetSparseSystem()
 	{
-		if (m_systems.count(typeid(T)) == 0) 
-			m_systems[typeid(T)] = new ECSystem<T>(*this, m_capacity);
+		if (m_sparseSystems.count(typeid(T)) == 0) 
+			m_sparseSystems[typeid(T)] = new ECSystem<T>(*this, m_capacity);
 
-		ECSystem<T>* system = static_cast<ECSystem<T>*>(m_systems[typeid(T)]);
+		ECSystem<T>* system = static_cast<ECSystem<T>*>(m_sparseSystems[typeid(T)]);
 		return *system;
 	}
 
 	template <typename T>
-	ECSystemSmall<T>& ECSystemManager::GetSystemSmall()
+	ECSMapSystem<T>& ECSystemManager::GetMapSystem()
 	{
-		if (m_systemsSmall.count(typeid(T)) == 0)
-			m_systemsSmall[typeid(T)] = new ECSystemSmall<T>(*this);
+		if (m_mapSystems.count(typeid(T)) == 0)
+			m_mapSystems[typeid(T)] = new ECSMapSystem<T>(*this);
 
-		ECSystemSmall<T>* system = static_cast<ECSystemSmall<T>*>(m_systemsSmall[typeid(T)]);
+		ECSMapSystem<T>* system = static_cast<ECSMapSystem<T>*>(m_mapSystems[typeid(T)]);
 		return *system;
 	}
 
